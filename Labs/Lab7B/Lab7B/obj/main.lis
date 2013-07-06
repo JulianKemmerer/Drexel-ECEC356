@@ -1,0 +1,147 @@
+ 0000                   cpu LMM
+                        .module main.c
+                        .area text(rom, con, rel)
+ 0000                   .dbfile ./main.c
+                        .area data(ram, con, rel)
+ 0000                   .dbfile ./main.c
+ 0000           _bACap::
+ 0000 00                .byte 0
+ 0001                   .dbfile C:\DOCUME~1\Mixcraft\Desktop\ECEC35~1\ECEC35~1\Lab7B\Lab7B\main.c
+ 0001                   .dbsym e bACap _bACap c
+                        .area data(ram, con, rel)
+ 0000                   .dbfile C:\DOCUME~1\Mixcraft\Desktop\ECEC35~1\ECEC35~1\Lab7B\Lab7B\main.c
+                        .area text(rom, con, rel)
+ 0000                   .dbfile C:\DOCUME~1\Mixcraft\Desktop\ECEC35~1\ECEC35~1\Lab7B\Lab7B\main.c
+ 0000                   .dbfunc e main _main fV
+ 0000           _main::
+ 0000                   .dbline -1
+ 0000                   .dbline 11
+ 0000           ; //----------------------------------------------------------------------------
+ 0000           ; // C main line
+ 0000           ; //----------------------------------------------------------------------------
+ 0000           ; 
+ 0000           ; #include <m8c.h>        // part specific constants and macros
+ 0000           ; #include "PSoCAPI.h"    // PSoC API definitions for all User Modules
+ 0000           ; 
+ 0000           ; //ACAP Value
+ 0000           ; extern char bACap = 0;
+ 0000           ; void main(void)
+ 0000           ; {
+ 0000                   .dbline 16
+ 0000           ;       // M8C_EnableGInt ; // Uncomment this line to enable Global Interrupts
+ 0000           ;       // Insert your main routine code here.
+ 0000           ;       
+ 0000           ;       //Start LCD
+ 0000           ;       LCD_Start();
+ 0000 10                push X
+ 0001 7C0000            xcall _LCD_Start
+ 0004                   .dbline 17
+ 0004           ;       LCD_Init();
+ 0004 7C0000            xcall _LCD_Init
+ 0007 20                pop X
+ 0008 804F              xjmp L3
+ 000A           L5:
+ 000A                   .dbline 26
+ 000A           ;       
+ 000A           ;       
+ 000A           ;       
+ 000A           ;       //Control loop
+ 000A           ;       while(1)
+ 000A           ;       {
+ 000A           ;               //Wait for sleep timer interrupt to be posted
+ 000A           ;               while( (INT_CLR0 & 0b01000000) == 0)
+ 000A           ;               {
+ 000A                   .dbline 28
+ 000A           ;                       //Do nothing
+ 000A           ;               }
+ 000A           L6:
+ 000A                   .dbline 25
+ 000A 5DDA              mov A,REG[0xda]
+ 000C 62D000            mov REG[0xd0],>__r0
+ 000F 5300              mov [__r0],A
+ 0011 470040            tst [__r0],64
+ 0014 AFF5              jz L5
+ 0016                   .dbline 30
+ 0016           ;               //Clear the sleep timer interupt
+ 0016           ;               INT_CLR0 &= ~0b01000000;
+ 0016 41DABF            and REG[0xda],-65
+ 0019                   .dbline 33
+ 0019           ;               
+ 0019           ;               //Check if the button has been pressed
+ 0019           ;               if( (PRT1DR & 0b00000001) == 0b00000001)
+ 0019 5D04              mov A,REG[0x4]
+ 001B 5300              mov [__r0],A
+ 001D 260001            and [__r0],1
+ 0020 3C0001            cmp [__r0],1
+ 0023 B034              jnz L8
+ 0025                   .dbline 34
+ 0025           ;               {
+ 0025           L10:
+ 0025                   .dbline 37
+ 0025           ;                       //Button pressed
+ 0025           ;                       //Wait for release
+ 0025           ;                       while((PRT1DR & 0b00000001) == 0b00000001){}
+ 0025                   .dbline 37
+ 0025           L11:
+ 0025                   .dbline 37
+ 0025 5D04              mov A,REG[0x4]
+ 0027 62D000            mov REG[0xd0],>__r0
+ 002A 5300              mov [__r0],A
+ 002C 260001            and [__r0],1
+ 002F 3C0001            cmp [__r0],1
+ 0032 AFF2              jz L10
+ 0034                   .dbline 40
+ 0034           ;                       //Update controlreg to new value
+ 0034           ;                       //Increment Acap value
+ 0034           ;                       bACap++;
+ 0034 62D000            mov REG[0xd0],>_bACap
+ 0037 7600              inc [_bACap]
+ 0039                   .dbline 42
+ 0039           ;                       //Clear first 3 bits
+ 0039           ;                       bACap &= 0b00011111;
+ 0039 26001F            and [_bACap],31
+ 003C                   .dbline 44
+ 003C           ;                       //Write to control reg
+ 003C           ;                       SCDAC_cr0 = bACap;
+ 003C 5100              mov A,[_bACap]
+ 003E 6080              mov REG[0x80],A
+ 0040                   .dbline 46
+ 0040           ;                       //Restore old values
+ 0040           ;                       SCDAC_cr0 |= 0b11000000;
+ 0040 4380C0            or REG[0x80],-64
+ 0043                   .dbline 47
+ 0043           ;                       SCDAC_cr0 &= ~0b00100000;
+ 0043 4180DF            and REG[0x80],-33
+ 0046                   .dbline 50
+ 0046           ;                       
+ 0046           ;                       //Print bACap to LCD
+ 0046           ;                       LCD_Position(0,0);
+ 0046 10                push X
+ 0047 5000              mov A,0
+ 0049 5C                mov X,A
+ 004A 7C0000            xcall _LCD_Position
+ 004D 20                pop X
+ 004E                   .dbline 51
+ 004E           ;                       LCD_PrHexByte(bACap);
+ 004E 10                push X
+ 004F 62D000            mov REG[0xd0],>_bACap
+ 0052 5100              mov A,[_bACap]
+ 0054 7C0000            xcall _LCD_PrHexByte
+ 0057 20                pop X
+ 0058                   .dbline 54
+ 0058           ;                       
+ 0058           ;                       
+ 0058           ;               }
+ 0058           L8:
+ 0058                   .dbline 56
+ 0058           ;               
+ 0058           ;       }
+ 0058           L3:
+ 0058                   .dbline 22
+ 0058 8FB1              xjmp L6
+ 005A           X0:
+ 005A                   .dbline -2
+ 005A           L1:
+ 005A                   .dbline 0 ; func end
+ 005A 8FFF              jmp .
+ 005C                   .dbend

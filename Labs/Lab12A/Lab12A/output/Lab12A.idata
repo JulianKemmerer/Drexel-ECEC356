@@ -1,0 +1,13 @@
+flash  C3C SRAM    3:
+ <size at next line>   7 D0  B B8  F A0 13 88 17 70 1B 58 1F 40 1B 58 17 70 13 88  F A0  B B8
+  [size:] 24 bytes
+flash  C57 SRAM   26:
+ 00 6 bytes
+flash  C5B SRAM   2C:
+ <size at next line>   3 E8
+  [size:] 2 bytes
+flash  C60 SRAM   2E:
+ 00 8 bytes
+flash  C64 SRAM   36:
+ <size at next line>  FF  0  1
+  [size:] 3 bytes

@@ -1,0 +1,25 @@
+Starting MAKE...
+creating project.mk 
+C:\PROGRA~1\Cypress\PSOCDE~2\5.1\Common\CYPRES~3\tools\make: *** Warning: File `Z:\ECEC35~1\Lab4DNew\Lab4DNew\memory.inc' has modification time in the future (2011-07-19 16:22:27 > 2011-07-19 16:22:26)
+lib/fanpwm.asm
+lib/fanpwmint.asm
+lib/lcd.asm
+lib/psocconfig.asm
+lib/psocconfigtbl.asm
+lib/tachtimer.asm
+lib/tachtimerint.asm
+./boot.asm
+./main.c
+!W Z:\ECEC35~1\Lab4DNew\Lab4DNew\main.c(11):[warning] old-style function definition for `main'
+!W Z:\ECEC35~1\Lab4DNew\Lab4DNew\main.c(37):[warning] expression with no effect elided
+Linking..
+LMM info: area 'InterruptRAM' uses 3 bytes in SRAM bank 0
+LMM info: area 'virtual_registers' uses 2 bytes in SRAM page 0
+LMM info: area 'data' item of 2 bytes allocated in SRAM page 0
+  ROM 5% full. 1522 out of 32768 bytes used (does not include absolute areas).
+  RAM 1% full. 7 bytes used (does not include stack usage).
+idata dump at output/Lab4DNew.idata
+Built with ICCM8C STD V7.04
+ 
+Lab4DNew - 0 error(s) 3 warning(s) 16:22:32
+

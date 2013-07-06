@@ -1,0 +1,33 @@
+Starting MAKE...
+creating project.mk 
+C:\PROGRA~1\Cypress\PSOCDE~2\5.1\Common\CYPRES~3\tools\make: *** Warning: File `Z:\ECEC35~2\Lab4DOld\Lab4DOld\memory.inc' has modification time in the future (2011-07-21 14:37:19 > 2011-07-21 14:37:18)
+lib/fanpwm.asm
+lib/fanpwmint.asm
+lib/lcd.asm
+lib/psocconfig.asm
+lib/psocconfigtbl.asm
+lib/psocgpioint.asm
+lib/tachtimer.asm
+lib/tachtimerint.asm
+./boot.asm
+./main.c
+!W Z:\ECEC35~2\Lab4DOld\Lab4DOld\main.c(17):[warning] old-style function definition for `main'
+!W Z:\ECEC35~2\Lab4DOld\Lab4DOld\main.c(76):[warning] old-style function definition for `ButtonDown'
+!W Z:\ECEC35~2\Lab4DOld\Lab4DOld\main.c(108):[warning] old-style function definition for `TachTimerCISR'
+!W Z:\ECEC35~2\Lab4DOld\Lab4DOld\main.c(121):[warning] old-style function definition for `FanPWMCISR'
+Linking..
+LMM info: area 'InterruptRAM' uses 3 bytes in SRAM bank 0
+LMM info: area 'virtual_registers' uses 15 bytes in SRAM page 0
+LMM info: area 'data' item of 2 bytes allocated in SRAM page 0
+LMM info: area 'data' item of 2 bytes allocated in SRAM page 0
+LMM info: area 'data' item of 2 bytes allocated in SRAM page 0
+LMM info: area 'data' item of 2 bytes allocated in SRAM page 0
+LMM info: area 'data' item of 1 bytes allocated in SRAM page 0
+LMM info: area 'data' item of 1 bytes allocated in SRAM page 0
+  ROM 9% full. 2636 out of 32768 bytes used (does not include absolute areas).
+  RAM 2% full. 28 bytes used (does not include stack usage).
+idata dump at output/Lab4DOld.idata
+Built with ICCM8C STD V7.04
+ 
+Lab4DOld - 0 error(s) 5 warning(s) 14:37:25
+

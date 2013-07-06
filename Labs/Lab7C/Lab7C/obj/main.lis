@@ -1,0 +1,163 @@
+ 0000                   cpu LMM
+                        .module main.c
+                        .area text(rom, con, rel)
+ 0000                   .dbfile ./main.c
+                        .area data(ram, con, rel)
+ 0000                   .dbfile ./main.c
+ 0000           _value::
+ 0000 00                .byte 0
+ 0001                   .dbfile C:\DOCUME~1\Mixcraft\Desktop\ECEC35~1\ECEC35~1\Lab7C\Lab7C\main.c
+ 0001                   .dbsym e value _value c
+                        .area data(ram, con, rel)
+ 0000                   .dbfile C:\DOCUME~1\Mixcraft\Desktop\ECEC35~1\ECEC35~1\Lab7C\Lab7C\main.c
+                        .area text(rom, con, rel)
+ 0000                   .dbfile C:\DOCUME~1\Mixcraft\Desktop\ECEC35~1\ECEC35~1\Lab7C\Lab7C\main.c
+ 0000                   .dbfunc e main _main fV
+ 0000           _main::
+ 0000                   .dbline -1
+ 0000                   .dbline 11
+ 0000           ; //----------------------------------------------------------------------------
+ 0000           ; // C main line
+ 0000           ; //----------------------------------------------------------------------------
+ 0000           ; 
+ 0000           ; #include <m8c.h>        // part specific constants and macros
+ 0000           ; #include "PSoCAPI.h"    // PSoC API definitions for all User Modules
+ 0000           ; 
+ 0000           ; //ACAP Value
+ 0000           ; extern char value = 0;
+ 0000           ; void main(void)
+ 0000           ; {
+ 0000                   .dbline 16
+ 0000           ;       // M8C_EnableGInt ; // Uncomment this line to enable Global Interrupts
+ 0000           ;       // Insert your main routine code here.
+ 0000           ;       
+ 0000           ;       //Start LCD
+ 0000           ;       LCD_Start();
+ 0000 10                push X
+ 0001 7C0000            xcall _LCD_Start
+ 0004                   .dbline 17
+ 0004           ;       LCD_Init();
+ 0004 7C0000            xcall _LCD_Init
+ 0007 20                pop X
+ 0008                   .dbline 20
+ 0008           ;       
+ 0008           ;       //Start DAC
+ 0008           ;       DAC6_Start(DAC6_FULLPOWER);
+ 0008 10                push X
+ 0009 5003              mov A,3
+ 000B 7C0000            xcall _DAC6_Start
+ 000E 20                pop X
+ 000F 8058              xjmp L3
+ 0011           L5:
+ 0011                   .dbline 29
+ 0011           ;       
+ 0011           ;       
+ 0011           ;       
+ 0011           ;       //Control loop
+ 0011           ;       while(1)
+ 0011           ;       {
+ 0011           ;               //Wait for sleep timer interrupt to be posted
+ 0011           ;               while( (INT_CLR0 & 0b01000000) == 0)
+ 0011           ;               {
+ 0011                   .dbline 31
+ 0011           ;                       //Do nothing
+ 0011           ;               }
+ 0011           L6:
+ 0011                   .dbline 28
+ 0011 5DDA              mov A,REG[0xda]
+ 0013 62D000            mov REG[0xd0],>__r0
+ 0016 5300              mov [__r0],A
+ 0018 470040            tst [__r0],64
+ 001B AFF5              jz L5
+ 001D                   .dbline 33
+ 001D           ;               //Clear the sleep timer interupt
+ 001D           ;               INT_CLR0 &= ~0b01000000;
+ 001D 41DABF            and REG[0xda],-65
+ 0020                   .dbline 36
+ 0020           ;               
+ 0020           ;               //Check if the button has been pressed
+ 0020           ;               if( (PRT1DR & 0b00000001) == 0b00000001)
+ 0020 5D04              mov A,REG[0x4]
+ 0022 5300              mov [__r0],A
+ 0024 260001            and [__r0],1
+ 0027 3C0001            cmp [__r0],1
+ 002A B03D              jnz L8
+ 002C                   .dbline 37
+ 002C           ;               {
+ 002C           L10:
+ 002C                   .dbline 40
+ 002C           ;                       //Button pressed
+ 002C           ;                       //Wait for release
+ 002C           ;                       while((PRT1DR & 0b00000001) == 0b00000001){}
+ 002C                   .dbline 40
+ 002C           L11:
+ 002C                   .dbline 40
+ 002C 5D04              mov A,REG[0x4]
+ 002E 62D000            mov REG[0xd0],>__r0
+ 0031 5300              mov [__r0],A
+ 0033 260001            and [__r0],1
+ 0036 3C0001            cmp [__r0],1
+ 0039 AFF2              jz L10
+ 003B                   .dbline 42
+ 003B           ;                       //Values can go from 0 to 62
+ 003B           ;                       value++;
+ 003B 62D000            mov REG[0xd0],>_value
+ 003E 7600              inc [_value]
+ 0040                   .dbline 43
+ 0040           ;                       if(value>62)
+ 0040 503E              mov A,62
+ 0042 3A00              cmp A,[_value]
+ 0044 D007              jnc L13
+ 0046           X1:
+ 0046                   .dbline 44
+ 0046           ;                       {
+ 0046                   .dbline 45
+ 0046           ;                               value=0;
+ 0046 62D000            mov REG[0xd0],>_value
+ 0049 550000            mov [_value],0
+ 004C                   .dbline 46
+ 004C           ;                       }
+ 004C           L13:
+ 004C                   .dbline 50
+ 004C           ;                       
+ 004C           ;                       
+ 004C           ;                       //Print bACap to LCD
+ 004C           ;                       LCD_Position(0,0);
+ 004C 10                push X
+ 004D 5000              mov A,0
+ 004F 5C                mov X,A
+ 0050 7C0000            xcall _LCD_Position
+ 0053 20                pop X
+ 0054                   .dbline 51
+ 0054           ;                       LCD_PrHexByte(value);
+ 0054 10                push X
+ 0055 62D000            mov REG[0xd0],>_value
+ 0058 5100              mov A,[_value]
+ 005A 7C0000            xcall _LCD_PrHexByte
+ 005D 20                pop X
+ 005E                   .dbline 54
+ 005E           ;                       
+ 005E           ;                       //Write to DAC
+ 005E           ;                       DAC6_WriteStall(value);
+ 005E 10                push X
+ 005F 62D000            mov REG[0xd0],>_value
+ 0062 5100              mov A,[_value]
+ 0064 7C0000            xcall _DAC6_WriteStall
+ 0067 20                pop X
+ 0068                   .dbline 57
+ 0068           ;                       
+ 0068           ;                       
+ 0068           ;               }
+ 0068           L8:
+ 0068                   .dbline 59
+ 0068           ;               
+ 0068           ;       }
+ 0068           L3:
+ 0068                   .dbline 25
+ 0068 8FA8              xjmp L6
+ 006A           X0:
+ 006A                   .dbline -2
+ 006A           L1:
+ 006A                   .dbline 0 ; func end
+ 006A 8FFF              jmp .
+ 006C                   .dbend

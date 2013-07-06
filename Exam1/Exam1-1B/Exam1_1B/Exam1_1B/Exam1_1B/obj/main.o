@@ -1,0 +1,184 @@
+XH
+H 9 areas A global symbols
+M main.c
+S _LCD_PrHexByte Ref0000
+S _LCD_Init Ref0000
+S __r0 Ref0000
+S _LCD_Start Ref0000
+S _LCD_Position Ref0000
+A text size 140 flags 0
+dbfile ./main.c
+dbfile C:\DOCUME~1\JKEMME~1\Desktop\Exam1-1B\Exam1_1B\Exam1_1B\Exam1_1B\main.c
+dbfunc e main 0 fV
+dbline FFFFFFFF 0
+dbline E 0
+dbline F 0
+dbline 11 2
+dbline 15 5
+dbline 16 9
+dbline 19 F
+dbline 1A F
+dbline 1D 16
+dbline 1E 1B
+dbline 20 1B
+dbline 21 21
+dbline 23 23
+dbline 25 23
+dbline 26 2C
+dbline 29 2C
+dbline 2A 34
+dbline 2C 34
+dbline 2D 3A
+dbline 2F 3C
+dbline 31 3C
+dbline 32 45
+dbline 35 45
+dbline 36 4D
+dbline 38 4D
+dbline 39 53
+dbline 3B 55
+dbline 3D 55
+dbline 3E 5E
+dbline 41 5E
+dbline 42 66
+dbline 44 66
+dbline 45 6C
+dbline 47 6E
+dbline 49 6E
+dbline 4A 77
+dbline 4D 77
+dbline 4E 7F
+dbline 50 7F
+dbline 51 85
+dbline 53 87
+dbline 55 87
+dbline 56 90
+dbline 59 90
+dbline 5A 98
+dbline 5C 98
+dbline 5D 9E
+dbline 5F A0
+dbline 61 A0
+dbline 62 A9
+dbline 65 A9
+dbline 66 B1
+dbline 68 B1
+dbline 69 B7
+dbline 6B B9
+dbline 6D B9
+dbline 6E C2
+dbline 71 C2
+dbline 72 CA
+dbline 73 D4
+dbline 74 DD
+dbline 77 E7
+dbline 78 F6
+dbline 79 F6
+dbline 7A 102
+dbline 7B 102
+dbline 7C 10E
+dbline 7E 10E
+dbline 7E 10E
+dbline 7D 10E
+dbline 81 11D
+dbline 82 126
+dbline 83 135
+dbline 84 13C
+dbline 85 13C
+dbline 86 13C
+dbline 8A 13C
+dbline 18 13C
+dbline FFFFFFFE 13E
+dbline 0 13E
+S _main Def0000
+A data size 1 flags 20
+dbfile ./main.c
+dbfile C:\DOCUME~1\JKEMME~1\Desktop\Exam1-1B\Exam1_1B\Exam1_1B\Exam1_1B\main.c
+dbsym e value1 0 c
+S _value1 Def0000
+A data size 0 flags 20
+dbfile C:\DOCUME~1\JKEMME~1\Desktop\Exam1-1B\Exam1_1B\Exam1_1B\Exam1_1B\main.c
+A data size 1 flags 20
+dbfile C:\DOCUME~1\JKEMME~1\Desktop\Exam1-1B\Exam1_1B\Exam1_1B\Exam1_1B\main.c
+dbsym e value2 0 c
+S _value2 Def0000
+A data size 0 flags 20
+dbfile C:\DOCUME~1\JKEMME~1\Desktop\Exam1-1B\Exam1_1B\Exam1_1B\Exam1_1B\main.c
+A data size 1 flags 20
+dbfile C:\DOCUME~1\JKEMME~1\Desktop\Exam1-1B\Exam1_1B\Exam1_1B\Exam1_1B\main.c
+dbsym e input 0 c
+S _input Def0000
+A data size 0 flags 20
+dbfile C:\DOCUME~1\JKEMME~1\Desktop\Exam1-1B\Exam1_1B\Exam1_1B\Exam1_1B\main.c
+A data size 1 flags 20
+dbfile C:\DOCUME~1\JKEMME~1\Desktop\Exam1-1B\Exam1_1B\Exam1_1B\Exam1_1B\main.c
+dbsym e sum 0 c
+S _sum Def0000
+A data size 0 flags 20
+dbfile C:\DOCUME~1\JKEMME~1\Desktop\Exam1-1B\Exam1_1B\Exam1_1B\Exam1_1B\main.c
+T 00 00 00
+R 00 00 00 01
+T 00 00 00
+R 00 00 00 03
+T 00 00 00
+R 00 00 00 05
+T 00 00 00
+R 00 00 00 07
+T 00 00 71 01 43 E0 20 10 7C 00 00 7C 00 00 20 81
+R 00 00 00 00 02 09 00 03 02 0C 00 01
+T 00 0E 2E 5D 00 62 D0 00 00 53 00 00 47 00 00 08
+R 00 00 00 00 41 07 00 05 01 0A 00 05 01 0D 00 05
+T 00 19 B0 09 62 D0 00 00 26 00 00 FB 80 0A 62 D0
+R 00 00 00 00 41 06 00 01 01 09 00 01
+T 00 25 00 00 51 00 00 29 04 53 00 00 62 D0
+R 00 00 00 00 41 02 00 01 01 05 00 01 01 0A 00 01
+T 00 2E 00 00 47 00 00 04 B0 09 62 D0 00 00 26
+R 00 00 00 00 41 02 00 05 01 05 00 05 41 0C 00 01
+T 00 38 00 00 FD 80 0A 62 D0 00 00 51 00 00 29 02
+R 00 00 00 00 01 02 00 01 41 09 00 01 01 0C 00 01
+T 00 43 53 00 00 62 D0 00 00 47 00 00 02 B0 09 62
+R 00 00 00 00 01 03 00 01 41 07 00 05 01 0A 00 05
+T 00 4E D0 00 00 26 00 00 FE 80 0A 62 D0 00 00 51
+R 00 00 00 00 41 03 00 01 01 06 00 01 41 0D 00 01
+T 00 59 00 00 29 01 53 00 00 62 D0 00 00 47
+R 00 00 00 00 01 02 00 01 01 07 00 01 41 0B 00 05
+T 00 62 00 00 80 B0 09 62 D0 00 00 26 00 00 F7 80
+R 00 00 00 00 01 02 00 05 41 09 00 03 01 0C 00 03
+T 00 6D 0A 62 D0 00 00 51 00 00 29 08 53 00 00 62
+R 00 00 00 00 41 05 00 03 01 08 00 03 01 0D 00 03
+T 00 78 D0 00 00 47 00 00 40 B0 09 62 D0 00 00 26
+R 00 00 00 00 41 03 00 05 01 06 00 05 41 0D 00 03
+T 00 83 00 00 FB 80 0A 62 D0 00 00 51 00 00 29 04
+R 00 00 00 00 01 02 00 03 41 09 00 03 01 0C 00 03
+T 00 8E 53 00 00 62 D0 00 00 47 00 00 20 B0 09 62
+R 00 00 00 00 01 03 00 03 41 07 00 05 01 0A 00 05
+T 00 99 D0 00 00 26 00 00 FD 80 0A 62 D0 00 00 51
+R 00 00 00 00 41 03 00 03 01 06 00 03 41 0D 00 03
+T 00 A4 00 00 29 02 53 00 00 62 D0 00 00 47
+R 00 00 00 00 01 02 00 03 01 07 00 03 41 0B 00 05
+T 00 AD 00 00 10 B0 09 62 D0 00 00 26 00 00 FE 80
+R 00 00 00 00 01 02 00 05 41 09 00 03 01 0C 00 03
+T 00 B8 0A 62 D0 00 00 51 00 00 29 01 53 00 00 10
+R 00 00 00 00 41 05 00 03 01 08 00 03 01 0D 00 03
+T 00 C3 50 00 5C 7C 00 00 20 10 62 D0 00 00 51
+R 00 00 00 00 02 06 00 04 41 0C 00 01
+T 00 CF 00 00 7C 00 00 20 10 57 03 50 00 7C 00 00
+R 00 00 00 00 01 02 00 01 02 05 00 00 02 0E 00 04
+T 00 DC 20 10 62 D0 00 00 51 00 00 7C 00 00 20 5D
+R 00 00 00 00 41 06 00 03 01 09 00 03 02 0C 00 00
+T 00 E8 04 62 D0 00 00 53 00 00 26 00 00 01 3C
+R 00 00 00 00 43 05 00 02 03 08 00 02 03 0B 00 02
+T 00 F2 00 00 01 B0 47 5D 04 53 00 00 26 00 00 01
+R 00 00 00 00 03 02 00 02 03 0A 00 02 03 0D 00 02
+T 00 FD 3C 00 00 01 B0 3B 5D 04 53 00 00 26 00 00
+R 00 00 00 00 03 03 00 02 03 0B 00 02 03 0E 00 02
+T 01 08 01 3C 00 00 01 B0 2F 5D 04 62 D0 00 00 53
+R 00 00 00 00 03 04 00 02 43 0D 00 02
+T 01 14 00 00 26 00 00 01 3C 00 00 01 AF F2 10 57
+R 00 00 00 00 03 02 00 02 03 05 00 02 03 09 00 02
+T 01 1F 00 50 01 7C 00 00 20 62 D0 00 00 51 00 00
+R 00 00 00 00 02 06 00 04 41 0B 00 01 01 0E 00 01
+T 01 2B 62 D0 00 00 02 00 00 62 D0 00 00 53
+R 00 00 00 00 41 04 00 03 01 07 00 03 41 0B 00 07
+T 01 34 00 00 10 51 00 00 7C 00 00 20 8E D2 8F FF
+R 00 00 00 00 01 02 00 07 01 06 00 07 02 09 00 00

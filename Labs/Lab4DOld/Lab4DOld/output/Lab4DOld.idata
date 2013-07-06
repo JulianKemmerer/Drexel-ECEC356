@@ -1,0 +1,5 @@
+flash  BEC SRAM   12:
+ <size at next line>   0  0  3 E8
+  [size:] 4 bytes
+flash  BF3 SRAM   16:
+ 00 6 bytes

@@ -1,0 +1,767 @@
+ 0000                   cpu LMM
+                        .module main.c
+                        .area text(rom, con, rel)
+ 0000                   .dbfile ./main.c
+                        .area data(ram, con, rel)
+ 0000                   .dbfile ./main.c
+ 0000           _wControlState::
+ 0000 03E8              .word 1000
+ 0002                   .dbfile Z:\ECEC35~2\Lab5A\Lab5A\main.c
+ 0002                   .dbsym e wControlState _wControlState i
+                        .area data(ram, con, rel)
+ 0000                   .dbfile Z:\ECEC35~2\Lab5A\Lab5A\main.c
+                        .area data(ram, con, rel)
+ 0000                   .dbfile Z:\ECEC35~2\Lab5A\Lab5A\main.c
+ 0000           _wFirstValue::
+ 0000 0000              .word 0
+ 0002                   .dbsym e wFirstValue _wFirstValue i
+                        .area data(ram, con, rel)
+ 0000                   .dbfile Z:\ECEC35~2\Lab5A\Lab5A\main.c
+                        .area data(ram, con, rel)
+ 0000                   .dbfile Z:\ECEC35~2\Lab5A\Lab5A\main.c
+ 0000           _wLastValue::
+ 0000 0000              .word 0
+ 0002                   .dbsym e wLastValue _wLastValue i
+                        .area data(ram, con, rel)
+ 0000                   .dbfile Z:\ECEC35~2\Lab5A\Lab5A\main.c
+                        .area data(ram, con, rel)
+ 0000                   .dbfile Z:\ECEC35~2\Lab5A\Lab5A\main.c
+ 0000           _cNumCycles::
+ 0000 FF                .byte 255
+ 0001                   .dbsym e cNumCycles _cNumCycles C
+                        .area data(ram, con, rel)
+ 0000                   .dbfile Z:\ECEC35~2\Lab5A\Lab5A\main.c
+                        .area data(ram, con, rel)
+ 0000                   .dbfile Z:\ECEC35~2\Lab5A\Lab5A\main.c
+ 0000           _bDataAvailable::
+ 0000 00                .byte 0
+ 0001                   .dbsym e bDataAvailable _bDataAvailable c
+                        .area data(ram, con, rel)
+ 0000                   .dbfile Z:\ECEC35~2\Lab5A\Lab5A\main.c
+                        .area data(ram, con, rel)
+ 0000                   .dbfile Z:\ECEC35~2\Lab5A\Lab5A\main.c
+ 0000           _wSpeedRPM::
+ 0000 0000              .word 0
+ 0002                   .dbsym e wSpeedRPM _wSpeedRPM i
+                        .area data(ram, con, rel)
+ 0000                   .dbfile Z:\ECEC35~2\Lab5A\Lab5A\main.c
+                        .area data(ram, con, rel)
+ 0000                   .dbfile Z:\ECEC35~2\Lab5A\Lab5A\main.c
+ 0000           _iError::
+ 0000 0000              .word 0
+ 0002                   .dbsym e iError _iError I
+                        .area data(ram, con, rel)
+ 0000                   .dbfile Z:\ECEC35~2\Lab5A\Lab5A\main.c
+                        .area data(ram, con, rel)
+ 0000                   .dbfile Z:\ECEC35~2\Lab5A\Lab5A\main.c
+ 0000           _wIntGainValue::
+ 0000 0000              .word 0
+ 0002                   .dbsym e wIntGainValue _wIntGainValue i
+                        .area data(ram, con, rel)
+ 0000                   .dbfile Z:\ECEC35~2\Lab5A\Lab5A\main.c
+                        .area data(ram, con, rel)
+ 0000                   .dbfile Z:\ECEC35~2\Lab5A\Lab5A\main.c
+ 0000           _lIntegrator::
+ 0000 00000000          .word 0,0
+ 0004                   .dbsym e lIntegrator _lIntegrator L
+                        .area data(ram, con, rel)
+ 0000                   .dbfile Z:\ECEC35~2\Lab5A\Lab5A\main.c
+                        .area data(ram, con, rel)
+ 0000                   .dbfile Z:\ECEC35~2\Lab5A\Lab5A\main.c
+ 0000           _wSetPointTable::
+ 0000 07D0              .word 2000
+ 0002 0BB8              .word 3000
+ 0004 0FA0              .word 4000
+ 0006 1388              .word 5000
+ 0008 1770              .word 6000
+ 000A 1B58              .word 7000
+ 000C 1F40              .word 8000
+ 000E 1B58              .word 7000
+ 0010 1770              .word 6000
+ 0012 1388              .word 5000
+ 0014 0FA0              .word 4000
+ 0016 0BB8              .word 3000
+ 0018                   .dbsym e wSetPointTable _wSetPointTable A[24:12]I
+                        .area data(ram, con, rel)
+ 0000                   .dbfile Z:\ECEC35~2\Lab5A\Lab5A\main.c
+                        .area data(ram, con, rel)
+ 0000                   .dbfile Z:\ECEC35~2\Lab5A\Lab5A\main.c
+ 0000           _bSetPointCount::
+ 0000 01                .byte 1
+ 0001                   .dbsym e bSetPointCount _bSetPointCount c
+                        .area data(ram, con, rel)
+ 0000                   .dbfile Z:\ECEC35~2\Lab5A\Lab5A\main.c
+                        .area text(rom, con, rel)
+ 0000                   .dbfile Z:\ECEC35~2\Lab5A\Lab5A\main.c
+ 0000                   .dbfunc e main _main fV
+ 0000           _main::
+ 0000                   .dbline -1
+ 0000                   .dbline 34
+ 0000           ; //----------------------------------------------------------------------------
+ 0000           ; // C main line
+ 0000           ; //----------------------------------------------------------------------------
+ 0000           ; 
+ 0000           ; #include <m8c.h>        // part specific constants and macros
+ 0000           ; #include "PSoCAPI.h"    // PSoC API definitions for all User Modules
+ 0000           ; 
+ 0000           ; extern unsigned int wControlState=1000;
+ 0000           ; extern unsigned int wFirstValue=0;
+ 0000           ; extern unsigned int wLastValue=0;
+ 0000           ; extern signed char cNumCycles=-1;
+ 0000           ; extern unsigned char bDataAvailable=0;
+ 0000           ; extern unsigned int wSpeedRPM=0;
+ 0000           ; extern signed int iError = 0;
+ 0000           ; extern unsigned int wIntGainValue = 0;
+ 0000           ; extern signed long lIntegrator = 0;//? 
+ 0000           ; extern int wSetPointTable[] = {2000,3000,4000,5000,6000,7000,8000,7000,6000,5000,4000,3000}; //max RPM appears to be 5000?
+ 0000           ; extern unsigned char bSetPointCount = 1; //Start at 1 because slow RPM readings are inconsistant and difficult to obtain
+ 0000           ; //Prototypes
+ 0000           ; unsigned char cIntegratorControl(int iError);
+ 0000           ; 
+ 0000           ; 
+ 0000           ; /*LCD Layout
+ 0000           ; 
+ 0000           ; bSetPointCount(Set RPM)                                                Current Fan Pulse Width         
+ 0000           ; 
+ 0000           ; wRPMSpeed (Current RPM)                                                                                   Calculated Pulse Width
+ 0000           ; 
+ 0000           ; */
+ 0000           ; 
+ 0000           ; 
+ 0000           ; 
+ 0000           ; void main()
+ 0000           ; {
+ 0000                   .dbline 36
+ 0000           ;       //Initilize
+ 0000           ;       wControlState = 1000;
+ 0000 62D000            mov REG[0xd0],>_wControlState
+ 0003 5501E8            mov [_wControlState+1],-24
+ 0006 550003            mov [_wControlState],3
+ 0009                   .dbline 37
+ 0009           ;       cNumCycles=-1;
+ 0009 62D000            mov REG[0xd0],>_cNumCycles
+ 000C 5500FF            mov [_cNumCycles],-1
+ 000F                   .dbline 38
+ 000F           ;       bSetPointCount = 1;
+ 000F 62D000            mov REG[0xd0],>_bSetPointCount
+ 0012 550001            mov [_bSetPointCount],1
+ 0015                   .dbline 39
+ 0015           ;       bDataAvailable = 0;
+ 0015 62D000            mov REG[0xd0],>_bDataAvailable
+ 0018 550000            mov [_bDataAvailable],0
+ 001B                   .dbline 40
+ 001B           ;       wIntGainValue = 1000;
+ 001B 62D000            mov REG[0xd0],>_wIntGainValue
+ 001E 5501E8            mov [_wIntGainValue+1],-24
+ 0021 550003            mov [_wIntGainValue],3
+ 0024                   .dbline 41
+ 0024           ;       lIntegrator = 128*65536;
+ 0024 62D000            mov REG[0xd0],>_lIntegrator
+ 0027 550000            mov [_lIntegrator],0
+ 002A 550180            mov [_lIntegrator+1],-128
+ 002D 550200            mov [_lIntegrator+2],0
+ 0030 550300            mov [_lIntegrator+3],0
+ 0033                   .dbline 42
+ 0033           ;       FanPWM_WritePulseWidth(128);
+ 0033 10                push X
+ 0034 5080              mov A,-128
+ 0036 7C0000            xcall _FanPWM_WritePulseWidth
+ 0039                   .dbline 43
+ 0039           ;       FanPWM_Start();
+ 0039 7C0000            xcall _FanPWM_Start
+ 003C                   .dbline 44
+ 003C           ;       FanPWM_EnableInt();
+ 003C 7C0000            xcall _FanPWM_EnableInt
+ 003F                   .dbline 45
+ 003F           ;       TachTimer_Start();
+ 003F 7C0000            xcall _TachTimer_Start
+ 0042                   .dbline 46
+ 0042           ;       LCD_Start();                    // Initialize LCD hardware  
+ 0042 7C0000            xcall _LCD_Start
+ 0045                   .dbline 47
+ 0045           ;       LCD_Init();
+ 0045 7C0000            xcall _LCD_Init
+ 0048 20                pop X
+ 0049                   .dbline 48
+ 0049           ;       LCD_Position(0,0);LCD_PrHexInt(wSetPointTable[bSetPointCount]);
+ 0049 10                push X
+ 004A 5000              mov A,0
+ 004C 5C                mov X,A
+ 004D 7C0000            xcall _LCD_Position
+ 0050 20                pop X
+ 0051                   .dbline 48
+ 0051 62D000            mov REG[0xd0],>_bSetPointCount
+ 0054 5100              mov A,[_bSetPointCount]
+ 0056 62D000            mov REG[0xd0],>__r0
+ 0059 5300              mov [__r1],A
+ 005B 550000            mov [__r0],0
+ 005E 6500              asl [__r1]
+ 0060 6B00              rlc [__r0]
+ 0062 060000            add [__r1],<_wSetPointTable
+ 0065 0E0000            adc [__r0],>_wSetPointTable
+ 0068 5100              mov A,[__r0]
+ 006A 60D4              mov REG[0xd4],A
+ 006C 3E00              mvi A,[__r1]
+ 006E 5300              mov [__r0],A
+ 0070 3E00              mvi A,[__r1]
+ 0072 5300              mov [__r1],A
+ 0074 10                push X
+ 0075 5100              mov A,[__r0]
+ 0077 08                push A
+ 0078 5100              mov A,[__r1]
+ 007A 20                pop X
+ 007B 7C0000            xcall _LCD_PrHexInt
+ 007E 20                pop X
+ 007F                   .dbline 49
+ 007F           ;       M8C_EnableGInt;
+ 007F 7101                      or  F, 01h
+ 0081           
+ 0081 81E5              xjmp L3
+ 0083           L2:
+ 0083                   .dbline 52
+ 0083           ; 
+ 0083           ;       while(1)
+ 0083           ;       {
+ 0083                   .dbline 54
+ 0083           ;               //Display pulse width for debug
+ 0083           ;               LCD_Position(0,14);LCD_PrHexByte(FanPWM_bReadPulseWidth());
+ 0083 10                push X
+ 0084 570E              mov X,14
+ 0086 5000              mov A,0
+ 0088 7C0000            xcall _LCD_Position
+ 008B                   .dbline 54
+ 008B 7C0000            xcall _FanPWM_bReadPulseWidth
+ 008E 62D000            mov REG[0xd0],>__r0
+ 0091 20                pop X
+ 0092 10                push X
+ 0093 7C0000            xcall _LCD_PrHexByte
+ 0096 20                pop X
+ 0097                   .dbline 56
+ 0097           ;               
+ 0097           ;               if( (INT_CLR0 & 0b01000000) == 0b01000000)//If sleep timer interrupt is pending
+ 0097 5DDA              mov A,REG[0xda]
+ 0099 62D000            mov REG[0xd0],>__r0
+ 009C 5300              mov [__r0],A
+ 009E 260040            and [__r0],64
+ 00A1 3C0040            cmp [__r0],64
+ 00A4 B072              jnz L5
+ 00A6                   .dbline 57
+ 00A6           ;               {
+ 00A6                   .dbline 59
+ 00A6           ;                       //Clear the pending interrupt
+ 00A6           ;                       INT_CLR0 &= ~0b01000000;
+ 00A6 41DABF            and REG[0xda],-65
+ 00A9                   .dbline 63
+ 00A9           ;                       
+ 00A9           ;                       //If button has been pressed
+ 00A9           ;                       //Read switch input 3 times (debounce)
+ 00A9           ;                       if(PRT1DR & 0b00000001 == 0b00000001) //First read
+ 00A9 5D04              mov A,REG[0x4]
+ 00AB 5300              mov [__r0],A
+ 00AD 470001            tst [__r0],1
+ 00B0 A066              jz L7
+ 00B2                   .dbline 64
+ 00B2           ;                       {
+ 00B2                   .dbline 65
+ 00B2           ;                               if(PRT1DR & 0b00000001 == 0b00000001) //Second read
+ 00B2 5D04              mov A,REG[0x4]
+ 00B4 5300              mov [__r0],A
+ 00B6 470001            tst [__r0],1
+ 00B9 A05D              jz L9
+ 00BB                   .dbline 66
+ 00BB           ;                               {
+ 00BB                   .dbline 67
+ 00BB           ;                                       if(PRT1DR & 0b00000001 == 0b00000001) //Third read - Button has been pressed
+ 00BB 5D04              mov A,REG[0x4]
+ 00BD 5300              mov [__r0],A
+ 00BF 470001            tst [__r0],1
+ 00C2 A054              jz L11
+ 00C4                   .dbline 68
+ 00C4           ;                                       {
+ 00C4           L13:
+ 00C4                   .dbline 70
+ 00C4           ;                                               //Wait for release
+ 00C4           ;                                               while(PRT1DR & 0b00000001 == 0b00000001){}//Do nothing
+ 00C4                   .dbline 70
+ 00C4           L14:
+ 00C4                   .dbline 70
+ 00C4 5D04              mov A,REG[0x4]
+ 00C6 62D000            mov REG[0xd0],>__r0
+ 00C9 5300              mov [__r0],A
+ 00CB 470001            tst [__r0],1
+ 00CE BFF5              jnz L13
+ 00D0                   .dbline 72
+ 00D0           ;                                               //Increment bSetPointCount (index for the array)
+ 00D0           ;                                               bSetPointCount++;
+ 00D0 62D000            mov REG[0xd0],>_bSetPointCount
+ 00D3 7600              inc [_bSetPointCount]
+ 00D5                   .dbline 74
+ 00D5           ;                                               //Keep set point count in range
+ 00D5           ;                                               if(bSetPointCount >11)
+ 00D5 500B              mov A,11
+ 00D7 3A00              cmp A,[_bSetPointCount]
+ 00D9 D007              jnc L16
+ 00DB           X1:
+ 00DB                   .dbline 75
+ 00DB           ;                                               {
+ 00DB                   .dbline 76
+ 00DB           ;                                                       bSetPointCount = 0;
+ 00DB 62D000            mov REG[0xd0],>_bSetPointCount
+ 00DE 550000            mov [_bSetPointCount],0
+ 00E1                   .dbline 77
+ 00E1           ;                                               }
+ 00E1           L16:
+ 00E1                   .dbline 79
+ 00E1           ;                                               //Find out what the RPM for this count (index) is and print it
+ 00E1           ;                                               LCD_Position(0,0);LCD_PrHexInt(wSetPointTable[bSetPointCount]);
+ 00E1 10                push X
+ 00E2 5000              mov A,0
+ 00E4 5C                mov X,A
+ 00E5 7C0000            xcall _LCD_Position
+ 00E8 20                pop X
+ 00E9                   .dbline 79
+ 00E9 62D000            mov REG[0xd0],>_bSetPointCount
+ 00EC 5100              mov A,[_bSetPointCount]
+ 00EE 62D000            mov REG[0xd0],>__r0
+ 00F1 5300              mov [__r1],A
+ 00F3 550000            mov [__r0],0
+ 00F6 6500              asl [__r1]
+ 00F8 6B00              rlc [__r0]
+ 00FA 060000            add [__r1],<_wSetPointTable
+ 00FD 0E0000            adc [__r0],>_wSetPointTable
+ 0100 5100              mov A,[__r0]
+ 0102 60D4              mov REG[0xd4],A
+ 0104 3E00              mvi A,[__r1]
+ 0106 5300              mov [__r0],A
+ 0108 3E00              mvi A,[__r1]
+ 010A 5300              mov [__r1],A
+ 010C 10                push X
+ 010D 5100              mov A,[__r0]
+ 010F 08                push A
+ 0110 5100              mov A,[__r1]
+ 0112 20                pop X
+ 0113 7C0000            xcall _LCD_PrHexInt
+ 0116 20                pop X
+ 0117                   .dbline 80
+ 0117           ;                                       }
+ 0117           L11:
+ 0117                   .dbline 81
+ 0117           ;                               }
+ 0117           L9:
+ 0117                   .dbline 83
+ 0117           ;                       
+ 0117           ;                       }
+ 0117           L7:
+ 0117                   .dbline 84
+ 0117           ;               }
+ 0117           L5:
+ 0117                   .dbline 87
+ 0117           ;               
+ 0117           ;               //If bDataAvailable flag is set                                 
+ 0117           ;               if(bDataAvailable==1)
+ 0117 62D000            mov REG[0xd0],>_bDataAvailable
+ 011A 3C0001            cmp [_bDataAvailable],1
+ 011D B149              jnz L18
+ 011F                   .dbline 88
+ 011F           ;               {
+ 011F                   .dbline 90
+ 011F           ;                       //Clear bDataAvailable
+ 011F           ;                       bDataAvailable=0;
+ 011F 550000            mov [_bDataAvailable],0
+ 0122                   .dbline 92
+ 0122           ;                       //Calculate fan speed
+ 0122           ;                       wSpeedRPM=90000000*cNumCycles/(wFirstValue-wLastValue)+1;        // 1/2
+ 0122 62D000            mov REG[0xd0],>_wFirstValue
+ 0125 5101              mov A,[_wFirstValue+1]
+ 0127 62D000            mov REG[0xd0],>_wLastValue
+ 012A 1201              sub A,[_wLastValue+1]
+ 012C 62D000            mov REG[0xd0],>__r0
+ 012F 5300              mov [__r1],A
+ 0131 62D000            mov REG[0xd0],>_wFirstValue
+ 0134 5100              mov A,[_wFirstValue]
+ 0136 62D000            mov REG[0xd0],>_wLastValue
+ 0139 1A00              sbb A,[_wLastValue]
+ 013B 62D000            mov REG[0xd0],>__r0
+ 013E 5300              mov [__r0],A
+ 0140 5100              mov A,[__r1]
+ 0142 5300              mov [__r3],A
+ 0144 5100              mov A,[__r0]
+ 0146 5300              mov [__r2],A
+ 0148 550000            mov [__r1],0
+ 014B 550000            mov [__r0],0
+ 014E 62D000            mov REG[0xd0],>_cNumCycles
+ 0151 5100              mov A,[_cNumCycles]
+ 0153 62D000            mov REG[0xd0],>__r0
+ 0156 5300              mov [__r5],A
+ 0158 550000            mov [__r4],0
+ 015B 470080            tst [__r5],-128
+ 015E A004              jz X2
+ 0160 5500FF            mov [__r4],-1
+ 0163           X2:
+ 0163 62D000            mov REG[0xd0],>__r0
+ 0166 5100              mov A,[__r5]
+ 0168 5300              mov [__r7],A
+ 016A 5100              mov A,[__r4]
+ 016C 5300              mov [__r6],A
+ 016E 470080            tst [__r6],-128
+ 0171 A009              jz X3
+ 0173 5500FF            mov [__r5],-1
+ 0176 5500FF            mov [__r4],-1
+ 0179 800A              jmp X4
+ 017B           X3:
+ 017B 62D000            mov REG[0xd0],>__r0
+ 017E 550000            mov [__r5],0
+ 0181 550000            mov [__r4],0
+ 0184           X4:
+ 0184 62D000            mov REG[0xd0],>__r0
+ 0187 5100              mov A,[__r4]
+ 0189 08                push A
+ 018A 5100              mov A,[__r5]
+ 018C 08                push A
+ 018D 5100              mov A,[__r6]
+ 018F 08                push A
+ 0190 5100              mov A,[__r7]
+ 0192 08                push A
+ 0193 5005              mov A,5
+ 0195 08                push A
+ 0196 505D              mov A,93
+ 0198 08                push A
+ 0199 504A              mov A,74
+ 019B 08                push A
+ 019C 5080              mov A,-128
+ 019E 08                push A
+ 019F 7C0000            xcall __mul_32X32_32
+ 01A2 38FC              add SP,-4
+ 01A4 18                pop A
+ 01A5 5300              mov [__r7],A
+ 01A7 18                pop A
+ 01A8 5300              mov [__r6],A
+ 01AA 18                pop A
+ 01AB 5300              mov [__r5],A
+ 01AD 18                pop A
+ 01AE 5300              mov [__r4],A
+ 01B0 5100              mov A,[__r0]
+ 01B2 08                push A
+ 01B3 5100              mov A,[__r1]
+ 01B5 08                push A
+ 01B6 5100              mov A,[__r2]
+ 01B8 08                push A
+ 01B9 5100              mov A,[__r3]
+ 01BB 08                push A
+ 01BC 5100              mov A,[__r4]
+ 01BE 08                push A
+ 01BF 5100              mov A,[__r5]
+ 01C1 08                push A
+ 01C2 5100              mov A,[__r6]
+ 01C4 08                push A
+ 01C5 5100              mov A,[__r7]
+ 01C7 08                push A
+ 01C8 7C0000            xcall __divmod_32X32_32
+ 01CB 18                pop A
+ 01CC 5300              mov [__r3],A
+ 01CE 18                pop A
+ 01CF 5300              mov [__r2],A
+ 01D1 18                pop A
+ 01D2 5300              mov [__r1],A
+ 01D4 18                pop A
+ 01D5 5300              mov [__r0],A
+ 01D7 38FC              add SP,-4
+ 01D9 060001            add [__r3],1
+ 01DC 0E0000            adc [__r2],0
+ 01DF 0E0000            adc [__r1],0
+ 01E2 0E0000            adc [__r0],0
+ 01E5 5100              mov A,[__r3]
+ 01E7 5300              mov [__r1],A
+ 01E9 5100              mov A,[__r2]
+ 01EB 5300              mov [__r0],A
+ 01ED 5100              mov A,[__r1]
+ 01EF 08                push A
+ 01F0 5100              mov A,[__r0]
+ 01F2 62D000            mov REG[0xd0],>_wSpeedRPM
+ 01F5 5300              mov [_wSpeedRPM],A
+ 01F7 18                pop A
+ 01F8 5301              mov [_wSpeedRPM+1],A
+ 01FA                   .dbline 94
+ 01FA           ;                       //Display speed on lower left of LCD
+ 01FA           ;                       LCD_Position(1,0);LCD_PrHexInt(wSpeedRPM);
+ 01FA 10                push X
+ 01FB 5700              mov X,0
+ 01FD 5001              mov A,1
+ 01FF 7C0000            xcall _LCD_Position
+ 0202 20                pop X
+ 0203                   .dbline 94
+ 0203 10                push X
+ 0204 62D000            mov REG[0xd0],>_wSpeedRPM
+ 0207 5100              mov A,[_wSpeedRPM]
+ 0209 08                push A
+ 020A 5101              mov A,[_wSpeedRPM+1]
+ 020C 20                pop X
+ 020D 7C0000            xcall _LCD_PrHexInt
+ 0210 20                pop X
+ 0211                   .dbline 96
+ 0211           ;                       //Substract speed from set point array value to determine error
+ 0211           ;                       iError = wSetPointTable[bSetPointCount] - wSpeedRPM;
+ 0211 62D000            mov REG[0xd0],>_bSetPointCount
+ 0214 5100              mov A,[_bSetPointCount]
+ 0216 62D000            mov REG[0xd0],>__r0
+ 0219 5300              mov [__r1],A
+ 021B 550000            mov [__r0],0
+ 021E 6500              asl [__r1]
+ 0220 6B00              rlc [__r0]
+ 0222 060000            add [__r1],<_wSetPointTable
+ 0225 0E0000            adc [__r0],>_wSetPointTable
+ 0228 5100              mov A,[__r0]
+ 022A 60D4              mov REG[0xd4],A
+ 022C 3E00              mvi A,[__r1]
+ 022E 5300              mov [__r0],A
+ 0230 3E00              mvi A,[__r1]
+ 0232 5300              mov [__r1],A
+ 0234 62D000            mov REG[0xd0],>_wSpeedRPM
+ 0237 5101              mov A,[_wSpeedRPM+1]
+ 0239 62D000            mov REG[0xd0],>__r0
+ 023C 1400              sub [__r1],A
+ 023E 62D000            mov REG[0xd0],>_wSpeedRPM
+ 0241 5100              mov A,[_wSpeedRPM]
+ 0243 62D000            mov REG[0xd0],>__r0
+ 0246 1C00              sbb [__r0],A
+ 0248 5100              mov A,[__r1]
+ 024A 08                push A
+ 024B 5100              mov A,[__r0]
+ 024D 62D000            mov REG[0xd0],>_iError
+ 0250 5300              mov [_iError],A
+ 0252 18                pop A
+ 0253 5301              mov [_iError+1],A
+ 0255                   .dbline 98
+ 0255           ;                       //Use error to determine new duty cycle (pulse width, right?)
+ 0255           ;                       FanPWM_WritePulseWidth( cIntegratorControl(iError) );   
+ 0255 5100              mov A,[_iError]
+ 0257 08                push A
+ 0258 5101              mov A,[_iError+1]
+ 025A 08                push A
+ 025B 900E              xcall _cIntegratorControl
+ 025D 38FE              add SP,-2
+ 025F 62D000            mov REG[0xd0],>__r0
+ 0262 10                push X
+ 0263 7C0000            xcall _FanPWM_WritePulseWidth
+ 0266 20                pop X
+ 0267                   .dbline 99
+ 0267           ;               }
+ 0267           L18:
+ 0267                   .dbline 102
+ 0267           ;               
+ 0267           ; 
+ 0267           ;       }
+ 0267           L3:
+ 0267                   .dbline 51
+ 0267 8E1B              xjmp L2
+ 0269           X0:
+ 0269                   .dbline -2
+ 0269           L1:
+ 0269                   .dbline 0 ; func end
+ 0269 8FFF              jmp .
+ 026B                   .dbend
+ 026B                   .dbfunc e cIntegratorControl _cIntegratorControl fc
+ 026B           ;         iError -> X-5
+ 026B           _cIntegratorControl::
+ 026B                   .dbline -1
+ 026B 10                push X
+ 026C 4F                mov X,SP
+ 026D                   .dbline 107
+ 026D           ; 
+ 026D           ; }
+ 026D           ; 
+ 026D           ; unsigned char cIntegratorControl(int iError)
+ 026D           ; {
+ 026D                   .dbline 108
+ 026D           ;       lIntegrator += (((long)wIntGainValue)*((long)iError));
+ 026D 62D000            mov REG[0xd0],>__r0
+ 0270 52FC              mov A,[X-4]
+ 0272 5300              mov [__r3],A
+ 0274 52FB              mov A,[X-5]
+ 0276 5300              mov [__r2],A
+ 0278 470080            tst [__r2],-128
+ 027B A009              jz X5
+ 027D 5500FF            mov [__r1],-1
+ 0280 5500FF            mov [__r0],-1
+ 0283 800A              jmp X6
+ 0285           X5:
+ 0285 62D000            mov REG[0xd0],>__r0
+ 0288 550000            mov [__r1],0
+ 028B 550000            mov [__r0],0
+ 028E           X6:
+ 028E 62D000            mov REG[0xd0],>_wIntGainValue
+ 0291 5101              mov A,[_wIntGainValue+1]
+ 0293 62D000            mov REG[0xd0],>__r0
+ 0296 5300              mov [__r7],A
+ 0298 62D000            mov REG[0xd0],>_wIntGainValue
+ 029B 5100              mov A,[_wIntGainValue]
+ 029D 62D000            mov REG[0xd0],>__r0
+ 02A0 5300              mov [__r6],A
+ 02A2 5100              mov A,[__r0]
+ 02A4 08                push A
+ 02A5 5100              mov A,[__r1]
+ 02A7 08                push A
+ 02A8 5100              mov A,[__r2]
+ 02AA 08                push A
+ 02AB 5100              mov A,[__r3]
+ 02AD 08                push A
+ 02AE 5000              mov A,0
+ 02B0 08                push A
+ 02B1 08                push A
+ 02B2 5100              mov A,[__r6]
+ 02B4 08                push A
+ 02B5 5100              mov A,[__r7]
+ 02B7 08                push A
+ 02B8 7C0000            xcall __mul_32X32_32
+ 02BB 38FC              add SP,-4
+ 02BD 18                pop A
+ 02BE 5300              mov [__r3],A
+ 02C0 18                pop A
+ 02C1 5300              mov [__r2],A
+ 02C3 18                pop A
+ 02C4 5300              mov [__r1],A
+ 02C6 18                pop A
+ 02C7 5300              mov [__r0],A
+ 02C9 5100              mov A,[__r3]
+ 02CB 62D000            mov REG[0xd0],>_lIntegrator
+ 02CE 0403              add [_lIntegrator+3],A
+ 02D0 62D000            mov REG[0xd0],>__r0
+ 02D3 5100              mov A,[__r2]
+ 02D5 62D000            mov REG[0xd0],>_lIntegrator
+ 02D8 0C02              adc [_lIntegrator+2],A
+ 02DA 62D000            mov REG[0xd0],>__r0
+ 02DD 5100              mov A,[__r1]
+ 02DF 62D000            mov REG[0xd0],>_lIntegrator
+ 02E2 0C01              adc [_lIntegrator+1],A
+ 02E4 62D000            mov REG[0xd0],>__r0
+ 02E7 5100              mov A,[__r0]
+ 02E9 62D000            mov REG[0xd0],>_lIntegrator
+ 02EC 0C00              adc [_lIntegrator],A
+ 02EE                   .dbline 109
+ 02EE           ;       if(lIntegrator <0)
+ 02EE 5103              mov A,[_lIntegrator+3]
+ 02F0 1100              sub A,0
+ 02F2 5102              mov A,[_lIntegrator+2]
+ 02F4 1900              sbb A,0
+ 02F6 5101              mov A,[_lIntegrator+1]
+ 02F8 1900              sbb A,0
+ 02FA 5100              mov A,[_lIntegrator]
+ 02FC 3180              xor A,-128
+ 02FE 1980              sbb A,(0 ^ 0x80)
+ 0300 D010              jnc L21
+ 0302           X7:
+ 0302                   .dbline 110
+ 0302           ;       {
+ 0302                   .dbline 111
+ 0302           ;               lIntegrator = 0;
+ 0302 62D000            mov REG[0xd0],>_lIntegrator
+ 0305 550000            mov [_lIntegrator],0
+ 0308 550100            mov [_lIntegrator+1],0
+ 030B 550200            mov [_lIntegrator+2],0
+ 030E 550300            mov [_lIntegrator+3],0
+ 0311                   .dbline 112
+ 0311           ;       }
+ 0311           L21:
+ 0311                   .dbline 113
+ 0311           ;       if(lIntegrator >16777215)
+ 0311 62D000            mov REG[0xd0],>_lIntegrator
+ 0314 50FF              mov A,-1
+ 0316 1203              sub A,[_lIntegrator+3]
+ 0318 50FF              mov A,-1
+ 031A 1A02              sbb A,[_lIntegrator+2]
+ 031C 50FF              mov A,-1
+ 031E 1A01              sbb A,[_lIntegrator+1]
+ 0320 5100              mov A,[_lIntegrator]
+ 0322 3180              xor A,-128
+ 0324 62D000            mov REG[0xd0],>__r0
+ 0327 5300              mov [__rX],A
+ 0329 5080              mov A,(0 ^ 0x80)
+ 032B 1A00              sbb A,[__rX]
+ 032D D010              jnc L23
+ 032F           X8:
+ 032F                   .dbline 114
+ 032F           ;       {
+ 032F                   .dbline 115
+ 032F           ;               lIntegrator = 16777215;
+ 032F 62D000            mov REG[0xd0],>_lIntegrator
+ 0332 550000            mov [_lIntegrator],0
+ 0335 5501FF            mov [_lIntegrator+1],-1
+ 0338 5502FF            mov [_lIntegrator+2],-1
+ 033B 5503FF            mov [_lIntegrator+3],-1
+ 033E                   .dbline 116
+ 033E           ;       }
+ 033E           L23:
+ 033E                   .dbline 117
+ 033E           ;       LCD_Position(1,14);
+ 033E 10                push X
+ 033F 570E              mov X,14
+ 0341 5001              mov A,1
+ 0343 7C0000            xcall _LCD_Position
+ 0346 20                pop X
+ 0347                   .dbline 118
+ 0347           ;       LCD_PrHexByte((unsigned char)(lIntegrator >>16));
+ 0347 62D000            mov REG[0xd0],>_lIntegrator
+ 034A 5100              mov A,[_lIntegrator]
+ 034C 08                push A
+ 034D 5101              mov A,[_lIntegrator+1]
+ 034F 08                push A
+ 0350 5102              mov A,[_lIntegrator+2]
+ 0352 08                push A
+ 0353 5103              mov A,[_lIntegrator+3]
+ 0355 62D000            mov REG[0xd0],>__r0
+ 0358 5300              mov [__r3],A
+ 035A 18                pop A
+ 035B 5300              mov [__r2],A
+ 035D 18                pop A
+ 035E 5300              mov [__r1],A
+ 0360 18                pop A
+ 0361 5300              mov [__r0],A
+ 0363 5010              mov A,16
+ 0365           X9:
+ 0365 62D000            mov REG[0xd0],>__r0
+ 0368 6800              asr [__r0]
+ 036A 6E00              rrc [__r1]
+ 036C 6E00              rrc [__r2]
+ 036E 6E00              rrc [__r3]
+ 0370 78                dec A
+ 0371 BFF3              jnz X9
+ 0373 5100              mov A,[__r3]
+ 0375 10                push X
+ 0376 7C0000            xcall _LCD_PrHexByte
+ 0379 20                pop X
+ 037A                   .dbline 120
+ 037A           ; 
+ 037A           ;       return ((unsigned char)(lIntegrator >>16));
+ 037A 62D000            mov REG[0xd0],>_lIntegrator
+ 037D 5100              mov A,[_lIntegrator]
+ 037F 08                push A
+ 0380 5101              mov A,[_lIntegrator+1]
+ 0382 08                push A
+ 0383 5102              mov A,[_lIntegrator+2]
+ 0385 08                push A
+ 0386 5103              mov A,[_lIntegrator+3]
+ 0388 62D000            mov REG[0xd0],>__r0
+ 038B 5300              mov [__r3],A
+ 038D 18                pop A
+ 038E 5300              mov [__r2],A
+ 0390 18                pop A
+ 0391 5300              mov [__r1],A
+ 0393 18                pop A
+ 0394 5300              mov [__r0],A
+ 0396 5010              mov A,16
+ 0398           X10:
+ 0398 62D000            mov REG[0xd0],>__r0
+ 039B 6800              asr [__r0]
+ 039D 6E00              rrc [__r1]
+ 039F 6E00              rrc [__r2]
+ 03A1 6E00              rrc [__r3]
+ 03A3 78                dec A
+ 03A4 BFF3              jnz X10
+ 03A6 5100              mov A,[__r3]
+ 03A8                   .dbline -2
+ 03A8           L20:
+ 03A8 20                pop X
+ 03A9                   .dbline 0 ; func end
+ 03A9 7F                ret
+ 03AA                   .dbsym l iError -5 I
+ 03AA                   .dbend

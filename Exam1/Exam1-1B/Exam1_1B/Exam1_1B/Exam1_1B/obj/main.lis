@@ -1,0 +1,418 @@
+ 0000                   cpu LMM
+                        .module main.c
+                        .area text(rom, con, rel)
+ 0000                   .dbfile ./main.c
+                        .area data(ram, con, rel)
+ 0000                   .dbfile ./main.c
+ 0000           _value1::
+ 0000 00                .byte 0
+ 0001                   .dbfile C:\DOCUME~1\JKEMME~1\Desktop\Exam1-1B\Exam1_1B\Exam1_1B\Exam1_1B\main.c
+ 0001                   .dbsym e value1 _value1 c
+                        .area data(ram, con, rel)
+ 0000                   .dbfile C:\DOCUME~1\JKEMME~1\Desktop\Exam1-1B\Exam1_1B\Exam1_1B\Exam1_1B\main.c
+                        .area data(ram, con, rel)
+ 0000                   .dbfile C:\DOCUME~1\JKEMME~1\Desktop\Exam1-1B\Exam1_1B\Exam1_1B\Exam1_1B\main.c
+ 0000           _value2::
+ 0000 00                .byte 0
+ 0001                   .dbsym e value2 _value2 c
+                        .area data(ram, con, rel)
+ 0000                   .dbfile C:\DOCUME~1\JKEMME~1\Desktop\Exam1-1B\Exam1_1B\Exam1_1B\Exam1_1B\main.c
+                        .area data(ram, con, rel)
+ 0000                   .dbfile C:\DOCUME~1\JKEMME~1\Desktop\Exam1-1B\Exam1_1B\Exam1_1B\Exam1_1B\main.c
+ 0000           _input::
+ 0000 00                .byte 0
+ 0001                   .dbsym e input _input c
+                        .area data(ram, con, rel)
+ 0000                   .dbfile C:\DOCUME~1\JKEMME~1\Desktop\Exam1-1B\Exam1_1B\Exam1_1B\Exam1_1B\main.c
+                        .area data(ram, con, rel)
+ 0000                   .dbfile C:\DOCUME~1\JKEMME~1\Desktop\Exam1-1B\Exam1_1B\Exam1_1B\Exam1_1B\main.c
+ 0000           _sum::
+ 0000 00                .byte 0
+ 0001                   .dbsym e sum _sum c
+                        .area data(ram, con, rel)
+ 0000                   .dbfile C:\DOCUME~1\JKEMME~1\Desktop\Exam1-1B\Exam1_1B\Exam1_1B\Exam1_1B\main.c
+                        .area text(rom, con, rel)
+ 0000                   .dbfile C:\DOCUME~1\JKEMME~1\Desktop\Exam1-1B\Exam1_1B\Exam1_1B\Exam1_1B\main.c
+ 0000                   .dbfunc e main _main fV
+ 0000           _main::
+ 0000                   .dbline -1
+ 0000                   .dbline 14
+ 0000           ; //----------------------------------------------------------------------------
+ 0000           ; // C main line
+ 0000           ; //----------------------------------------------------------------------------
+ 0000           ; 
+ 0000           ; #include <m8c.h>        // part specific constants and macros
+ 0000           ; #include "PSoCAPI.h"    // PSoC API definitions for all User Modules
+ 0000           ; 
+ 0000           ; extern unsigned char value1 = 0; //0b0000 0000 where last four bits are 0, PRT0DR[3],PRT0DR[2], PRT0DR[1]
+ 0000           ; extern unsigned char value2 = 0;
+ 0000           ; extern unsigned char input = 0;
+ 0000           ; extern unsigned char sum = 0;
+ 0000           ; 
+ 0000           ; void main(void)
+ 0000           ; {
+ 0000                   .dbline 15
+ 0000           ;       M8C_EnableGInt ; // Uncomment this line to enable Global Interrupts
+ 0000 7101                      or  F, 01h
+ 0002           
+ 0002                   .dbline 17
+ 0002           ;       //Enable interrupts for GPI0
+ 0002           ;       INT_MSK0 |= 0b00100000;
+ 0002 43E020            or REG[0xe0],32
+ 0005                   .dbline 21
+ 0005           ;       //SW1 connected to P1[0]
+ 0005           ;       
+ 0005           ;       //Start LCD
+ 0005           ;       LCD_Start();
+ 0005 10                push X
+ 0006 7C0000            xcall _LCD_Start
+ 0009                   .dbline 22
+ 0009           ;       LCD_Init();
+ 0009 7C0000            xcall _LCD_Init
+ 000C 20                pop X
+ 000D 812E              xjmp L3
+ 000F           L2:
+ 000F                   .dbline 25
+ 000F           ;       
+ 000F           ;       while(1)//Control loop
+ 000F           ;       {
+ 000F                   .dbline 26
+ 000F           ;               input = PRT0DR;
+ 000F 5D00              mov A,REG[0]
+ 0011 62D000            mov REG[0xd0],>_input
+ 0014 5300              mov [_input],A
+ 0016                   .dbline 29
+ 0016           ;       
+ 0016           ;               //Collect PRT0DR[3] value
+ 0016           ;               if( (input & 0b00001000) == 0)
+ 0016 470008            tst [_input],8
+ 0019 B009              jnz L5
+ 001B                   .dbline 30
+ 001B           ;               {
+ 001B                   .dbline 32
+ 001B           ;                       //PRT0DR[3] is low
+ 001B           ;                       value1 &= ~0b00000100;
+ 001B 62D000            mov REG[0xd0],>_value1
+ 001E 2600FB            and [_value1],-5
+ 0021                   .dbline 33
+ 0021           ;               }
+ 0021 800A              xjmp L6
+ 0023           L5:
+ 0023                   .dbline 35
+ 0023           ;               else
+ 0023           ;               {
+ 0023                   .dbline 37
+ 0023           ;                       //PRT0DR[3] is high
+ 0023           ;                       value1 |= 0b00000100;
+ 0023 62D000            mov REG[0xd0],>_value1
+ 0026 5100              mov A,[_value1]
+ 0028 2904              or A,4
+ 002A 5300              mov [_value1],A
+ 002C                   .dbline 38
+ 002C           ;               }
+ 002C           L6:
+ 002C                   .dbline 41
+ 002C           ;               
+ 002C           ;               //Collect PRT0DR[2] value
+ 002C           ;               if( (input & 0b00000100) == 0)
+ 002C 62D000            mov REG[0xd0],>_input
+ 002F 470004            tst [_input],4
+ 0032 B009              jnz L7
+ 0034                   .dbline 42
+ 0034           ;               {
+ 0034                   .dbline 44
+ 0034           ;                       //PRT0DR[2] is low
+ 0034           ;                       value1 &= ~0b00000010;
+ 0034 62D000            mov REG[0xd0],>_value1
+ 0037 2600FD            and [_value1],-3
+ 003A                   .dbline 45
+ 003A           ;               }
+ 003A 800A              xjmp L8
+ 003C           L7:
+ 003C                   .dbline 47
+ 003C           ;               else
+ 003C           ;               {
+ 003C                   .dbline 49
+ 003C           ;                       //PRT0DR[2] is high
+ 003C           ;                       value1 |= 0b00000010;
+ 003C 62D000            mov REG[0xd0],>_value1
+ 003F 5100              mov A,[_value1]
+ 0041 2902              or A,2
+ 0043 5300              mov [_value1],A
+ 0045                   .dbline 50
+ 0045           ;               }
+ 0045           L8:
+ 0045                   .dbline 53
+ 0045           ;               
+ 0045           ;               //Collect PRT0DR[1] value
+ 0045           ;               if( (input & 0b00000010) == 0)
+ 0045 62D000            mov REG[0xd0],>_input
+ 0048 470002            tst [_input],2
+ 004B B009              jnz L9
+ 004D                   .dbline 54
+ 004D           ;               {
+ 004D                   .dbline 56
+ 004D           ;                       //PRT0DR[1] is low
+ 004D           ;                       value1 &= ~0b00000001;
+ 004D 62D000            mov REG[0xd0],>_value1
+ 0050 2600FE            and [_value1],-2
+ 0053                   .dbline 57
+ 0053           ;               }
+ 0053 800A              xjmp L10
+ 0055           L9:
+ 0055                   .dbline 59
+ 0055           ;               else
+ 0055           ;               {
+ 0055                   .dbline 61
+ 0055           ;                       //PRT0DR[1] is high
+ 0055           ;                       value1 |= 0b00000001;
+ 0055 62D000            mov REG[0xd0],>_value1
+ 0058 5100              mov A,[_value1]
+ 005A 2901              or A,1
+ 005C 5300              mov [_value1],A
+ 005E                   .dbline 62
+ 005E           ;               }
+ 005E           L10:
+ 005E                   .dbline 65
+ 005E           ;               
+ 005E           ;               //Collect PRT0DR[7] value
+ 005E           ;               if( (input & 0b10000000) == 0)
+ 005E 62D000            mov REG[0xd0],>_input
+ 0061 470080            tst [_input],-128
+ 0064 B009              jnz L11
+ 0066                   .dbline 66
+ 0066           ;               {
+ 0066                   .dbline 68
+ 0066           ;                       //PRT0DR[7] is low
+ 0066           ;                       value2 &= ~0b00001000;
+ 0066 62D000            mov REG[0xd0],>_value2
+ 0069 2600F7            and [_value2],-9
+ 006C                   .dbline 69
+ 006C           ;               }
+ 006C 800A              xjmp L12
+ 006E           L11:
+ 006E                   .dbline 71
+ 006E           ;               else
+ 006E           ;               {
+ 006E                   .dbline 73
+ 006E           ;                       //PRT0DR[7] is high
+ 006E           ;                       value2 |= 0b00001000;
+ 006E 62D000            mov REG[0xd0],>_value2
+ 0071 5100              mov A,[_value2]
+ 0073 2908              or A,8
+ 0075 5300              mov [_value2],A
+ 0077                   .dbline 74
+ 0077           ;               }
+ 0077           L12:
+ 0077                   .dbline 77
+ 0077           ;               
+ 0077           ;               //Collect PRT0DR[6] value
+ 0077           ;               if( (input & 0b01000000) == 0)
+ 0077 62D000            mov REG[0xd0],>_input
+ 007A 470040            tst [_input],64
+ 007D B009              jnz L13
+ 007F                   .dbline 78
+ 007F           ;               {
+ 007F                   .dbline 80
+ 007F           ;                       //PRT0DR[6] is low
+ 007F           ;                       value2 &= ~0b00000100;
+ 007F 62D000            mov REG[0xd0],>_value2
+ 0082 2600FB            and [_value2],-5
+ 0085                   .dbline 81
+ 0085           ;               }
+ 0085 800A              xjmp L14
+ 0087           L13:
+ 0087                   .dbline 83
+ 0087           ;               else
+ 0087           ;               {
+ 0087                   .dbline 85
+ 0087           ;                       //PRT0DR[6] is high
+ 0087           ;                       value2 |= 0b00000100;
+ 0087 62D000            mov REG[0xd0],>_value2
+ 008A 5100              mov A,[_value2]
+ 008C 2904              or A,4
+ 008E 5300              mov [_value2],A
+ 0090                   .dbline 86
+ 0090           ;               }
+ 0090           L14:
+ 0090                   .dbline 89
+ 0090           ;               
+ 0090           ;               //Collect PRT0DR[5] value
+ 0090           ;               if( (input & 0b00100000) == 0)
+ 0090 62D000            mov REG[0xd0],>_input
+ 0093 470020            tst [_input],32
+ 0096 B009              jnz L15
+ 0098                   .dbline 90
+ 0098           ;               {
+ 0098                   .dbline 92
+ 0098           ;                       //PRT0DR[5] is low
+ 0098           ;                       value2 &= ~0b00000010;
+ 0098 62D000            mov REG[0xd0],>_value2
+ 009B 2600FD            and [_value2],-3
+ 009E                   .dbline 93
+ 009E           ;               }
+ 009E 800A              xjmp L16
+ 00A0           L15:
+ 00A0                   .dbline 95
+ 00A0           ;               else
+ 00A0           ;               {
+ 00A0                   .dbline 97
+ 00A0           ;                       //PRT0DR[5] is high
+ 00A0           ;                       value2 |= 0b00000010;
+ 00A0 62D000            mov REG[0xd0],>_value2
+ 00A3 5100              mov A,[_value2]
+ 00A5 2902              or A,2
+ 00A7 5300              mov [_value2],A
+ 00A9                   .dbline 98
+ 00A9           ;               }
+ 00A9           L16:
+ 00A9                   .dbline 101
+ 00A9           ;               
+ 00A9           ;               //Collect PRT0DR[4] value
+ 00A9           ;               if( (input & 0b00010000) == 0)
+ 00A9 62D000            mov REG[0xd0],>_input
+ 00AC 470010            tst [_input],16
+ 00AF B009              jnz L17
+ 00B1                   .dbline 102
+ 00B1           ;               {
+ 00B1                   .dbline 104
+ 00B1           ;                       //PRT0DR[4] is low
+ 00B1           ;                       value2 &= ~0b00000001;
+ 00B1 62D000            mov REG[0xd0],>_value2
+ 00B4 2600FE            and [_value2],-2
+ 00B7                   .dbline 105
+ 00B7           ;               }
+ 00B7 800A              xjmp L18
+ 00B9           L17:
+ 00B9                   .dbline 107
+ 00B9           ;               else
+ 00B9           ;               {
+ 00B9                   .dbline 109
+ 00B9           ;                       //PRT0DR[4] is high
+ 00B9           ;                       value2 |= 0b00000001;
+ 00B9 62D000            mov REG[0xd0],>_value2
+ 00BC 5100              mov A,[_value2]
+ 00BE 2901              or A,1
+ 00C0 5300              mov [_value2],A
+ 00C2                   .dbline 110
+ 00C2           ;               }
+ 00C2           L18:
+ 00C2                   .dbline 113
+ 00C2           ; 
+ 00C2           ;               //Print to LCD
+ 00C2           ;               LCD_Position(0,0);
+ 00C2 10                push X
+ 00C3 5000              mov A,0
+ 00C5 5C                mov X,A
+ 00C6 7C0000            xcall _LCD_Position
+ 00C9 20                pop X
+ 00CA                   .dbline 114
+ 00CA           ;               LCD_PrHexByte(value1);
+ 00CA 10                push X
+ 00CB 62D000            mov REG[0xd0],>_value1
+ 00CE 5100              mov A,[_value1]
+ 00D0 7C0000            xcall _LCD_PrHexByte
+ 00D3 20                pop X
+ 00D4                   .dbline 115
+ 00D4           ;               LCD_Position(0,3);
+ 00D4 10                push X
+ 00D5 5703              mov X,3
+ 00D7 5000              mov A,0
+ 00D9 7C0000            xcall _LCD_Position
+ 00DC 20                pop X
+ 00DD                   .dbline 116
+ 00DD           ;               LCD_PrHexByte(value2);
+ 00DD 10                push X
+ 00DE 62D000            mov REG[0xd0],>_value2
+ 00E1 5100              mov A,[_value2]
+ 00E3 7C0000            xcall _LCD_PrHexByte
+ 00E6 20                pop X
+ 00E7                   .dbline 119
+ 00E7           ;               
+ 00E7           ;               //Check for switch press 3 times for deboucne
+ 00E7           ;               if( (PRT1DR & 0b00000001) == 0b00000001 )//1
+ 00E7 5D04              mov A,REG[0x4]
+ 00E9 62D000            mov REG[0xd0],>__r0
+ 00EC 5300              mov [__r0],A
+ 00EE 260001            and [__r0],1
+ 00F1 3C0001            cmp [__r0],1
+ 00F4 B047              jnz L19
+ 00F6                   .dbline 120
+ 00F6           ;               {
+ 00F6                   .dbline 121
+ 00F6           ;                       if( (PRT1DR & 0b00000001) == 0b00000001 )//2
+ 00F6 5D04              mov A,REG[0x4]
+ 00F8 5300              mov [__r0],A
+ 00FA 260001            and [__r0],1
+ 00FD 3C0001            cmp [__r0],1
+ 0100 B03B              jnz L21
+ 0102                   .dbline 122
+ 0102           ;                       {
+ 0102                   .dbline 123
+ 0102           ;                               if( (PRT1DR & 0b00000001) == 0b00000001 )//3
+ 0102 5D04              mov A,REG[0x4]
+ 0104 5300              mov [__r0],A
+ 0106 260001            and [__r0],1
+ 0109 3C0001            cmp [__r0],1
+ 010C B02F              jnz L23
+ 010E                   .dbline 124
+ 010E           ;                               {
+ 010E           L25:
+ 010E                   .dbline 126
+ 010E           ;                                       while( (PRT1DR & 0b00000001) == 0b00000001)//Wait for release
+ 010E           ;                                       {}
+ 010E                   .dbline 126
+ 010E           L26:
+ 010E                   .dbline 125
+ 010E 5D04              mov A,REG[0x4]
+ 0110 62D000            mov REG[0xd0],>__r0
+ 0113 5300              mov [__r0],A
+ 0115 260001            and [__r0],1
+ 0118 3C0001            cmp [__r0],1
+ 011B AFF2              jz L25
+ 011D                   .dbline 129
+ 011D           ;                                       
+ 011D           ;                                       //Print to LCD
+ 011D           ;                                       LCD_Position(1,0);
+ 011D 10                push X
+ 011E 5700              mov X,0
+ 0120 5001              mov A,1
+ 0122 7C0000            xcall _LCD_Position
+ 0125 20                pop X
+ 0126                   .dbline 130
+ 0126           ;                                       sum = value1 + value2;
+ 0126 62D000            mov REG[0xd0],>_value1
+ 0129 5100              mov A,[_value1]
+ 012B 62D000            mov REG[0xd0],>_value2
+ 012E 0200              add A,[_value2]
+ 0130 62D000            mov REG[0xd0],>_sum
+ 0133 5300              mov [_sum],A
+ 0135                   .dbline 131
+ 0135           ;                                       LCD_PrHexByte( sum );
+ 0135 10                push X
+ 0136 5100              mov A,[_sum]
+ 0138 7C0000            xcall _LCD_PrHexByte
+ 013B 20                pop X
+ 013C                   .dbline 132
+ 013C           ;                               }
+ 013C           L23:
+ 013C                   .dbline 133
+ 013C           ;                       }
+ 013C           L21:
+ 013C                   .dbline 134
+ 013C           ;               }
+ 013C           L19:
+ 013C                   .dbline 138
+ 013C           ;               
+ 013C           ;               
+ 013C           ;               
+ 013C           ;       }//End control loop
+ 013C           L3:
+ 013C                   .dbline 24
+ 013C 8ED2              xjmp L2
+ 013E           X0:
+ 013E                   .dbline -2
+ 013E           L1:
+ 013E                   .dbline 0 ; func end
+ 013E 8FFF              jmp .
+ 0140                   .dbend

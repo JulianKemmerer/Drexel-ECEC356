@@ -1,0 +1,68 @@
+XH
+H 3 areas 6 global symbols
+M fanpwmint.asm
+S TachTimer_EnableInt Ref0000
+S _cNumCycles Ref0000
+S _wControlState Ref0000
+S _bDataAvailable Ref0000
+S TachTimer_DisableInt Ref0000
+A text size 0 flags 0
+dbfile lib/fanpwmint.asm
+dbfunc 0 ? 0 I
+dbfile memory.inc
+dbfunc 0 ? 0 I
+dbfile lib/fanpwmint.asm
+dbfunc 0 ? 0 I
+dbfile FanPWM.inc
+dbfunc 0 ? 0 I
+dbfile C:/PROGRA~1/Cypress/PSOCDE~2/5.1/Common/CYPRES~3/tools/include/CY8C29~1/m8c.inc
+dbfunc 0 ? 0 I
+dbfile ./lib/FanPWM.inc
+dbfunc 0 ? 0 I
+dbfile lib/fanpwmint.asm
+dbfunc 0 ? 0 I
+dbfile C:/PROGRA~1/Cypress/PSOCDE~2/5.1/Common/CYPRES~3/tools/include/CY8C29~1/m8c.inc
+dbfunc 0 ? 0 I
+A InterruptRAM size 0 flags 20
+A UserModules size 40 flags 0
+dbfile lib/fanpwmint.asm
+dbfunc 0 ? 0 I
+dbline 49 0
+dbline 4A 2
+dbline 4B 5
+dbline 4C 7
+dbline 4D A
+dbline 4F C
+dbline 50 F
+dbline 51 12
+dbline 53 13
+dbline 54 16
+dbline 56 18
+dbline 57 1B
+dbline 58 1E
+dbline 59 21
+dbline 5A 24
+dbline 5C 25
+dbline 5D 28
+dbline 5E 2A
+dbline 5F 2D
+dbline 60 30
+dbline 62 32
+dbline 63 35
+dbline 64 37
+dbline 65 3A
+dbline 66 3C
+dbline 95 3F
+S _FanPWM_ISR Def0000
+T 00 00 7A 00 01 1E 00 00 00 B0 39 3C 00 01 14 B0
+R 00 00 00 02 03 03 00 02 03 06 00 02 03 0C 00 02
+T 00 0B 08 62 04 40 43 B3 0F 7E 3C 00 01 00 B0 0E
+R 00 00 00 02 03 0B 00 02
+T 00 18 62 04 00 41 B3 F3 55 00 00 03 55 00 01 E8
+R 00 00 00 02 03 09 00 02 03 0D 00 02
+T 00 24 7E 3C 00 01 13 B0 09 55 00 00 FF 41 DB CF
+R 00 00 00 02 03 04 00 02 03 0A 00 01
+T 00 30 90 00 3C 00 01 01 B0 09 41 DB CF
+R 00 00 00 02 06 02 00 00 00 00 03 05 00 02
+T 00 3A 90 00 55 00 00 01 7E
+R 00 00 00 02 06 02 00 04 00 00 03 05 00 03

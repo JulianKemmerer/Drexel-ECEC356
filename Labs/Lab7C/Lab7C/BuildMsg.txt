@@ -1,0 +1,19 @@
+Starting MAKE...
+creating project.mk 
+lib/dac6.asm
+lib/lcd.asm
+lib/psocconfig.asm
+lib/psocconfigtbl.asm
+./boot.asm
+./main.c
+Linking..
+LMM info: area 'InterruptRAM' uses 3 bytes in SRAM bank 0
+LMM info: area 'virtual_registers' uses 2 bytes in SRAM page 0
+LMM info: area 'data' item of 1 bytes allocated in SRAM page 0
+  ROM 4% full. 1102 out of 32768 bytes used (does not include absolute areas).
+  RAM 1% full. 6 bytes used (does not include stack usage).
+idata dump at output/Lab7C.idata
+Built with ICCM8C STD V7.04
+ 
+Lab7C - 0 error(s) 0 warning(s) 02:01:38
+

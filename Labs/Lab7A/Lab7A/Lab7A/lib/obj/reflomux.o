@@ -1,0 +1,67 @@
+XH
+H 2 areas E global symbols
+M reflomux.asm
+A text size 0 flags 0
+dbfile lib/reflomux.asm
+dbfunc 0 ? 0 I
+dbfile memory.inc
+dbfunc 0 ? 0 I
+dbfile lib/reflomux.asm
+dbfunc 0 ? 0 I
+dbfile C:/PROGRA~1/Cypress/PSOCDE~2/5.1/Common/CY3E64~1/tools/include/CY8C29~1/m8c.inc
+dbfunc 0 ? 0 I
+dbfile lib/reflomux.asm
+dbfunc 0 ? 0 I
+dbfile RefLoMux.inc
+dbfunc 0 ? 0 I
+dbfile C:/PROGRA~1/Cypress/PSOCDE~2/5.1/Common/CY3E64~1/tools/include/CY8C29~1/m8c.inc
+dbfunc 0 ? 0 I
+dbfile ./lib/RefLoMux.inc
+dbfunc 0 ? 0 I
+A UserModules size 28 flags 0
+dbfile lib/reflomux.asm
+dbfunc 0 ? 0 I
+dbline 4E 0
+dbline 4F 2
+dbline 51 3
+dbline 52 4
+dbline 53 6
+dbline 54 8
+dbline 55 A
+dbline 56 C
+dbline 3 D
+dbline 4 F
+dbline 58 11
+dbline 72 12
+dbline 74 15
+dbline 96 16
+dbline 97 18
+dbline 98 19
+dbline 99 1A
+dbline 9A 1C
+dbline 9B 1E
+dbline 9C 20
+dbline 9D 22
+dbline 3 23
+dbline 4 25
+dbline 9F 27
+S _RefLoMux_SetPower Def0000
+S $sb$RefLoMux_RefSelect Def0016
+S $se$RefLoMux_RefSelect Def0028
+S RefLoMux_Stop Def0012
+S $sb$RefLoMux_Stop Def0012
+S $se$RefLoMux_Stop Def0016
+S _RefLoMux_RefSelect Def0016
+S _RefLoMux_Stop Def0012
+S RefLoMux_Start Def0000
+S $sb$RefLoMux_Start Def0000
+S $se$RefLoMux_Start Def0012
+S RefLoMux_SetPower Def0000
+S _RefLoMux_Start Def0000
+S RefLoMux_RefSelect Def0016
+T 00 00 21 03 4F 08 5D 77 21 FC 2B 00 60 77 18 70
+R 00 00 00 01
+T 00 0E 3F 71 C0 7F 41 77 FC 7F 21 1C 4F 08 5D 77
+R 00 00 00 01
+T 00 1C 21 E3 2B 00 60 77 18 70 3F 71 C0 7F
+R 00 00 00 01

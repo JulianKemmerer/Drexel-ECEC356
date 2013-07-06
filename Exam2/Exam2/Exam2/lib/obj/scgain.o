@@ -1,0 +1,48 @@
+XH
+H 2 areas A global symbols
+M scgain.asm
+A text size 0 flags 0
+dbfile lib/scgain.asm
+dbfunc 0 ? 0 I
+dbfile memory.inc
+dbfunc 0 ? 0 I
+dbfile lib/scgain.asm
+dbfunc 0 ? 0 I
+dbfile C:/PROGRA~1/Cypress/PSOCDE~2/5.1/Common/CYPRES~3/tools/include/CY8C29~1/m8c.inc
+dbfunc 0 ? 0 I
+dbfile lib/scgain.asm
+dbfunc 0 ? 0 I
+dbfile ./lib/SCGain.inc
+dbfunc 0 ? 0 I
+A UserModules size 18 flags 0
+dbfile lib/scgain.asm
+dbfunc 0 ? 0 I
+dbline 56 0
+dbline 57 2
+dbline 58 3
+dbline 5A 4
+dbline 5B 5
+dbline 5C 7
+dbline 5D 9
+dbline 5E B
+dbline 5F D
+dbline 60 E
+dbline 3 F
+dbline 4 11
+dbline 62 13
+dbline 7B 14
+dbline 7D 17
+S _SCGain_SetPower Def0000
+S SCGain_Stop Def0014
+S $sb$SCGain_Stop Def0014
+S $se$SCGain_Stop Def0018
+S _SCGain_Stop Def0014
+S SCGain_Start Def0000
+S $sb$SCGain_Start Def0000
+S $se$SCGain_Start Def0014
+S SCGain_SetPower Def0000
+S _SCGain_Start Def0000
+T 00 00 21 03 10 4F 08 5D 93 21 FC 2B 00 60 93 18
+R 00 00 00 01
+T 00 0E 20 70 3F 71 C0 7F 41 93 FC 7F
+R 00 00 00 01

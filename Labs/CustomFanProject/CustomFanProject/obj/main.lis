@@ -1,0 +1,745 @@
+ 0000                   cpu LMM
+                        .module main.c
+                        .area text(rom, con, rel)
+ 0000                   .dbfile ./main.c
+                        .area data(ram, con, rel)
+ 0000                   .dbfile ./main.c
+ 0000           _wControlState::
+ 0000 03E8              .word 1000
+ 0002                   .dbfile Z:\ECEC35~1\CUSTOM~1\CUSTOM~1\main.c
+ 0002                   .dbsym e wControlState _wControlState i
+                        .area data(ram, con, rel)
+ 0000                   .dbfile Z:\ECEC35~1\CUSTOM~1\CUSTOM~1\main.c
+                        .area data(ram, con, rel)
+ 0000                   .dbfile Z:\ECEC35~1\CUSTOM~1\CUSTOM~1\main.c
+ 0000           _wFirstValue::
+ 0000 0000              .word 0
+ 0002                   .dbsym e wFirstValue _wFirstValue i
+                        .area data(ram, con, rel)
+ 0000                   .dbfile Z:\ECEC35~1\CUSTOM~1\CUSTOM~1\main.c
+                        .area data(ram, con, rel)
+ 0000                   .dbfile Z:\ECEC35~1\CUSTOM~1\CUSTOM~1\main.c
+ 0000           _wLastValue::
+ 0000 0000              .word 0
+ 0002                   .dbsym e wLastValue _wLastValue i
+                        .area data(ram, con, rel)
+ 0000                   .dbfile Z:\ECEC35~1\CUSTOM~1\CUSTOM~1\main.c
+                        .area data(ram, con, rel)
+ 0000                   .dbfile Z:\ECEC35~1\CUSTOM~1\CUSTOM~1\main.c
+ 0000           _cNumCycles::
+ 0000 00                .byte 0
+ 0001                   .dbsym e cNumCycles _cNumCycles C
+                        .area data(ram, con, rel)
+ 0000                   .dbfile Z:\ECEC35~1\CUSTOM~1\CUSTOM~1\main.c
+                        .area data(ram, con, rel)
+ 0000                   .dbfile Z:\ECEC35~1\CUSTOM~1\CUSTOM~1\main.c
+ 0000           _bDataAvailable::
+ 0000 00                .byte 0
+ 0001                   .dbsym e bDataAvailable _bDataAvailable c
+                        .area data(ram, con, rel)
+ 0000                   .dbfile Z:\ECEC35~1\CUSTOM~1\CUSTOM~1\main.c
+                        .area data(ram, con, rel)
+ 0000                   .dbfile Z:\ECEC35~1\CUSTOM~1\CUSTOM~1\main.c
+ 0000           _wSpeedRPM::
+ 0000 0000              .word 0
+ 0002                   .dbsym e wSpeedRPM _wSpeedRPM i
+                        .area data(ram, con, rel)
+ 0000                   .dbfile Z:\ECEC35~1\CUSTOM~1\CUSTOM~1\main.c
+                        .area text(rom, con, rel)
+ 0000                   .dbfile Z:\ECEC35~1\CUSTOM~1\CUSTOM~1\main.c
+ 0000                   .dbfunc e main _main fV
+ 0000           _main::
+ 0000                   .dbline -1
+ 0000                   .dbline 17
+ 0000           ; //----------------------------------------------------------------------------
+ 0000           ; // C main line
+ 0000           ; //----------------------------------------------------------------------------
+ 0000           ; 
+ 0000           ; #include <m8c.h>        // part specific constants and macros
+ 0000           ; #include "PSoCAPI.h"    // PSoC API definitions for all User Modules
+ 0000           ; 
+ 0000           ; extern unsigned int wControlState = 1000;
+ 0000           ; extern unsigned int wFirstValue = 0;
+ 0000           ; extern unsigned int wLastValue = 0;
+ 0000           ; extern signed char cNumCycles = 0;
+ 0000           ; extern unsigned char bDataAvailable = 0;
+ 0000           ; extern unsigned int wSpeedRPM = 0;
+ 0000           ; 
+ 0000           ; 
+ 0000           ; void main()
+ 0000           ; {
+ 0000                   .dbline 19
+ 0000           ;       //Iniitalize pulsewidth
+ 0000           ;    FanPWM_WritePulseWidth(255);
+ 0000 10                push X
+ 0001 50FF              mov A,-1
+ 0003 7C0000            xcall _FanPWM_WritePulseWidth
+ 0006                   .dbline 22
+ 0006           ;    
+ 0006           ;    //Start Fan PWM
+ 0006           ;    FanPWM_Start();
+ 0006 7C0000            xcall _FanPWM_Start
+ 0009                   .dbline 25
+ 0009           ;    
+ 0009           ;    //Enable FanPWM interrupt
+ 0009           ;    FanPWM_EnableInt();
+ 0009 7C0000            xcall _FanPWM_EnableInt
+ 000C 20                pop X
+ 000D                   .dbline 28
+ 000D           ;    
+ 000D           ;    //Enable global interrupts
+ 000D           ;    M8C_EnableGInt;
+ 000D 7101                      or  F, 01h
+ 000F           
+ 000F                   .dbline 31
+ 000F           ;    
+ 000F           ;    //Start tach timer
+ 000F           ;    TachTimer_Start();
+ 000F 10                push X
+ 0010 7C0000            xcall _TachTimer_Start
+ 0013                   .dbline 34
+ 0013           ;    
+ 0013           ;    //Enable Tach Timer interrupts
+ 0013           ;    TachTimer_EnableInt();
+ 0013 7C0000            xcall _TachTimer_EnableInt
+ 0016                   .dbline 37
+ 0016           ;    
+ 0016           ;    //Start LCD
+ 0016           ;    LCD_Start();
+ 0016 7C0000            xcall _LCD_Start
+ 0019 20                pop X
+ 001A                   .dbline 40
+ 001A           ;    
+ 001A           ;    //Enable GPIO interrupts
+ 001A           ;    INT_MSK0 |= 0b00100000;
+ 001A 43E020            or REG[0xe0],32
+ 001D                   .dbline 43
+ 001D           ;       
+ 001D           ;       //Initialize display
+ 001D           ;       LCD_Init();
+ 001D 10                push X
+ 001E 7C0000            xcall _LCD_Init
+ 0021 20                pop X
+ 0022                   .dbline 44
+ 0022           ;       LCD_Position(0,0);
+ 0022 10                push X
+ 0023 5000              mov A,0
+ 0025 5C                mov X,A
+ 0026 7C0000            xcall _LCD_Position
+ 0029 20                pop X
+ 002A                   .dbline 45
+ 002A           ;       LCD_PrCString("Pulse Width: ");
+ 002A 10                push X
+ 002B 5010              mov A,>L2
+ 002D 08                push A
+ 002E 5010              mov A,<L2
+ 0030 5C                mov X,A
+ 0031 18                pop A
+ 0032 7C0000            xcall _LCD_PrCString
+ 0035 20                pop X
+ 0036                   .dbline 46
+ 0036           ;       LCD_Position(0,13);
+ 0036 10                push X
+ 0037 570D              mov X,13
+ 0039 5000              mov A,0
+ 003B 7C0000            xcall _LCD_Position
+ 003E                   .dbline 47
+ 003E           ;       LCD_PrHexByte(FanPWM_bReadPulseWidth());
+ 003E 7C0000            xcall _FanPWM_bReadPulseWidth
+ 0041 62D000            mov REG[0xd0],>__r0
+ 0044 20                pop X
+ 0045 10                push X
+ 0046 7C0000            xcall _LCD_PrHexByte
+ 0049 20                pop X
+ 004A 815A              xjmp L4
+ 004C           L3:
+ 004C                   .dbline 50
+ 004C           ;    
+ 004C           ;    while(1)//control loop
+ 004C           ;    {
+ 004C                   .dbline 51
+ 004C           ;               if(bDataAvailable == 1)//if data is available
+ 004C 62D000            mov REG[0xd0],>_bDataAvailable
+ 004F 3C0001            cmp [_bDataAvailable],1
+ 0052 B152              jnz L6
+ 0054                   .dbline 52
+ 0054           ;               {
+ 0054                   .dbline 54
+ 0054           ;                       //Clear it
+ 0054           ;                       bDataAvailable = 0;
+ 0054 550000            mov [_bDataAvailable],0
+ 0057                   .dbline 56
+ 0057           ;                       //Calculate fan speed and write RPM and num cycles to lCD
+ 0057           ;                       wSpeedRPM = ( (  (60/4) * 3000000 * cNumCycles     )+   ((wFirstValue - wLastValue)/2)    )/(wFirstValue - wLastValue);
+ 0057 62D000            mov REG[0xd0],>_wFirstValue
+ 005A 5101              mov A,[_wFirstValue+1]
+ 005C 62D000            mov REG[0xd0],>_wLastValue
+ 005F 1201              sub A,[_wLastValue+1]
+ 0061 62D000            mov REG[0xd0],>__r0
+ 0064 5300              mov [__r1],A
+ 0066 62D000            mov REG[0xd0],>_wFirstValue
+ 0069 5100              mov A,[_wFirstValue]
+ 006B 62D000            mov REG[0xd0],>_wLastValue
+ 006E 1A00              sbb A,[_wLastValue]
+ 0070 62D000            mov REG[0xd0],>__r0
+ 0073 5300              mov [__r0],A
+ 0075 5100              mov A,[__r1]
+ 0077 08                push A
+ 0078 5100              mov A,[__r0]
+ 007A 5300              mov [__r2],A
+ 007C 18                pop A
+ 007D 5300              mov [__r3],A
+ 007F 70FB              and F,-5
+ 0081 6E00              rrc [__r2]
+ 0083 6E00              rrc [__r3]
+ 0085 5100              mov A,[__r3]
+ 0087 5300              mov [__r7],A
+ 0089 5100              mov A,[__r2]
+ 008B 5300              mov [__r6],A
+ 008D 550000            mov [__r5],0
+ 0090 550000            mov [__r4],0
+ 0093 62D000            mov REG[0xd0],>_cNumCycles
+ 0096 5100              mov A,[_cNumCycles]
+ 0098 62D000            mov REG[0xd0],>__r0
+ 009B 5300              mov [__r3],A
+ 009D 550000            mov [__r2],0
+ 00A0 470080            tst [__r3],-128
+ 00A3 A004              jz X1
+ 00A5 5500FF            mov [__r2],-1
+ 00A8           X1:
+ 00A8 62D000            mov REG[0xd0],>__r0
+ 00AB 5100              mov A,[__r3]
+ 00AD 5300              mov [__r11],A
+ 00AF 5100              mov A,[__r2]
+ 00B1 5300              mov [__r10],A
+ 00B3 470080            tst [__r10],-128
+ 00B6 A009              jz X2
+ 00B8 5500FF            mov [__r9],-1
+ 00BB 5500FF            mov [__r8],-1
+ 00BE 800A              jmp X3
+ 00C0           X2:
+ 00C0 62D000            mov REG[0xd0],>__r0
+ 00C3 550000            mov [__r9],0
+ 00C6 550000            mov [__r8],0
+ 00C9           X3:
+ 00C9 62D000            mov REG[0xd0],>__r0
+ 00CC 5100              mov A,[__r8]
+ 00CE 08                push A
+ 00CF 5100              mov A,[__r9]
+ 00D1 08                push A
+ 00D2 5100              mov A,[__r10]
+ 00D4 08                push A
+ 00D5 5100              mov A,[__r11]
+ 00D7 08                push A
+ 00D8 5002              mov A,2
+ 00DA 08                push A
+ 00DB 50AE              mov A,-82
+ 00DD 08                push A
+ 00DE 50A5              mov A,-91
+ 00E0 08                push A
+ 00E1 5040              mov A,64
+ 00E3 08                push A
+ 00E4 7C0000            xcall __mul_32X32_32
+ 00E7 38FC              add SP,-4
+ 00E9 18                pop A
+ 00EA 5300              mov [__r11],A
+ 00EC 18                pop A
+ 00ED 5300              mov [__r10],A
+ 00EF 18                pop A
+ 00F0 5300              mov [__r9],A
+ 00F2 18                pop A
+ 00F3 5300              mov [__r8],A
+ 00F5 5100              mov A,[__r11]
+ 00F7 0200              add A,[__r7]
+ 00F9 5300              mov [__r7],A
+ 00FB 5100              mov A,[__r10]
+ 00FD 0A00              adc A,[__r6]
+ 00FF 5300              mov [__r6],A
+ 0101 5100              mov A,[__r9]
+ 0103 0A00              adc A,[__r5]
+ 0105 5300              mov [__r5],A
+ 0107 5100              mov A,[__r8]
+ 0109 0A00              adc A,[__r4]
+ 010B 5300              mov [__r4],A
+ 010D 5100              mov A,[__r1]
+ 010F 5300              mov [__r3],A
+ 0111 5100              mov A,[__r0]
+ 0113 5300              mov [__r2],A
+ 0115 5000              mov A,0
+ 0117 08                push A
+ 0118 08                push A
+ 0119 5100              mov A,[__r2]
+ 011B 08                push A
+ 011C 5100              mov A,[__r3]
+ 011E 08                push A
+ 011F 5100              mov A,[__r4]
+ 0121 08                push A
+ 0122 5100              mov A,[__r5]
+ 0124 08                push A
+ 0125 5100              mov A,[__r6]
+ 0127 08                push A
+ 0128 5100              mov A,[__r7]
+ 012A 08                push A
+ 012B 7C0000            xcall __divmod_32X32_32
+ 012E 18                pop A
+ 012F 5300              mov [__r3],A
+ 0131 18                pop A
+ 0132 5300              mov [__r2],A
+ 0134 18                pop A
+ 0135 18                pop A
+ 0136 38FC              add SP,-4
+ 0138 5100              mov A,[__r3]
+ 013A 5300              mov [__r1],A
+ 013C 5100              mov A,[__r2]
+ 013E 5300              mov [__r0],A
+ 0140 5100              mov A,[__r1]
+ 0142 08                push A
+ 0143 5100              mov A,[__r0]
+ 0145 62D000            mov REG[0xd0],>_wSpeedRPM
+ 0148 5300              mov [_wSpeedRPM],A
+ 014A 18                pop A
+ 014B 5301              mov [_wSpeedRPM+1],A
+ 014D                   .dbline 59
+ 014D           ;                       
+ 014D           ;                       //Write to LCD
+ 014D           ;                       LCD_Init();
+ 014D 10                push X
+ 014E 7C0000            xcall _LCD_Init
+ 0151 20                pop X
+ 0152                   .dbline 60
+ 0152           ;                       LCD_Position(0,0);
+ 0152 10                push X
+ 0153 5000              mov A,0
+ 0155 5C                mov X,A
+ 0156 7C0000            xcall _LCD_Position
+ 0159 20                pop X
+ 015A                   .dbline 61
+ 015A           ;                       LCD_PrCString("RPM: ");//Begin writing at 0,5
+ 015A 10                push X
+ 015B 500A              mov A,>L8
+ 015D 08                push A
+ 015E 500A              mov A,<L8
+ 0160 5C                mov X,A
+ 0161 18                pop A
+ 0162 7C0000            xcall _LCD_PrCString
+ 0165 20                pop X
+ 0166                   .dbline 62
+ 0166           ;                       LCD_Position(0,5);
+ 0166 10                push X
+ 0167 5705              mov X,5
+ 0169 5000              mov A,0
+ 016B 7C0000            xcall _LCD_Position
+ 016E 20                pop X
+ 016F                   .dbline 63
+ 016F           ;                       LCD_PrHexInt(wSpeedRPM);
+ 016F 10                push X
+ 0170 62D000            mov REG[0xd0],>_wSpeedRPM
+ 0173 5100              mov A,[_wSpeedRPM]
+ 0175 08                push A
+ 0176 5101              mov A,[_wSpeedRPM+1]
+ 0178 20                pop X
+ 0179 7C0000            xcall _LCD_PrHexInt
+ 017C 20                pop X
+ 017D                   .dbline 65
+ 017D           ;                       
+ 017D           ;                       LCD_Position(1,0);
+ 017D 10                push X
+ 017E 5700              mov X,0
+ 0180 5001              mov A,1
+ 0182 7C0000            xcall _LCD_Position
+ 0185 20                pop X
+ 0186                   .dbline 66
+ 0186           ;                       LCD_PrCString("#Cycles: ");//Begin writing at 1,9
+ 0186 10                push X
+ 0187 5000              mov A,>L9
+ 0189 08                push A
+ 018A 5000              mov A,<L9
+ 018C 5C                mov X,A
+ 018D 18                pop A
+ 018E 7C0000            xcall _LCD_PrCString
+ 0191 20                pop X
+ 0192                   .dbline 67
+ 0192           ;                       LCD_Position(1,9);
+ 0192 10                push X
+ 0193 5709              mov X,9
+ 0195 5001              mov A,1
+ 0197 7C0000            xcall _LCD_Position
+ 019A 20                pop X
+ 019B                   .dbline 68
+ 019B           ;                       LCD_PrHexByte(cNumCycles);
+ 019B 10                push X
+ 019C 62D000            mov REG[0xd0],>_cNumCycles
+ 019F 5100              mov A,[_cNumCycles]
+ 01A1 7C0000            xcall _LCD_PrHexByte
+ 01A4 20                pop X
+ 01A5                   .dbline 69
+ 01A5           ;               }
+ 01A5           L6:
+ 01A5                   .dbline 71
+ 01A5           ;               
+ 01A5           ;    }//end control loop
+ 01A5           L4:
+ 01A5                   .dbline 49
+ 01A5 8EA6              xjmp L3
+ 01A7           X0:
+ 01A7                   .dbline -2
+ 01A7           L1:
+ 01A7                   .dbline 0 ; func end
+ 01A7 8FFF              jmp .
+ 01A9                   .dbend
+ 01A9                   .dbfunc e ButtonDown _ButtonDown fV
+ 01A9           _ButtonDown::
+ 01A9                   .dbline -1
+ 01A9 71C0              or F,-64
+ 01AB 08                push A
+ 01AC 5DD0              mov A,REG[0xd0]
+ 01AE 08                push A
+ 01AF 5DD3              mov A,REG[0xd3]
+ 01B1 08                push A
+ 01B2 5DD4              mov A,REG[0xd4]
+ 01B4 08                push A
+ 01B5 5DD5              mov A,REG[0xd5]
+ 01B7 08                push A
+ 01B8 62D000            mov REG[0xd0],>__r0
+ 01BB 5100              mov A,[__r0]
+ 01BD 08                push A
+ 01BE 5100              mov A,[__r1]
+ 01C0 08                push A
+ 01C1 5100              mov A,[__r2]
+ 01C3 08                push A
+ 01C4 5100              mov A,[__r3]
+ 01C6 08                push A
+ 01C7 5100              mov A,[__r4]
+ 01C9 08                push A
+ 01CA 5100              mov A,[__r5]
+ 01CC 08                push A
+ 01CD 5100              mov A,[__r6]
+ 01CF 08                push A
+ 01D0 5100              mov A,[__r7]
+ 01D2 08                push A
+ 01D3 5100              mov A,[__r8]
+ 01D5 08                push A
+ 01D6 5100              mov A,[__r9]
+ 01D8 08                push A
+ 01D9 5100              mov A,[__r10]
+ 01DB 08                push A
+ 01DC 5100              mov A,[__r11]
+ 01DE 08                push A
+ 01DF 5100              mov A,[__rX]
+ 01E1 08                push A
+ 01E2 5100              mov A,[__rY]
+ 01E4 08                push A
+ 01E5 5100              mov A,[__rZ]
+ 01E7 08                push A
+ 01E8                   .dbline 76
+ 01E8           ; }
+ 01E8           ; 
+ 01E8           ; #pragma interrupt_handler ButtonDown
+ 01E8           ; void ButtonDown()
+ 01E8           ; {
+ 01E8                   .dbline 85
+ 01E8           ;       //Not needed
+ 01E8           ;       //Wait for sleep timer
+ 01E8           ;       //while(INT_CLR0 & 0b01000000 == 0){}//Wait for posted sleep timer interrupt
+ 01E8           ;       //Clear sleep timer interrupt
+ 01E8           ;       //INT_CLR0 &= ~0b01000000;
+ 01E8           ; 
+ 01E8           ; 
+ 01E8           ;       //Read switch input 3 times (debounce)
+ 01E8           ;       if(PRT1DR & 0b00000001 == 0b00000001) //First read
+ 01E8 5D04              mov A,REG[0x4]
+ 01EA 62D000            mov REG[0xd0],>__r0
+ 01ED 5300              mov [__r0],A
+ 01EF 470001            tst [__r0],1
+ 01F2 A05E              jz L11
+ 01F4                   .dbline 86
+ 01F4           ;       {
+ 01F4                   .dbline 87
+ 01F4           ;               if(PRT1DR & 0b00000001 == 0b00000001) //Second read
+ 01F4 5D04              mov A,REG[0x4]
+ 01F6 5300              mov [__r0],A
+ 01F8 470001            tst [__r0],1
+ 01FB A055              jz L13
+ 01FD                   .dbline 88
+ 01FD           ;               {
+ 01FD                   .dbline 89
+ 01FD           ;                       if(PRT1DR & 0b00000001 == 0b00000001) //Third read - Button has been pressed
+ 01FD 5D04              mov A,REG[0x4]
+ 01FF 5300              mov [__r0],A
+ 0201 470001            tst [__r0],1
+ 0204 A04C              jz L15
+ 0206                   .dbline 90
+ 0206           ;                       {
+ 0206           L17:
+ 0206                   .dbline 91
+ 0206           ;                               while(PRT1DR & 0b00000001 == 0b00000001){}//Wait for button to be released
+ 0206                   .dbline 91
+ 0206           L18:
+ 0206                   .dbline 91
+ 0206 5D04              mov A,REG[0x4]
+ 0208 62D000            mov REG[0xd0],>__r0
+ 020B 5300              mov [__r0],A
+ 020D 470001            tst [__r0],1
+ 0210 BFF5              jnz L17
+ 0212                   .dbline 93
+ 0212           ;                               //Decrement pulse width
+ 0212           ;                               FanPWM_WritePulseWidth(FanPWM_bReadPulseWidth() - 1);
+ 0212 10                push X
+ 0213 7C0000            xcall _FanPWM_bReadPulseWidth
+ 0216 62D000            mov REG[0xd0],>__r0
+ 0219 20                pop X
+ 021A 5300              mov [__r0],A
+ 021C 160001            sub [__r0],1
+ 021F 10                push X
+ 0220 5100              mov A,[__r0]
+ 0222 7C0000            xcall _FanPWM_WritePulseWidth
+ 0225                   .dbline 95
+ 0225           ;                               //Update display
+ 0225           ;                               LCD_Init();
+ 0225 7C0000            xcall _LCD_Init
+ 0228 20                pop X
+ 0229                   .dbline 96
+ 0229           ;                               LCD_Position(0,0);
+ 0229 10                push X
+ 022A 5000              mov A,0
+ 022C 5C                mov X,A
+ 022D 7C0000            xcall _LCD_Position
+ 0230 20                pop X
+ 0231                   .dbline 97
+ 0231           ;                               LCD_PrCString("Pulse Width: ");
+ 0231 10                push X
+ 0232 5010              mov A,>L2
+ 0234 08                push A
+ 0235 5010              mov A,<L2
+ 0237 5C                mov X,A
+ 0238 18                pop A
+ 0239 7C0000            xcall _LCD_PrCString
+ 023C 20                pop X
+ 023D                   .dbline 98
+ 023D           ;                               LCD_Position(0,13);
+ 023D 10                push X
+ 023E 570D              mov X,13
+ 0240 5000              mov A,0
+ 0242 7C0000            xcall _LCD_Position
+ 0245                   .dbline 99
+ 0245           ;                               LCD_PrHexByte(FanPWM_bReadPulseWidth());
+ 0245 7C0000            xcall _FanPWM_bReadPulseWidth
+ 0248 62D000            mov REG[0xd0],>__r0
+ 024B 20                pop X
+ 024C 10                push X
+ 024D 7C0000            xcall _LCD_PrHexByte
+ 0250 20                pop X
+ 0251                   .dbline 100
+ 0251           ;                       }
+ 0251           L15:
+ 0251                   .dbline 101
+ 0251           ;               }
+ 0251           L13:
+ 0251                   .dbline 102
+ 0251           ;       }
+ 0251           L11:
+ 0251                   .dbline -2
+ 0251           L10:
+ 0251 62D000            mov REG[0xD0],>__r0
+ 0254 18                pop A
+ 0255 5300              mov [__rZ],A
+ 0257 18                pop A
+ 0258 5300              mov [__rY],A
+ 025A 18                pop A
+ 025B 5300              mov [__rX],A
+ 025D 18                pop A
+ 025E 5300              mov [__r11],A
+ 0260 18                pop A
+ 0261 5300              mov [__r10],A
+ 0263 18                pop A
+ 0264 5300              mov [__r9],A
+ 0266 18                pop A
+ 0267 5300              mov [__r8],A
+ 0269 18                pop A
+ 026A 5300              mov [__r7],A
+ 026C 18                pop A
+ 026D 5300              mov [__r6],A
+ 026F 18                pop A
+ 0270 5300              mov [__r5],A
+ 0272 18                pop A
+ 0273 5300              mov [__r4],A
+ 0275 18                pop A
+ 0276 5300              mov [__r3],A
+ 0278 18                pop A
+ 0279 5300              mov [__r2],A
+ 027B 18                pop A
+ 027C 5300              mov [__r1],A
+ 027E 18                pop A
+ 027F 5300              mov [__r0],A
+ 0281 18                pop A
+ 0282 60D5              mov REG[213],A
+ 0284 18                pop A
+ 0285 60D4              mov REG[212],A
+ 0287 18                pop A
+ 0288 60D3              mov REG[211],A
+ 028A 18                pop A
+ 028B 60D0              mov REG[208],A
+ 028D 18                pop A
+ 028E                   .dbline 0 ; func end
+ 028E 7E                reti
+ 028F                   .dbend
+ 028F                   .dbfunc e TachTimerCISR _TachTimerCISR fV
+ 028F           _TachTimerCISR::
+ 028F                   .dbline -1
+ 028F 71C0              or F,-64
+ 0291 08                push A
+ 0292 5DD0              mov A,REG[0xd0]
+ 0294 08                push A
+ 0295 5DD3              mov A,REG[0xd3]
+ 0297 08                push A
+ 0298 5DD4              mov A,REG[0xd4]
+ 029A 08                push A
+ 029B 5DD5              mov A,REG[0xd5]
+ 029D 08                push A
+ 029E 62D000            mov REG[0xd0],>__r0
+ 02A1 5100              mov A,[__r0]
+ 02A3 08                push A
+ 02A4 5100              mov A,[__r1]
+ 02A6 08                push A
+ 02A7 5100              mov A,[__r2]
+ 02A9 08                push A
+ 02AA 5100              mov A,[__r3]
+ 02AC 08                push A
+ 02AD 5100              mov A,[__r4]
+ 02AF 08                push A
+ 02B0 5100              mov A,[__r5]
+ 02B2 08                push A
+ 02B3 5100              mov A,[__r6]
+ 02B5 08                push A
+ 02B6 5100              mov A,[__r7]
+ 02B8 08                push A
+ 02B9 5100              mov A,[__r8]
+ 02BB 08                push A
+ 02BC 5100              mov A,[__r9]
+ 02BE 08                push A
+ 02BF 5100              mov A,[__r10]
+ 02C1 08                push A
+ 02C2 5100              mov A,[__r11]
+ 02C4 08                push A
+ 02C5 5100              mov A,[__rX]
+ 02C7 08                push A
+ 02C8 5100              mov A,[__rY]
+ 02CA 08                push A
+ 02CB 5100              mov A,[__rZ]
+ 02CD 08                push A
+ 02CE                   .dbline 108
+ 02CE           ; }
+ 02CE           ; 
+ 02CE           ; 
+ 02CE           ; #pragma interrupt_handler TachTimerCISR
+ 02CE           ; void TachTimerCISR()
+ 02CE           ; {
+ 02CE                   .dbline 109
+ 02CE           ;       if(cNumCycles == 0)
+ 02CE 62D000            mov REG[0xd0],>_cNumCycles
+ 02D1 3C0000            cmp [_cNumCycles],0
+ 02D4 B018              jnz L21
+ 02D6                   .dbline 110
+ 02D6           ;       {
+ 02D6                   .dbline 111
+ 02D6           ;               wFirstValue = TachTimer_wReadTimerSaveCV();
+ 02D6 10                push X
+ 02D7 7C0000            xcall _TachTimer_wReadTimerSaveCV
+ 02DA 62D000            mov REG[0xd0],>__r0
+ 02DD 5A00              mov [__r0],X
+ 02DF 20                pop X
+ 02E0 08                push A
+ 02E1 5100              mov A,[__r0]
+ 02E3 62D000            mov REG[0xd0],>_wFirstValue
+ 02E6 5300              mov [_wFirstValue],A
+ 02E8 18                pop A
+ 02E9 5301              mov [_wFirstValue+1],A
+ 02EB                   .dbline 112
+ 02EB           ;       }
+ 02EB 8016              xjmp L22
+ 02ED           L21:
+ 02ED                   .dbline 114
+ 02ED           ;       else
+ 02ED           ;       {
+ 02ED                   .dbline 115
+ 02ED           ;               wLastValue = TachTimer_wReadTimerSaveCV();
+ 02ED 10                push X
+ 02EE 7C0000            xcall _TachTimer_wReadTimerSaveCV
+ 02F1 62D000            mov REG[0xd0],>__r0
+ 02F4 5A00              mov [__r0],X
+ 02F6 20                pop X
+ 02F7 08                push A
+ 02F8 5100              mov A,[__r0]
+ 02FA 62D000            mov REG[0xd0],>_wLastValue
+ 02FD 5300              mov [_wLastValue],A
+ 02FF 18                pop A
+ 0300 5301              mov [_wLastValue+1],A
+ 0302                   .dbline 116
+ 0302           ;       }
+ 0302           L22:
+ 0302                   .dbline -2
+ 0302           L20:
+ 0302 62D000            mov REG[0xD0],>__r0
+ 0305 18                pop A
+ 0306 5300              mov [__rZ],A
+ 0308 18                pop A
+ 0309 5300              mov [__rY],A
+ 030B 18                pop A
+ 030C 5300              mov [__rX],A
+ 030E 18                pop A
+ 030F 5300              mov [__r11],A
+ 0311 18                pop A
+ 0312 5300              mov [__r10],A
+ 0314 18                pop A
+ 0315 5300              mov [__r9],A
+ 0317 18                pop A
+ 0318 5300              mov [__r8],A
+ 031A 18                pop A
+ 031B 5300              mov [__r7],A
+ 031D 18                pop A
+ 031E 5300              mov [__r6],A
+ 0320 18                pop A
+ 0321 5300              mov [__r5],A
+ 0323 18                pop A
+ 0324 5300              mov [__r4],A
+ 0326 18                pop A
+ 0327 5300              mov [__r3],A
+ 0329 18                pop A
+ 032A 5300              mov [__r2],A
+ 032C 18                pop A
+ 032D 5300              mov [__r1],A
+ 032F 18                pop A
+ 0330 5300              mov [__r0],A
+ 0332 18                pop A
+ 0333 60D5              mov REG[213],A
+ 0335 18                pop A
+ 0336 60D4              mov REG[212],A
+ 0338 18                pop A
+ 0339 60D3              mov REG[211],A
+ 033B 18                pop A
+ 033C 60D0              mov REG[208],A
+ 033E 18                pop A
+ 033F                   .dbline 0 ; func end
+ 033F 7E                reti
+ 0340                   .dbend
+ 0340                   .dbfunc e FanPWMCISR _FanPWMCISR fV
+ 0340           _FanPWMCISR::
+ 0340                   .dbline -1
+ 0340                   .dbline 121
+ 0340           ; }
+ 0340           ; 
+ 0340           ; #pragma interrupt_handler FanPWMCISR
+ 0340           ; void FanPWMCISR() //WHY DOES THIS NOT WORK!!!!!!!?????
+ 0340           ; {
+ 0340                   .dbline -2
+ 0340           L23:
+ 0340                   .dbline 0 ; func end
+ 0340 7E                reti
+ 0341                   .dbend
+                        .area lit(rom, con, rel)
+ 0000           L9:
+ 0000 234379636C65733A2000      .byte 35,'C,'y,'c,'l,'e,'s,58,32,0
+ 000A           L8:
+ 000A 52504D3A2000      .byte 'R,'P,'M,58,32,0
+ 0010           L2:
+ 0010 50756C73652057696474683A2000      .byte 'P,'u,'l,'s,'e,32,'W,'i,'d,'t,'h,58,32,0

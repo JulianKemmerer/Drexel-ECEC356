@@ -1,0 +1,655 @@
+ 0000                   cpu LMM
+                        .module main.c
+                        .area text(rom, con, rel)
+ 0000                   .dbfile ./main.c
+                        .area lit(rom, con, rel)
+ 0000           _SineTable::
+ 0000 8081              .byte 128,129
+ 0002 8282              .byte 130,130
+ 0004 8384              .byte 131,132
+ 0006 8585              .byte 133,133
+ 0008 8687              .byte 134,135
+ 000A 8888              .byte 136,136
+ 000C 898A              .byte 137,138
+ 000E 8A8B              .byte 138,139
+ 0010 8C8D              .byte 140,141
+ 0012 8D8E              .byte 141,142
+ 0014 8F8F              .byte 143,143
+ 0016 9091              .byte 144,145
+ 0018 9192              .byte 145,146
+ 001A 9293              .byte 146,147
+ 001C 9494              .byte 148,148
+ 001E 9595              .byte 149,149
+ 0020 9696              .byte 150,150
+ 0022 9797              .byte 151,151
+ 0024 9898              .byte 152,152
+ 0026 9999              .byte 153,153
+ 0028 9A9A              .byte 154,154
+ 002A 9B9B              .byte 155,155
+ 002C 9B9C              .byte 155,156
+ 002E 9C9C              .byte 156,156
+ 0030 9D9D              .byte 157,157
+ 0032 9D9D              .byte 157,157
+ 0034 9E9E              .byte 158,158
+ 0036 9E9E              .byte 158,158
+ 0038 9E9F              .byte 158,159
+ 003A 9F9F              .byte 159,159
+ 003C 9F9F              .byte 159,159
+ 003E 9F9F              .byte 159,159
+ 0040 9F9F              .byte 159,159
+ 0042 9F9F              .byte 159,159
+ 0044 9F9F              .byte 159,159
+ 0046 9F9F              .byte 159,159
+ 0048 9E9E              .byte 158,158
+ 004A 9E9E              .byte 158,158
+ 004C 9E9D              .byte 158,157
+ 004E 9D9D              .byte 157,157
+ 0050 9D9C              .byte 157,156
+ 0052 9C9C              .byte 156,156
+ 0054 9B9B              .byte 155,155
+ 0056 9B9A              .byte 155,154
+ 0058 9A99              .byte 154,153
+ 005A 9998              .byte 153,152
+ 005C 9897              .byte 152,151
+ 005E 9796              .byte 151,150
+ 0060 9695              .byte 150,149
+ 0062 9594              .byte 149,148
+ 0064 9493              .byte 148,147
+ 0066 9292              .byte 146,146
+ 0068 9191              .byte 145,145
+ 006A 908F              .byte 144,143
+ 006C 8F8E              .byte 143,142
+ 006E 8D8D              .byte 141,141
+ 0070 8C8B              .byte 140,139
+ 0072 8A8A              .byte 138,138
+ 0074 8988              .byte 137,136
+ 0076 8887              .byte 136,135
+ 0078 8685              .byte 134,133
+ 007A 8584              .byte 133,132
+ 007C 8382              .byte 131,130
+ 007E 8281              .byte 130,129
+ 0080 80A1              .byte 128,161
+ 0082 A2A2              .byte 162,162
+ 0084 A3A4              .byte 163,164
+ 0086 A5A5              .byte 165,165
+ 0088 A6A7              .byte 166,167
+ 008A A8A8              .byte 168,168
+ 008C A9AA              .byte 169,170
+ 008E AAAB              .byte 170,171
+ 0090 ACAD              .byte 172,173
+ 0092 ADAE              .byte 173,174
+ 0094 AFAF              .byte 175,175
+ 0096 B0B1              .byte 176,177
+ 0098 B1B2              .byte 177,178
+ 009A B2B3              .byte 178,179
+ 009C B4B4              .byte 180,180
+ 009E B5B5              .byte 181,181
+ 00A0 B6B6              .byte 182,182
+ 00A2 B7B7              .byte 183,183
+ 00A4 B8B8              .byte 184,184
+ 00A6 B9B9              .byte 185,185
+ 00A8 BABA              .byte 186,186
+ 00AA BBBB              .byte 187,187
+ 00AC BBBC              .byte 187,188
+ 00AE BCBC              .byte 188,188
+ 00B0 BDBD              .byte 189,189
+ 00B2 BDBD              .byte 189,189
+ 00B4 BEBE              .byte 190,190
+ 00B6 BEBE              .byte 190,190
+ 00B8 BEBF              .byte 190,191
+ 00BA BFBF              .byte 191,191
+ 00BC BFBF              .byte 191,191
+ 00BE BFBF              .byte 191,191
+ 00C0 BFBF              .byte 191,191
+ 00C2 BFBF              .byte 191,191
+ 00C4 BFBF              .byte 191,191
+ 00C6 BFBF              .byte 191,191
+ 00C8 BEBE              .byte 190,190
+ 00CA BEBE              .byte 190,190
+ 00CC BEBD              .byte 190,189
+ 00CE BDBD              .byte 189,189
+ 00D0 BDBC              .byte 189,188
+ 00D2 BCBC              .byte 188,188
+ 00D4 BBBB              .byte 187,187
+ 00D6 BBBA              .byte 187,186
+ 00D8 BAB9              .byte 186,185
+ 00DA B9B8              .byte 185,184
+ 00DC B8B7              .byte 184,183
+ 00DE B7B6              .byte 183,182
+ 00E0 B6B5              .byte 182,181
+ 00E2 B5B4              .byte 181,180
+ 00E4 B4B3              .byte 180,179
+ 00E6 B2B2              .byte 178,178
+ 00E8 B1B1              .byte 177,177
+ 00EA B0AF              .byte 176,175
+ 00EC AFAE              .byte 175,174
+ 00EE ADAD              .byte 173,173
+ 00F0 ACAB              .byte 172,171
+ 00F2 AAAA              .byte 170,170
+ 00F4 A9A8              .byte 169,168
+ 00F6 A8A7              .byte 168,167
+ 00F8 A6A5              .byte 166,165
+ 00FA A5A4              .byte 165,164
+ 00FC A3A2              .byte 163,162
+ 00FE A2A1              .byte 162,161
+ 0100                   .dbfile C:\DOCUME~1\JKEMME~1\Desktop\Exam2\Exam2\Exam2\Exam2\main.c
+ 0100                   .dbsym e SineTable _SineTable A[256:256]kc
+ 0100           _SineTableRect::
+ 0100 80A1              .byte 128,161
+ 0102 A2A2              .byte 162,162
+ 0104 A3A4              .byte 163,164
+ 0106 A5A5              .byte 165,165
+ 0108 A6A7              .byte 166,167
+ 010A A8A8              .byte 168,168
+ 010C A9AA              .byte 169,170
+ 010E AAAB              .byte 170,171
+ 0110 ACAD              .byte 172,173
+ 0112 ADAE              .byte 173,174
+ 0114 AFAF              .byte 175,175
+ 0116 B0B1              .byte 176,177
+ 0118 B1B2              .byte 177,178
+ 011A B2B3              .byte 178,179
+ 011C B4B4              .byte 180,180
+ 011E B5B5              .byte 181,181
+ 0120 B6B6              .byte 182,182
+ 0122 B7B7              .byte 183,183
+ 0124 B8B8              .byte 184,184
+ 0126 B9B9              .byte 185,185
+ 0128 BABA              .byte 186,186
+ 012A BBBB              .byte 187,187
+ 012C BBBC              .byte 187,188
+ 012E BCBC              .byte 188,188
+ 0130 BDBD              .byte 189,189
+ 0132 BDBD              .byte 189,189
+ 0134 BEBE              .byte 190,190
+ 0136 BEBE              .byte 190,190
+ 0138 BEBF              .byte 190,191
+ 013A BFBF              .byte 191,191
+ 013C BFBF              .byte 191,191
+ 013E BFBF              .byte 191,191
+ 0140 BFBF              .byte 191,191
+ 0142 BFBF              .byte 191,191
+ 0144 BFBF              .byte 191,191
+ 0146 BFBF              .byte 191,191
+ 0148 BEBE              .byte 190,190
+ 014A BEBE              .byte 190,190
+ 014C BEBD              .byte 190,189
+ 014E BDBD              .byte 189,189
+ 0150 BDBC              .byte 189,188
+ 0152 BCBC              .byte 188,188
+ 0154 BBBB              .byte 187,187
+ 0156 BBBA              .byte 187,186
+ 0158 BAB9              .byte 186,185
+ 015A B9B8              .byte 185,184
+ 015C B8B7              .byte 184,183
+ 015E B7B6              .byte 183,182
+ 0160 B6B5              .byte 182,181
+ 0162 B5B4              .byte 181,180
+ 0164 B4B3              .byte 180,179
+ 0166 B2B2              .byte 178,178
+ 0168 B1B1              .byte 177,177
+ 016A B0AF              .byte 176,175
+ 016C AFAE              .byte 175,174
+ 016E ADAD              .byte 173,173
+ 0170 ACAB              .byte 172,171
+ 0172 AAAA              .byte 170,170
+ 0174 A9A8              .byte 169,168
+ 0176 A8A7              .byte 168,167
+ 0178 A6A5              .byte 166,165
+ 017A A5A4              .byte 165,164
+ 017C A3A2              .byte 163,162
+ 017E A2A1              .byte 162,161
+ 0180 A0A1              .byte 160,161
+ 0182 A2A2              .byte 162,162
+ 0184 A3A4              .byte 163,164
+ 0186 A5A5              .byte 165,165
+ 0188 A6A7              .byte 166,167
+ 018A A8A8              .byte 168,168
+ 018C A9AA              .byte 169,170
+ 018E AAAB              .byte 170,171
+ 0190 ACAD              .byte 172,173
+ 0192 ADAE              .byte 173,174
+ 0194 AFAF              .byte 175,175
+ 0196 B0B1              .byte 176,177
+ 0198 B1B2              .byte 177,178
+ 019A B2B3              .byte 178,179
+ 019C B4B4              .byte 180,180
+ 019E B5B5              .byte 181,181
+ 01A0 B6B6              .byte 182,182
+ 01A2 B7B7              .byte 183,183
+ 01A4 B8B8              .byte 184,184
+ 01A6 B9B9              .byte 185,185
+ 01A8 BABA              .byte 186,186
+ 01AA BBBB              .byte 187,187
+ 01AC BBBC              .byte 187,188
+ 01AE BCBC              .byte 188,188
+ 01B0 BDBD              .byte 189,189
+ 01B2 BDBD              .byte 189,189
+ 01B4 BEBE              .byte 190,190
+ 01B6 BEBE              .byte 190,190
+ 01B8 BEBF              .byte 190,191
+ 01BA BFBF              .byte 191,191
+ 01BC BFBF              .byte 191,191
+ 01BE BFBF              .byte 191,191
+ 01C0 BFBF              .byte 191,191
+ 01C2 BFBF              .byte 191,191
+ 01C4 BFBF              .byte 191,191
+ 01C6 BFBF              .byte 191,191
+ 01C8 BEBE              .byte 190,190
+ 01CA BEBE              .byte 190,190
+ 01CC BEBD              .byte 190,189
+ 01CE BDBD              .byte 189,189
+ 01D0 BDBC              .byte 189,188
+ 01D2 BCBC              .byte 188,188
+ 01D4 BBBB              .byte 187,187
+ 01D6 BBBA              .byte 187,186
+ 01D8 BAB9              .byte 186,185
+ 01DA B9B8              .byte 185,184
+ 01DC B8B7              .byte 184,183
+ 01DE B7B6              .byte 183,182
+ 01E0 B6B5              .byte 182,181
+ 01E2 B5B4              .byte 181,180
+ 01E4 B4B3              .byte 180,179
+ 01E6 B2B2              .byte 178,178
+ 01E8 B1B1              .byte 177,177
+ 01EA B0AF              .byte 176,175
+ 01EC AFAE              .byte 175,174
+ 01EE ADAD              .byte 173,173
+ 01F0 ACAB              .byte 172,171
+ 01F2 AAAA              .byte 170,170
+ 01F4 A9A8              .byte 169,168
+ 01F6 A8A7              .byte 168,167
+ 01F8 A6A5              .byte 166,165
+ 01FA A5A4              .byte 165,164
+ 01FC A3A2              .byte 163,162
+ 01FE A2A1              .byte 162,161
+ 0200                   .dbsym e SineTableRect _SineTableRect A[256:256]kc
+                        .area data(ram, con, rel)
+ 0000                   .dbfile C:\DOCUME~1\JKEMME~1\Desktop\Exam2\Exam2\Exam2\Exam2\main.c
+ 0000           _sinefreq::
+ 0000 0000              .word 0
+ 0002                   .dbsym e sinefreq _sinefreq I
+                        .area data(ram, con, rel)
+ 0000                   .dbfile C:\DOCUME~1\JKEMME~1\Desktop\Exam2\Exam2\Exam2\Exam2\main.c
+                        .area data(ram, con, rel)
+ 0000                   .dbfile C:\DOCUME~1\JKEMME~1\Desktop\Exam2\Exam2\Exam2\Exam2\main.c
+ 0000           _CountPeriod::
+ 0000 0000              .word 0
+ 0002                   .dbsym e CountPeriod _CountPeriod I
+                        .area data(ram, con, rel)
+ 0000                   .dbfile C:\DOCUME~1\JKEMME~1\Desktop\Exam2\Exam2\Exam2\Exam2\main.c
+                        .area data(ram, con, rel)
+ 0000                   .dbfile C:\DOCUME~1\JKEMME~1\Desktop\Exam2\Exam2\Exam2\Exam2\main.c
+ 0000           _phaseShift::
+ 0000 40                .byte 64
+ 0001                   .dbsym e phaseShift _phaseShift c
+                        .area data(ram, con, rel)
+ 0000                   .dbfile C:\DOCUME~1\JKEMME~1\Desktop\Exam2\Exam2\Exam2\Exam2\main.c
+                        .area text(rom, con, rel)
+ 0000                   .dbfile C:\DOCUME~1\JKEMME~1\Desktop\Exam2\Exam2\Exam2\Exam2\main.c
+ 0000                   .dbfunc e main _main fV
+ 0000           _main::
+ 0000                   .dbline -1
+ 0000                   .dbline 48
+ 0000           ; //Julian Kemmerer
+ 0000           ; //Exam 2
+ 0000           ; //ECEC 356
+ 0000           ; //8/11/11
+ 0000           ; 
+ 0000           ; //----------------------------------------------------------------------------
+ 0000           ; // C main line
+ 0000           ; //----------------------------------------------------------------------------
+ 0000           ; 
+ 0000           ; #include <m8c.h>        // part specific constants and macros
+ 0000           ; #include "PSoCAPI.h"    // PSoC API definitions for all User Modules
+ 0000           ; 
+ 0000           ; const char SineTable[] = {
+ 0000           ; 128,129,130,130,131,132,133,133,134,135,136,136,137,138,138,139,
+ 0000           ; 140,141,141,142,143,143,144,145,145,146,146,147,148,148,149,149,
+ 0000           ; 150,150,151,151,152,152,153,153,154,154,155,155,155,156,156,156,
+ 0000           ; 157,157,157,157,158,158,158,158,158,159,159,159,159,159,159,159,
+ 0000           ; 159,159,159,159,159,159,159,159,158,158,158,158,158,157,157,157,
+ 0000           ; 157,156,156,156,155,155,155,154,154,153,153,152,152,151,151,150,
+ 0000           ; 150,149,149,148,148,147,146,146,145,145,144,143,143,142,141,141,
+ 0000           ; 140,139,138,138,137,136,136,135,134,133,133,132,131,130,130,129,
+ 0000           ; 128,161,162,162,163,164,165,165,166,167,168,168,169,170,170,171,
+ 0000           ; 172,173,173,174,175,175,176,177,177,178,178,179,180,180,181,181,
+ 0000           ; 182,182,183,183,184,184,185,185,186,186,187,187,187,188,188,188,
+ 0000           ; 189,189,189,189,190,190,190,190,190,191,191,191,191,191,191,191,
+ 0000           ; 191,191,191,191,191,191,191,191,190,190,190,190,190,189,189,189,
+ 0000           ; 189,188,188,188,187,187,187,186,186,185,185,184,184,183,183,182,
+ 0000           ; 182,181,181,180,180,179,178,178,177,177,176,175,175,174,173,173,
+ 0000           ; 172,171,170,170,169,168,168,167,166,165,165,164,163,162,162,161
+ 0000           ; };
+ 0000           ; 
+ 0000           ; 
+ 0000           ; const char SineTableRect[] = {128,    161,    162,    162,    163,    164,    165,    165,    166,    167,    168,    168,    169,    170,    170,    171,    172,    173,    173,    174,    175,    175,    176,    177,    177,    178,    178,    179,    180,    180,    181,    181,    182,    182,    183,    183,    184,    184,    185,    185,    186,    186,    187,    187,    187,    188,    188,    188,    189,    189,    189,    189,    190,    190,    190,    190,    190,    191,    191,    191,    191,    191,    191,    191,    191,    191,    191,    191,    191,    191,    191,    191,    190,    190,    190,    190,    190,    189,    189,    189,    189,    188,    188,    188,    187,    187,    187,    186,    186,    185,    185,    184,    184,    183,    183,    182,    182,    181,    181,    180,    180,    179,    178,    178,    177,    177,    176,    175,    175,    174,    173,    173,    172,    171,    170,    170,    169,    168,    168,    167,    166,    165,    165,    164,    163,    162,    162,    161,    160,    161,    162,    162,    163,    164,    165,    165,    166,    167,    168,    168,    169,    170,    170,    171,    172,    173,    173,    174,    175,    175,    176,    177,    177,    178,    178,    179,    180,    180,    181,    181,    182,    182,    183,    183,    184,    184,    185,    185,    186,    186,    187,    187,    187,    188,    188,    188,    189,    189,    189,    189,    190,    190,    190,    190,    190,    191,    191,    191,    191,    191,    191,    191,    191,    191,    191,    191,    191,    191,    191,    191,    190,    190,    190,    190,    190,    189,    189,    189,    189,    188,    188,    188,    187,    187,    187,    186,    186,    185,    185,    184,    184,    183,    183,    182,    182,    181,    181,    180,    180,    179,    178,    178,    177,    177,    176,    175,    175,    174,    173,    173,    172,    171,    170,    170,    169,    168,    168,    167,    166,    165,    165,    164,    163,    162,    162,    161};
+ 0000           ; 
+ 0000           ; 
+ 0000           ; //const char SineTable[] = {31,       32,     33,     33,     34,     35,     36,     36,     37,     38,     39,     39,     40,     41,     41,     42,     43,     44,     44,     45,     46,     46,     47,     48,     48,     49,     49,     50,     51,     51,     52,     52,     53,     53,     54,     54,     55,     55,     56,     56,     57,     57,     58,     58,     58,     59,     59,     59,     60,     60,     60,     60,     61,     61,     61,     61,     61,     62,     62,     62,     62,     62,     62,     62,     62,     62,     62,     62,     62,     62,     62,     62,     61,     61,     61,     61,     61,     60,     60,     60,     60,     59,     59,     59,     58,     58,     58,     57,     57,     56,     56,     55,     55,     54,     54,     53,     53,     52,     52,     51,     51,     50,     49,     49,     48,     48,     47,     46,     46,     45,     44,     44,     43,     42,     41,     41,     40,     39,     39,     38,     37,     36,     36,     35,     34,     33,     33,     32,     31,     30,     29,     29,     28,     27,     26,     26,     25,     24,     23,     23,     22,     21,     21,     20,     19,     18,     18,     17,     16,     16,     15,     14,     14,     13,     13,     12,     11,     11,     10,     10,     9,      9,      8,      8,      7,      7,      6,      6,      5,      5,      4,      4,      4,      3,      3,      3,      2,      2,      2,      2,      1,      1,      1,      1,      1,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      0,      1,      1,      1,      1,      1,      2,      2,      2,      2,      3,      3,      3,      4,      4,      4,      5,      5,      6,      6,      7,      7,      8,      8,      9,      9,      10,     10,     11,     11,     12,     13,     13,     14,     14,     15,     16,     16,     17,     18,     18,     19,     20,     21,     21,     22,     23,     23,     24,     25,     26,     26,     27,     28,     29,     29,     30};
+ 0000           ; 
+ 0000           ; 
+ 0000           ; // Variable to hold the index into the lookup table
+ 0000           ; BYTE Pointer;
+ 0000           ; 
+ 0000           ; int sinefreq = 0;
+ 0000           ; int CountPeriod = 0;
+ 0000           ; extern char phaseShift = (256/4); //Arbitrary
+ 0000           ; 
+ 0000           ; 
+ 0000           ; void main(void)
+ 0000           ; {
+ 0000                   .dbline 49
+ 0000           ;       M8C_EnableGInt ; // Uncomment this line to enable Global Interrupts
+ 0000 7101                      or  F, 01h
+ 0002           
+ 0002                   .dbline 52
+ 0002           ;       
+ 0002           ;       //Start LCD
+ 0002           ;       LCD_Start();
+ 0002 10                push X
+ 0003 7C0000            xcall _LCD_Start
+ 0006                   .dbline 53
+ 0006           ;       LCD_Init();
+ 0006 7C0000            xcall _LCD_Init
+ 0009 20                pop X
+ 000A                   .dbline 54
+ 000A           ;               LCD_Position(0,0);
+ 000A 10                push X
+ 000B 5000              mov A,0
+ 000D 5C                mov X,A
+ 000E 7C0000            xcall _LCD_Position
+ 0011 20                pop X
+ 0012                   .dbline 55
+ 0012           ;       LCD_PrCString("TEst");
+ 0012 10                push X
+ 0013 5000              mov A,>L2
+ 0015 08                push A
+ 0016 5000              mov A,<L2
+ 0018 5C                mov X,A
+ 0019 18                pop A
+ 001A 7C0000            xcall _LCD_PrCString
+ 001D                   .dbline 57
+ 001D           ;       // Starts the Counter16 User Module and enable its interrupt.
+ 001D           ;       Counter16_Start();                      
+ 001D 7C0000            xcall _Counter16_Start
+ 0020                   .dbline 58
+ 0020           ;       Counter16_EnableInt();
+ 0020 7C0000            xcall _Counter16_EnableInt
+ 0023 20                pop X
+ 0024                   .dbline 62
+ 0024           ;       
+ 0024           ;       
+ 0024           ;       //Change period
+ 0024           ;       CountPeriod = 480;
+ 0024 62D000            mov REG[0xd0],>_CountPeriod
+ 0027 5501E0            mov [_CountPeriod+1],-32
+ 002A 550001            mov [_CountPeriod],1
+ 002D                   .dbline 63
+ 002D           ;       Counter16_WritePeriod(CountPeriod);
+ 002D 10                push X
+ 002E 5100              mov A,[_CountPeriod]
+ 0030 08                push A
+ 0031 5101              mov A,[_CountPeriod+1]
+ 0033 20                pop X
+ 0034 7C0000            xcall _Counter16_WritePeriod
+ 0037 20                pop X
+ 0038                   .dbline 66
+ 0038           ;       
+ 0038           ;       // Start the SCDAC at high power
+ 0038           ;       SCDAC_Start(SCDAC_HIGHPOWER);
+ 0038 10                push X
+ 0039 5003              mov A,3
+ 003B 7C0000            xcall _SCDAC_Start
+ 003E 20                pop X
+ 003F                   .dbline 69
+ 003F           ;       
+ 003F           ;       //Clear freq
+ 003F           ;       sinefreq = 0;
+ 003F 62D000            mov REG[0xd0],>_sinefreq
+ 0042 550100            mov [_sinefreq+1],0
+ 0045 550000            mov [_sinefreq],0
+ 0048 80D1              xjmp L4
+ 004A           L3:
+ 004A                   .dbline 75
+ 004A           ;       
+ 004A           ; 
+ 004A           ;       
+ 004A           ;       //Control loop
+ 004A           ;       while(1)
+ 004A           ;       {
+ 004A                   .dbline 78
+ 004A           ;               //wait for
+ 004A           ;               //If button is pressed  
+ 004A           ;               if( (PRT1DR & 0b00000001) == 0b00000001)
+ 004A 5D04              mov A,REG[0x4]
+ 004C 62D000            mov REG[0xd0],>__r0
+ 004F 5300              mov [__r0],A
+ 0051 260001            and [__r0],1
+ 0054 3C0001            cmp [__r0],1
+ 0057 B01E              jnz L6
+ 0059                   .dbline 79
+ 0059           ;               {
+ 0059           L8:
+ 0059                   .dbline 81
+ 0059           ;                       //Wait for release
+ 0059           ;                       while((PRT1DR & 0b00000001) == 0b00000001){}
+ 0059                   .dbline 81
+ 0059           L9:
+ 0059                   .dbline 81
+ 0059 5D04              mov A,REG[0x4]
+ 005B 62D000            mov REG[0xd0],>__r0
+ 005E 5300              mov [__r0],A
+ 0060 260001            and [__r0],1
+ 0063 3C0001            cmp [__r0],1
+ 0066 AFF2              jz L8
+ 0068                   .dbline 82
+ 0068           ;                       CountPeriod+10;
+ 0068                   .dbline 83
+ 0068           ;                       Counter16_WritePeriod(CountPeriod);
+ 0068 10                push X
+ 0069 62D000            mov REG[0xd0],>_CountPeriod
+ 006C 5100              mov A,[_CountPeriod]
+ 006E 08                push A
+ 006F 5101              mov A,[_CountPeriod+1]
+ 0071 20                pop X
+ 0072 7C0000            xcall _Counter16_WritePeriod
+ 0075 20                pop X
+ 0076                   .dbline 84
+ 0076           ;               }
+ 0076           L6:
+ 0076                   .dbline 87
+ 0076           ;               
+ 0076           ;               //the frequency of the sine wave with 256 samples
+ 0076           ;               sinefreq = (24000000/CountPeriod)/256;
+ 0076 62D000            mov REG[0xd0],>_CountPeriod
+ 0079 5101              mov A,[_CountPeriod+1]
+ 007B 62D000            mov REG[0xd0],>__r0
+ 007E 5300              mov [__r3],A
+ 0080 62D000            mov REG[0xd0],>_CountPeriod
+ 0083 5100              mov A,[_CountPeriod]
+ 0085 62D000            mov REG[0xd0],>__r0
+ 0088 5300              mov [__r2],A
+ 008A 470080            tst [__r2],-128
+ 008D A009              jz X1
+ 008F 5500FF            mov [__r1],-1
+ 0092 5500FF            mov [__r0],-1
+ 0095 800A              jmp X2
+ 0097           X1:
+ 0097 62D000            mov REG[0xd0],>__r0
+ 009A 550000            mov [__r1],0
+ 009D 550000            mov [__r0],0
+ 00A0           X2:
+ 00A0 62D000            mov REG[0xd0],>__r0
+ 00A3 5100              mov A,[__r0]
+ 00A5 08                push A
+ 00A6 5100              mov A,[__r1]
+ 00A8 08                push A
+ 00A9 5100              mov A,[__r2]
+ 00AB 08                push A
+ 00AC 5100              mov A,[__r3]
+ 00AE 08                push A
+ 00AF 5001              mov A,1
+ 00B1 08                push A
+ 00B2 506E              mov A,110
+ 00B4 08                push A
+ 00B5 5036              mov A,54
+ 00B7 08                push A
+ 00B8 5000              mov A,0
+ 00BA 08                push A
+ 00BB 7C0000            xcall __divmod_32X32_32
+ 00BE 18                pop A
+ 00BF 5300              mov [__r3],A
+ 00C1 18                pop A
+ 00C2 5300              mov [__r2],A
+ 00C4 18                pop A
+ 00C5 5300              mov [__r1],A
+ 00C7 18                pop A
+ 00C8 5300              mov [__r0],A
+ 00CA 38FC              add SP,-4
+ 00CC 5000              mov A,0
+ 00CE 08                push A
+ 00CF 08                push A
+ 00D0 5001              mov A,1
+ 00D2 08                push A
+ 00D3 5000              mov A,0
+ 00D5 08                push A
+ 00D6 5100              mov A,[__r0]
+ 00D8 08                push A
+ 00D9 5100              mov A,[__r1]
+ 00DB 08                push A
+ 00DC 5100              mov A,[__r2]
+ 00DE 08                push A
+ 00DF 5100              mov A,[__r3]
+ 00E1 08                push A
+ 00E2 7C0000            xcall __divmod_32X32_32
+ 00E5 18                pop A
+ 00E6 5300              mov [__r3],A
+ 00E8 18                pop A
+ 00E9 5300              mov [__r2],A
+ 00EB 18                pop A
+ 00EC 18                pop A
+ 00ED 38FC              add SP,-4
+ 00EF 5100              mov A,[__r3]
+ 00F1 5300              mov [__r1],A
+ 00F3 5100              mov A,[__r2]
+ 00F5 5300              mov [__r0],A
+ 00F7 5100              mov A,[__r1]
+ 00F9 08                push A
+ 00FA 5100              mov A,[__r0]
+ 00FC 62D000            mov REG[0xd0],>_sinefreq
+ 00FF 5300              mov [_sinefreq],A
+ 0101 18                pop A
+ 0102 5301              mov [_sinefreq+1],A
+ 0104                   .dbline 90
+ 0104           ;               
+ 0104           ;               //Print freq
+ 0104           ;               LCD_Position(0,0);
+ 0104 10                push X
+ 0105 5000              mov A,0
+ 0107 5C                mov X,A
+ 0108 7C0000            xcall _LCD_Position
+ 010B 20                pop X
+ 010C                   .dbline 91
+ 010C           ;               LCD_PrHexInt(sinefreq);
+ 010C 10                push X
+ 010D 62D000            mov REG[0xd0],>_sinefreq
+ 0110 5100              mov A,[_sinefreq]
+ 0112 08                push A
+ 0113 5101              mov A,[_sinefreq+1]
+ 0115 20                pop X
+ 0116 7C0000            xcall _LCD_PrHexInt
+ 0119 20                pop X
+ 011A                   .dbline 92
+ 011A           ;       }
+ 011A           L4:
+ 011A                   .dbline 74
+ 011A 8F2F              xjmp L3
+ 011C           X0:
+ 011C                   .dbline -2
+ 011C           L1:
+ 011C                   .dbline 0 ; func end
+ 011C 8FFF              jmp .
+ 011E                   .dbend
+ 011E                   .dbfunc e CounterISR _CounterISR fV
+ 011E           _CounterISR::
+ 011E                   .dbline -1
+ 011E 71C0              or F,-64
+ 0120 08                push A
+ 0121 5DD0              mov A,REG[0xd0]
+ 0123 08                push A
+ 0124 62D000            mov REG[0xd0],>__r0
+ 0127 5100              mov A,[__r0]
+ 0129 08                push A
+ 012A 5100              mov A,[__r1]
+ 012C 08                push A
+ 012D                   .dbline 97
+ 012D           ; }
+ 012D           ; #pragma interrupt_handler CounterISR
+ 012D           ; // Counter16 interrupt handler
+ 012D           ; void CounterISR(void)
+ 012D           ; {
+ 012D                   .dbline 99
+ 012D           ;       // Update the DAC with the value in lookup table pointed the variable Pointer
+ 012D           ;       SCDAC_cr0 = (SineTableRect[Pointer]); 
+ 012D 62D000            mov REG[0xd0],>_Pointer
+ 0130 5100              mov A,[_Pointer]
+ 0132 62D000            mov REG[0xd0],>__r0
+ 0135 5300              mov [__r1],A
+ 0137 550000            mov [__r0],0
+ 013A 060000            add [__r1],<_SineTableRect
+ 013D 0E0000            adc [__r0],>_SineTableRect
+ 0140 5100              mov A,[__r0]
+ 0142 10                push X
+ 0143 5800              mov X,[__r1]
+ 0145 28                romx
+ 0146 20                pop X
+ 0147 6080              mov REG[0x80],A
+ 0149                   .dbline 102
+ 0149           ;       
+ 0149           ;       // Increment pointer
+ 0149           ;     Pointer++;Pointer++;Pointer++;Pointer++; //4 times for x4
+ 0149 62D000            mov REG[0xd0],>_Pointer
+ 014C 7600              inc [_Pointer]
+ 014E                   .dbline 102
+ 014E 7600              inc [_Pointer]
+ 0150                   .dbline 102
+ 0150 7600              inc [_Pointer]
+ 0152                   .dbline 102
+ 0152 7600              inc [_Pointer]
+ 0154                   .dbline 109
+ 0154           ;       
+ 0154           ;       // If the Pointer is incremented by 2, the effective number of samples will be
+ 0154           ;     // 128 and the output frequency will be doubled.  If Pointer is incremented by 4,
+ 0154           ;     // number of samples will be 64 and the output frequency will be quadrupled.
+ 0154           ;     
+ 0154           ;       // Reset Pointer if greater than or equal to 64
+ 0154           ;     if (Pointer >= 255) Pointer = 0;
+ 0154 3C00FF            cmp [_Pointer],-1
+ 0157 C007              jc L12
+ 0159           X3:
+ 0159                   .dbline 109
+ 0159 62D000            mov REG[0xd0],>_Pointer
+ 015C 550000            mov [_Pointer],0
+ 015F           L12:
+ 015F                   .dbline -2
+ 015F           L11:
+ 015F 62D000            mov REG[0xD0],>__r0
+ 0162 18                pop A
+ 0163 5300              mov [__r1],A
+ 0165 18                pop A
+ 0166 5300              mov [__r0],A
+ 0168 18                pop A
+ 0169 60D0              mov REG[208],A
+ 016B 18                pop A
+ 016C                   .dbline 0 ; func end
+ 016C 7E                reti
+ 016D                   .dbend
+                        .area data(ram, con, rel)
+ 0000                   .dbfile C:\DOCUME~1\JKEMME~1\Desktop\Exam2\Exam2\Exam2\Exam2\main.c
+ 0000           _Pointer::
+ 0000 00                .byte 0
+ 0001                   .dbsym e Pointer _Pointer c
+                        .area lit(rom, con, rel)
+ 0200           L2:
+ 0200 5445737400        .byte 'T,'E,'s,'t,0

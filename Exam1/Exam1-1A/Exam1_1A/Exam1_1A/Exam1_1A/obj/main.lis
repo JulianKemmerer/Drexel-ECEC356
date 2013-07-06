@@ -1,0 +1,185 @@
+ 0000                   cpu LMM
+                        .module main.c
+                        .area text(rom, con, rel)
+ 0000                   .dbfile ./main.c
+                        .area data(ram, con, rel)
+ 0000                   .dbfile ./main.c
+ 0000           _value::
+ 0000 00                .byte 0
+ 0001                   .dbfile C:\DOCUME~1\JKEMME~1\Desktop\Exam1-1A\Exam1_1A\Exam1_1A\Exam1_1A\main.c
+ 0001                   .dbsym e value _value c
+                        .area data(ram, con, rel)
+ 0000                   .dbfile C:\DOCUME~1\JKEMME~1\Desktop\Exam1-1A\Exam1_1A\Exam1_1A\Exam1_1A\main.c
+                        .area data(ram, con, rel)
+ 0000                   .dbfile C:\DOCUME~1\JKEMME~1\Desktop\Exam1-1A\Exam1_1A\Exam1_1A\Exam1_1A\main.c
+ 0000           _mask::
+ 0000 00                .byte 0
+ 0001                   .dbsym e mask _mask c
+                        .area data(ram, con, rel)
+ 0000                   .dbfile C:\DOCUME~1\JKEMME~1\Desktop\Exam1-1A\Exam1_1A\Exam1_1A\Exam1_1A\main.c
+                        .area text(rom, con, rel)
+ 0000                   .dbfile C:\DOCUME~1\JKEMME~1\Desktop\Exam1-1A\Exam1_1A\Exam1_1A\Exam1_1A\main.c
+ 0000                   .dbfunc e main _main fV
+ 0000           _main::
+ 0000                   .dbline -1
+ 0000                   .dbline 12
+ 0000           ; //----------------------------------------------------------------------------
+ 0000           ; // C main line
+ 0000           ; //----------------------------------------------------------------------------
+ 0000           ; 
+ 0000           ; #include <m8c.h>        // part specific constants and macros
+ 0000           ; #include "PSoCAPI.h"    // PSoC API definitions for all User Modules
+ 0000           ; 
+ 0000           ; extern unsigned char value = 0;
+ 0000           ; extern unsigned char mask = 0;
+ 0000           ; 
+ 0000           ; void main(void)
+ 0000           ; {
+ 0000                   .dbline 17
+ 0000           ;       // M8C_EnableGInt ; // Uncomment this line to enable Global Interrupts
+ 0000           ;       // Insert your main routine code here.
+ 0000           ;       
+ 0000           ;       //Start LCD
+ 0000           ;       LCD_Start();
+ 0000 10                push X
+ 0001 7C0000            xcall _LCD_Start
+ 0004                   .dbline 18
+ 0004           ;       LCD_Init();
+ 0004 7C0000            xcall _LCD_Init
+ 0007 20                pop X
+ 0008                   .dbline 20
+ 0008           ;       
+ 0008           ;       value = 0; //0b0000 0000 where last four bits are 0, PRT0DR[3],PRT0DR[2], PRT0DR[1]
+ 0008 62D000            mov REG[0xd0],>_value
+ 000B 550000            mov [_value],0
+ 000E 8062              xjmp L3
+ 0010           L2:
+ 0010                   .dbline 23
+ 0010           ;       
+ 0010           ;       while(1)//Control loop
+ 0010           ;       {
+ 0010                   .dbline 24
+ 0010           ;               mask = PRT0DR;
+ 0010 5D00              mov A,REG[0]
+ 0012 62D000            mov REG[0xd0],>_mask
+ 0015 5300              mov [_mask],A
+ 0017                   .dbline 27
+ 0017           ;       
+ 0017           ;               //Collect PRT0DR[3] value
+ 0017           ;               if( (mask & 0b00001000) == 0)
+ 0017 470008            tst [_mask],8
+ 001A B009              jnz L5
+ 001C                   .dbline 28
+ 001C           ;               {
+ 001C                   .dbline 30
+ 001C           ;                       //PRT0DR[3] is low
+ 001C           ;                       value &= ~0b00000100;
+ 001C 62D000            mov REG[0xd0],>_value
+ 001F 2600FB            and [_value],-5
+ 0022                   .dbline 31
+ 0022           ;               }
+ 0022 800A              xjmp L6
+ 0024           L5:
+ 0024                   .dbline 33
+ 0024           ;               else
+ 0024           ;               {
+ 0024                   .dbline 35
+ 0024           ;                       //PRT0DR[3] is high
+ 0024           ;                       value |= 0b00000100;
+ 0024 62D000            mov REG[0xd0],>_value
+ 0027 5100              mov A,[_value]
+ 0029 2904              or A,4
+ 002B 5300              mov [_value],A
+ 002D                   .dbline 36
+ 002D           ;               }
+ 002D           L6:
+ 002D                   .dbline 39
+ 002D           ;               
+ 002D           ;               //Collect PRT0DR[2] value
+ 002D           ;               if( (mask & 0b00000100) == 0)
+ 002D 62D000            mov REG[0xd0],>_mask
+ 0030 470004            tst [_mask],4
+ 0033 B009              jnz L7
+ 0035                   .dbline 40
+ 0035           ;               {
+ 0035                   .dbline 42
+ 0035           ;                       //PRT0DR[2] is low
+ 0035           ;                       value &= ~0b00000010;
+ 0035 62D000            mov REG[0xd0],>_value
+ 0038 2600FD            and [_value],-3
+ 003B                   .dbline 43
+ 003B           ;               }
+ 003B 800A              xjmp L8
+ 003D           L7:
+ 003D                   .dbline 45
+ 003D           ;               else
+ 003D           ;               {
+ 003D                   .dbline 47
+ 003D           ;                       //PRT0DR[2] is high
+ 003D           ;                       value |= 0b00000010;
+ 003D 62D000            mov REG[0xd0],>_value
+ 0040 5100              mov A,[_value]
+ 0042 2902              or A,2
+ 0044 5300              mov [_value],A
+ 0046                   .dbline 48
+ 0046           ;               }
+ 0046           L8:
+ 0046                   .dbline 51
+ 0046           ;               
+ 0046           ;               //Collect PRT0DR[1] value
+ 0046           ;               if( (mask & 0b00000010) == 0)
+ 0046 62D000            mov REG[0xd0],>_mask
+ 0049 470002            tst [_mask],2
+ 004C B009              jnz L9
+ 004E                   .dbline 52
+ 004E           ;               {
+ 004E                   .dbline 54
+ 004E           ;                       //PRT0DR[1] is low
+ 004E           ;                       value &= ~0b00000001;
+ 004E 62D000            mov REG[0xd0],>_value
+ 0051 2600FE            and [_value],-2
+ 0054                   .dbline 55
+ 0054           ;               }
+ 0054 800A              xjmp L10
+ 0056           L9:
+ 0056                   .dbline 57
+ 0056           ;               else
+ 0056           ;               {
+ 0056                   .dbline 59
+ 0056           ;                       //PRT0DR[1] is high
+ 0056           ;                       value |= 0b00000001;
+ 0056 62D000            mov REG[0xd0],>_value
+ 0059 5100              mov A,[_value]
+ 005B 2901              or A,1
+ 005D 5300              mov [_value],A
+ 005F                   .dbline 60
+ 005F           ;               }
+ 005F           L10:
+ 005F                   .dbline 63
+ 005F           ;               
+ 005F           ;               //Print to LCD
+ 005F           ;               LCD_Position(0,0);
+ 005F 10                push X
+ 0060 5000              mov A,0
+ 0062 5C                mov X,A
+ 0063 7C0000            xcall _LCD_Position
+ 0066 20                pop X
+ 0067                   .dbline 64
+ 0067           ;               LCD_PrHexByte(value);
+ 0067 10                push X
+ 0068 62D000            mov REG[0xd0],>_value
+ 006B 5100              mov A,[_value]
+ 006D 7C0000            xcall _LCD_PrHexByte
+ 0070 20                pop X
+ 0071                   .dbline 66
+ 0071           ;               
+ 0071           ;       }//End control loop
+ 0071           L3:
+ 0071                   .dbline 22
+ 0071 8F9E              xjmp L2
+ 0073           X0:
+ 0073                   .dbline -2
+ 0073           L1:
+ 0073                   .dbline 0 ; func end
+ 0073 8FFF              jmp .
+ 0075                   .dbend

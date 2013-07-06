@@ -1,0 +1,941 @@
+
+
+ECE-C356 Note 10
+================
+
+CYFYSNP Example
+===============
+
+1. Description
+   ===========
+
+A hub and a node. After binding, HUB toggles RED LED
+on node using button press. NODE toggles RED LED on
+HUB using SW2 press.
+
+2. HUB
+   ===
+Part: CY8C24894 24LTXI 56-pin MLF package
+*CY8C27443-24PVXI For hub
+
+Placement
+=========
+
+Place User Modules => RF => SPIM (GPIO IRQ)
+
+Place User Modules => Misc Digital => LED
+name = LED_GREEN
+
+
+Pinout
+======
+
+P2[0] = MISO, GlobalInEven_0, High Z, DisableInt, Normal, 0
+P2[3] = SClk, GlobalOutEven_3, Strong, DisableInt, Normal, 0
+P2[5] = MOSI, GlobalOutEven_5, Strong, DisableInt, Normal, 0
+P3[0] = LED_GREENPin, StdCPU, Strong, DisableInt, Normal, 0
+P3[1] = LED_REDPin, StdCPU, Strong, DisableInt, Normal, 0
+*SW2 P1_4
+*SW1 P1_6
+P7[0] = BIND_BUTTON, StdCPU, Pull Down, DisableInt, 0
+
+The Tool builds these assignments
+P2[6] = CYFISNP_IRQ, StdCPU, High Z, RisingEdge, Normal, 0
+P2[7] = CYFISNP_nSS, StdCPU, Strong, DisableInt, Normal, 0
+
+Global Resources
+================
+Power Setting [Vcc / SysClk Freq] = 3.3V/24MHz
+CPU_Clock = SysClk/2
+Sleep_Timer = 64_Hz
+VC1 = SysClk/4
+VC2 = VC1/1
+VC3 Source = SysClk/1
+VC3 Divider = 26
+SysClk Source = Internal
+SysClk*2 Disable = No
+Analog Power = SC On/Ref Low
+Ref Mux = (Vdd/2)+/-BandGap
+AGndBypass = Disable
+Op-Amp Bias = Low
+A_Buff_Power = Low
+Trip Voltage [LVD] = 2.9V
+LVDThrottleBack = Disable
+Watchdog Enable = Disable
+
+CYFISNP Parameters
+==================
+Preamble Count = 2
+Maximum PA = 6 (0 dBm typ.)
+External PA = Yes
+First Channel = 10 (2.412 GHz)
+Last Channel = 58 (2.460 GHz)
+Node Power Supply Type = High Impedance Battery
+Device ID Assignment = Pre-assigned Device ID
+Maximum Number of Nodes = 10
+Protocol Data Block = 252
+Max BCD Payload Length = 4
+Max FCD Payload Length = 4
+MUX IRQ on MOSI = Disabled
+Clock = VC1
+MISO = Row_0_Input_0
+MOSI = Row_0_Output_1
+SClk = Row_0_Output_3
+IRQ_Port = Port_2
+IRQ_Pin = Port_2_6
+nSS_Port = Port_2
+nSS_Pin = Port_2_7
+Fast nSS Actuation = Yes
+
+Wiring
+======
+MISO Wiring: Row_0_Input_0 to GlobalInEven_0 connected to Port_2_0
+Once built Row_0_Input_0 driver box is Async.
+MOSI Wiring: Row_0_Output_1 to GlobalOutEven_5 connected to Port_2_5
+SClk Wiring: Row_0_Output_3 to GlobalOutEven_3 connected to Port_2_3
+
+LED Parameters
+==============
+Name = LED_GREEN
+Port = Port_3
+Pin = Port_3_0
+Drive = Active High
+
+LED Parameters
+==============
+Name = LED_RED
+Port = Port_3
+Pin = Port_3_1
+Drive = Active High
+
+Flash Security File
+===================
+Open flashsecurity.txt and edit the last 4 entries of the last row,
+as shown below
+
+
+; Edit this file to adjust the Flash security for this project.
+; Flash security is provided by marking a 64 byte block with a character
+; that corresponds to the type of security for that block, given:
+;
+; W: Full (Write protected)
+; R: Field Upgrade (Read protected)
+; U: Unprotected
+; F: Factory
+
+; Note #1: Protection characters can be entered in upper or lower case.
+; Note #2: Refer to the Flash Program Memory Protection section in the Data Sheet.
+
+; Comments may be added similar to an assembly language comment, by
+; Using the semicolon (;) followed by your comment.  The comment extends
+; to the end of the line.
+
+; 0 40 80 C0 100 140 180 1C0 200 240 280 2C0 300 340 380 3C0 (+) Base Address
+
+  W  W  W  W  W   W   W   W   W   W   W   W   W   W   W   W ;    Base Address 0 
+  W  W  W  W  W   W   W   W   W   W   W   W   W   W   W   W ;    Base Address 400 
+  W  W  W  W  W   W   W   W   W   W   W   W   W   W   W   W ;    Base Address 800 
+  W  W  W  W  W   W   W   W   W   W   W   W   W   W   W   W ;    Base Address C00 
+  W  W  W  W  W   W   W   W   W   W   W   W   W   W   W   W ;    Base Address 1000 
+  W  W  W  W  W   W   W   W   W   W   W   W   W   W   W   W ;    Base Address 1400 
+  W  W  W  W  W   W   W   W   W   W   W   W   W   W   W   W ;    Base Address 1800 
+  W  W  W  W  W   W   W   W   W   W   W   W   W   W   W   W ;    Base Address 1C00
+  W  W  W  W  W   W   W   W   W   W   W   W   W   W   W   W ;    Base Address 2000 
+  W  W  W  W  W   W   W   W   W   W   W   W   W   W   W   W ;    Base Address 2400 
+  W  W  W  W  W   W   W   W   W   W   W   W   W   W   W   W ;    Base Address 2800 
+  W  W  W  W  W   W   W   W   W   W   W   W   W   W   W   W ;    Base Address 2C00 
+  W  W  W  W  W   W   W   W   W   W   W   W   W   W   W   W ;    Base Address 3000 
+  W  W  W  W  W   W   W   W   W   W   W   W   W   W   W   W ;    Base Address 3400
+  W  W  W  W  W   W   W   W   W   W   W   W   W   W   W   W ;    Base Address 3800
+  W  W  W  W  W   W   W   W   W   W   W   W   U   U   U   U ;    Base Address 3C00
+; End 16K parts
+//----------------------------------------------------------------------------
+// HUB C main line
+//----------------------------------------------------------------------------
+// Description
+// ===========
+// Hub recieves message (ping) from node toggles RED LED
+// Hub sends (pings) node when button press after bind
+//---------------------------------------------------------------------
+
+#include <m8c.h>        // part specific constants and macros
+#include "PSoCAPI.h"    // PSoC API definitions for all User Modules
+#include "CYFISNP_protocol.h"
+#include "PSoCGPIOInt.h"	//PSoC GPIO definitions
+
+//-------------------------------------------------------------------------
+//
+//#defines
+//
+//-------------------------------------------------------------------------
+#define ENABLE_BIND_BUTTON      1   // 0 = enter bind only via PC command
+                                    // 1 = enable local bind button
+#define DEBOUNCE_TIME   2 //Set Debounce time to 2 seconds 
+									
+									
+//-------------------------------------------------------------------------
+//
+//Global Variables and Structures
+//
+//-------------------------------------------------------------------------
+//Bind Variables
+BYTE bindRetryCt; 		//Number of binding tries
+BYTE bindNodeId = 0;    //the binding node's ID
+BYTE bindNodeMID[4];	//the binding node's data
+
+//CYFISNP Pointers
+static CYFISNP_API_PKT  TxApiPkt;  //Local Tx Data buffer
+CYFISNP_API_PKT *pRxApiPkt;        //Local Rx Data buffer
+
+//Application Variables
+char payload_data[16];
+BYTE devId_sender = 0;		//device ID of sender node
+BYTE devId_receiver = 0;	//device ID of receiver node
+
+
+char length = 0;			//length of packet
+char packet_type = 0;		//packet type
+
+BOOL bound;					//flag for node binds
+static BOOL State_On;
+static char pktType = CYFISNP_API_TYPE_CONF_BCDR; //specify packet type
+static char txPktSz = 2;	//specify packet size
+BYTE data;					//data to be sent
+BYTE loadValue;				//value to be loaded into registers
+
+
+//-------------------------------------------------------------------------
+//
+//#Functions
+//
+//-------------------------------------------------------------------------
+static BOOL CheckBindButton     (void);
+static BOOL bindButtonIsOn(void);
+static void showLeds        (void);
+static void ServeSNPPackets(void);
+
+
+// ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
+//
+// main()
+//
+// ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
+void main(void)
+{
+    // Insert your main routine code here.
+	M8C_EnableGInt;     //Enable Interrupts
+	
+	LED_GREEN_Start();	//Load the Green LED API
+    LED_RED_Start();	//Load the Red LED API
+	
+	bound = FALSE;	//Reset bind flag, GREEN LED Off
+
+    CYFISNP_Start();    // Start Protocol (and radio)
+	bindRetryCt = 2;	// Number of binds		
+
+    // -----------------------------------------------------------------------
+    // POLLING LOOP
+    // -----------------------------------------------------------------------
+    while (1)
+    {
+	
+	    // -------------------------------------------------------------------
+        // Periodic service SNP (processes a maximum of 1 Rx packet, so if
+        //  you're expecting a packet every 10mS, you should be calling this
+        //  at LEAST once every 10 mS)
+        // -------------------------------------------------------------------
+        CYFISNP_Run();              // Run CYFISNP once thru the loop.
+		// -------------------------------------------------------------------
+        // CYFISNP Bind Mode lasts ~12 seconds and SCD wants it longer,
+        //
+		// so each SCD bind command results in 2x CYFISNP Bind cycles
+        // -------------------------------------------------------------------
+		
+		//Check to see that the bind button has been pressed
+        //if the bind button has been pressed
+	if (CheckBindButton())
+	{
+		if (bound==FALSE) // if doesn't bind
+		{
+			//if we are in bind mode and number of tries != 0
+			if (bindRetryCt != 0 && CYFISNP_eProtState != CYFISNP_BIND_MODE)
+        	{
+            	--bindRetryCt;
+            	CYFISNP_BindStart();
+        	}
+		}
+		else // Hub binds with Node
+		{   // bind button pressed to toggle LED on node
+			// transmit to (ping) node
+			devId_sender = 0x00; // hub device ID
+			devId_receiver = 0x02; // node device ID
+		    data = 0x00;			  //set the data to be sent
+			
+			//if the packet size is greater than the max allowed
+       		if (txPktSz > CYFISNP_FCD_PAYLOAD_MAX) txPktSz = 0;
+			
+			
+			TxApiPkt.payload[1] = data;
+			TxApiPkt.payload[0] = devId_sender;
+			
+			TxApiPkt.length = txPktSz;    				// Specify Tx length
+        	TxApiPkt.type = CYFISNP_API_TYPE_CONF_BCDR;	//set the type of packet
+			TxApiPkt.devId = devId_receiver; 			//Set the device ID as the receiver node's
+
+            //Send the Tx data through CYFI SNP
+			CYFISNP_TxDataPut(&TxApiPkt);
+		}
+	}
+		// -------------------------------------------------------------------
+        // Update LEDs
+        // -------------------------------------------------------------------
+        showLeds();
+		
+		
+		// -------------------------------------------------------------------
+        // Serve Received data from node(s)
+        // -------------------------------------------------------------------
+        if (CYFISNP_RxDataPend())   // If SNP Rx data pending
+        {
+            ServeSNPPackets();      // Service pending Rx data
+        }
+	}
+}
+
+
+///---------------------------------------------------------------------------
+// ServeSNPPackets() - A SNP Rx packet is pending
+//
+// Variables:
+//             pRxApiPkt - pointer to SNP data
+//----------------------------------------------------------------------------
+static void ServeSNPPackets(void)
+{
+    BYTE index = 0;
+    pRxApiPkt = CYFISNP_RxDataGet();      // ptr to Rx API Packet
+
+    devId_sender = pRxApiPkt->devId;
+    switch (pRxApiPkt->type) {
+    //--------------------------------------------------------------------
+       //binding packet has been received
+		case CYFISNP_API_TYPE_BIND_RSP_ACK:
+            bindNodeId = pRxApiPkt->devId;			//get the binding node's Device ID
+            bindNodeMID[0] = pRxApiPkt->payload[0]; //get the first byte of data
+            bindNodeMID[1] = pRxApiPkt->payload[1]; //get the second byte of data
+            bindNodeMID[2] = pRxApiPkt->payload[2]; //get the third byte of data
+            bindNodeMID[3] = pRxApiPkt->payload[3]; //get the fourth byte of data
+						
+			//set bind flag
+			if (bindNodeId == 0x02)
+			{
+				bound = TRUE;
+			}
+				
+            break;
+
+        //--------------------------------------------------------------------
+        //in case of a data packet
+		case CYFISNP_API_TYPE_CONF_BCDR:
+			devId_sender = pRxApiPkt->devId;	//get the Device ID of the sender node
+            length = pRxApiPkt->length;			//get the length of the packet
+            
+			//get the data from the payload of the received packet from the sender node
+			for (index = 0; index<=length; index++) {
+				payload_data[index] = pRxApiPkt->payload[index];
+            }
+			// receive message toggle GREEN LED State_On
+				State_On = !State_On;
+			
+		
+		//in case of other types of packets
+        case CYFISNP_API_TYPE_CONF:
+        case CYFISNP_API_TYPE_SYNC_BCDR:
+        case CYFISNP_API_TYPE_SYNC:
+           
+            break;
+        
+		default:
+            break;
+        }
+        
+		CYFISNP_RxDataRelease();        // Free the Rx buffer for reuse
+    
+}
+
+
+// ---------------------------------------------------------------------------
+//
+// bindButtonIsOn()
+//
+// ---------------------------------------------------------------------------
+static BOOL bindButtonIsOn(void)
+{
+    //Check that the button has been pressed
+	BIND_BUTTON_Data_ADDR &= ~BIND_BUTTON_MASK; // Ensure GPIO pulldown active
+    return(BIND_BUTTON_Data_ADDR & BIND_BUTTON_MASK);
+}
+
+
+// ---------------------------------------------------------------------------
+//
+// CheckBindButton()
+//
+// ---------------------------------------------------------------------------
+static BOOL CheckBindButton(void)
+{
+    WORD lvDelay;
+    if (bindButtonIsOn())
+    {
+        CYFISNP_TimeSet(&lvDelay, DEBOUNCE_TIME);       // Debouncing, delay
+        
+		//The Debouncing is expired after the time for delay has exceeded
+		while (CYFISNP_TimeExpired(&lvDelay) == 0) ;    // WAIT
+        if (bindButtonIsOn())           // If button still ON
+        {
+            while (bindButtonIsOn())    // Wait for button release
+            {
+                M8C_ClearWDTAndSleep;
+
+//Power Testing
+#if LOW_POWER_TEST
+                M8C_Sleep;
+#endif
+            }
+			
+			//return true when the button is released
+            return(TRUE);
+        }
+    }
+	//return false if the button has not been pressed
+    return(FALSE);
+}
+
+
+
+// ---------------------------------------------------------------------------
+//
+// showLeds() - Run the GREEN LED showDevRecords
+//
+// ---------------------------------------------------------------------------
+static void showLeds(void)
+{
+	// hub binds to node GREEN LED on
+	if(bound == TRUE)
+	{
+		LED_GREEN_On();
+	}
+	else LED_GREEN_Off();
+		
+// Toggle RED LED
+	if(State_On == TRUE)
+	{
+		LED_RED_On();
+	}
+	else LED_RED_Off();
+	
+}
+
+3. Node
+   ====
+
+Part: CY8C27443-24PVXI
+
+Placement
+=========
+
+Place User Modules => RF => SPIM (GPIO IRQ)
+
+Pinout
+======
+
+P1[2] = RedLED, StdCPU, Strong, DisableInt, 0
+P1[3] = GreenLED, StdCPU, Strong, DisableInt, 0
+P1[4] = SW2, StdCPU, Pull Down, DisableInt, 0
+P1[6] = SW1, StdCPU, Pull Down, DisableInt, 0
+
+P2[0] = LP_MISO, GlobalInEven_0, High Z, DisableInt, 0
+P2[3] = LP_SCK, GlobalOutEven_3, Strong, DisableInt, 0
+P2[5] = LP_MOSI, GlobalOutEven_5, Strong, DisableInt, 0
+
+The Tool builds these assignments
+P2[6] = CYFISNP_IRQ, StdCPU, High Z, RisingEdge, Normal, 0
+P2[7] = CYFISNP_nSS, StdCPU, Strong, DisableInt, Normal, 0
+
+Global Resources
+================
+CPU_Clock = 12_MHz (SysClk/2)
+32K_Select = Internal
+PLL_Mode = Disable
+VC1 = SysClk/4
+VC2 = VC1/16
+VC3 Source = SysClk/1
+VC3 Divider = 26
+SysClk Source = Internal 24_MHz
+SysClk*2 Disable = Yes
+Analog Power = All Off
+Ref Mux = (Vdd/2)+/-(Vdd/2)
+AGndBypass = Disable
+Op-Amp Bias = Low
+A_Buff_Power = Low
+SwitcjhModePump = OFF
+Trip Voltage [LVD(SMP)] = 2.9V (3.02V)
+LVDThrottleBack = Disable
+Supply Voltage = 3.3V
+Watchdog Enable = Disable
+
+
+CYFISNP Parameters
+==================
+Preamble Count = 2
+Maximum PA = 6 (0 dBm typ.)
+External PA = Yes
+First Channel = 10 (2.412 GHz)
+Last Channel = 58 (2.460 GHz)
+Power Supply Type = High Impedance Battery
+Protocol Data Block = 255
+MUX IRQ on MOSI = Disabled
+Clock = VC1
+MISO = Row_0_Input_0
+MOSI = Row_0_Output_1
+SClk = Row_0_Output_3
+IRQ_Port = Port_2
+IRQ_Pin = Port_2_6
+nSS_Port = Port_2
+nSS_Pin = Port_2_7
+Fast nSS Actuation = Yes
+
+Wiring
+======
+MISO Wiring: Row_0_Input_0 to GlobalInEven_0 connected to Port_2_0
+MOSI Wiring: Row_0_Output_1 to GlobalOutEven_5 connected to Port_2_5
+SClk Wiring: Row_0_Output_3 to GlobalOutEven_3 connected to Port_2_3
+
+Flash Security File
+===================
+Open flashsecurity.txt and edit the last entry of the last row,
+as shown below
+
+; @Id: flashsecurity.txt#1 @
+;
+; Edit this file to adjust the Flash security for this project.
+; Flash security is provided by marking a 64 byte block with a character
+; that corresponds to the type of security for that block, given:
+;
+; W: Full (Write protected)
+; R: Field Upgrade (Read protected)
+; U: Unprotected
+; F: Factory
+
+; Note #1: Protection characters can be entered in upper or lower case.
+; Note #2: Refer to the Flash Program Memory Protection section in the Data Sheet.
+
+; Comments may be added similar to an assembly language comment, by
+; Using the semicolon (;) followed by your comment.  The comment extends
+; to the end of the line.
+
+; 0 40 80 C0 100 140 180 1C0 200 240 280 2C0 300 340 380 3C0 (+) Base Address
+
+  W  W  W  W  W   W   W   W   W   W   W   W   W   W   W   W ;    Base Address 0 
+  W  W  W  W  W   W   W   W   W   W   W   W   W   W   W   W ;    Base Address 400 
+  W  W  W  W  W   W   W   W   W   W   W   W   W   W   W   W ;    Base Address 800 
+  W  W  W  W  W   W   W   W   W   W   W   W   W   W   W   W ;    Base Address C00 
+; End 4K parts
+  W  W  W  W  W   W   W   W   W   W   W   W   W   W   W   W ;    Base Address 1000 
+  W  W  W  W  W   W   W   W   W   W   W   W   W   W   W   W ;    Base Address 1400 
+  W  W  W  W  W   W   W   W   W   W   W   W   W   W   W   W ;    Base Address 1800 
+  W  W  W  W  W   W   W   W   W   W   W   W   W   W   W   W ;    Base Address 1C00
+; End 8K parts 
+  W  W  W  W  W   W   W   W   W   W   W   W   W   W   W   W ;    Base Address 2000 
+  W  W  W  W  W   W   W   W   W   W   W   W   W   W   W   W ;    Base Address 2400 
+  W  W  W  W  W   W   W   W   W   W   W   W   W   W   W   W ;    Base Address 2800 
+  W  W  W  W  W   W   W   W   W   W   W   W   W   W   W   W ;    Base Address 2C00 
+  W  W  W  W  W   W   W   W   W   W   W   W   W   W   W   W ;    Base Address 3000 
+  W  W  W  W  W   W   W   W   W   W   W   W   W   W   W   W ;    Base Address 3400
+  W  W  W  W  W   W   W   W   W   W   W   W   W   W   W   W ;    Base Address 3800
+  W  W  W  W  W   W   W   W   W   W   W   W   W   W   W   U ;    Base Address 3C00
+; End 16K parts
+
+//----------------------------------------------------------------------------
+// NODE C main line
+//----------------------------------------------------------------------------
+// Description
+// ===========
+// Node sends (pings) hub when button press
+// When hub pings node toggles RED LED 
+//---------------------------------------------------------------------
+
+
+#include <m8c.h>        // part specific constants and macros
+#include "PSoCAPI.h"    // PSoC API definitions for all User Modules
+#include "psocGpioInt.h"   //PSoC GPIO definitions
+
+//-------------------------------------------------------------------------
+//
+//#defines
+//
+//-------------------------------------------------------------------------
+
+//define the Red LED on the node
+#define LED_RED_OFF     (RedLED_Data_ADDR &= ~RedLED_MASK)
+#define LED_RED_ON      (RedLED_Data_ADDR |=  RedLED_MASK)
+#define LED_RED_TOG     (RedLED_Data_ADDR ^=  RedLED_MASK)
+#define IS_LED_RED_ON   (RedLED_Data_ADDR &   RedLED_MASK)
+
+//define the Green LED on the node
+#define LED_GRN_OFF     (GreenLED_Data_ADDR &= ~GreenLED_MASK)
+#define LED_GRN_ON      (GreenLED_Data_ADDR |=  GreenLED_MASK)
+#define LED_GRN_TOG     (GreenLED_Data_ADDR ^=  GreenLED_MASK)
+#define IS_LED_GRN_ON   (GreenLED_Data_ADDR &   GreenLED_MASK)
+
+#define SNP_RUN_SCALER      2   // Run SNP every 2nd cycle (every ~30mS)
+
+#define ON_THE_FLY_DEV_ID    0x00 //random choice of Device ID
+
+//Specific Device IDs to be used if necessary
+#define DEV_ID		0x02
+
+#define DEBOUNCE_TIME   2 //Set Debounce time to 2 seconds 
+ 
+
+//-------------------------------------------------------------------------
+//
+// Global Variables
+//
+//-------------------------------------------------------------------------
+
+static BYTE snpRunScaler;       		// Slow-down CYFISNP_Run() to save energy
+static CYFISNP_API_PKT  txApiPkt;       // Local Tx Data buffer
+static CYFISNP_API_PKT *pRxApiPkt;		// Local Rx Data buffer
+
+
+WORD sleepTicksPerSec = 64;     // 64 sleep timer ticks is "nominally" 1 sec
+WORD oneSecTimer;
+
+BOOL bound;				//boolean to check if the node is bound to the hub
+BOOL data_transferred;	//boolean to check if data has been transferred to the hub
+static BOOL State_On;   // Red LED ON/OFF
+
+BYTE data1;			//first byte of data to be sent
+BYTE data2;			//second byte of data to be sent
+BYTE loadValue;		//value to be loaded into the registers
+
+//Application Variables
+char payload_data[16];
+BYTE devId = 0;
+char length = 0;
+char packet_type = 0;
+static char txPktSz = 2;
+
+
+//-------------------------------------------------------------------------
+//
+// Functions
+//
+//-------------------------------------------------------------------------
+
+static void loadTxData			(void);
+static void PingHub 		(void);
+static BOOL CheckDataButton     (void);
+static BOOL CheckBindButton     (void);
+static void showLeds       (void);
+static void ServeSNPPackets(void);
+
+
+//-------------------------------------------------------------------------
+//
+// Main
+//
+//-------------------------------------------------------------------------
+
+void main(void)
+{
+	CYFISNP_PROT_STATE eProtStateOld;
+	
+	M8C_EnableGInt;	  //enable the M8C interrupt
+	
+	LED_GRN_OFF; 				//Reset the Green LED on the node
+	LED_RED_OFF;				//Reset the Red LED on the node
+	bound = FALSE;				//Reset the bound to the hub flag
+	data_transferred = FALSE;	//Reset the data_transferred to the hub flag
+	State_On = FALSE;			//Red LED Off
+
+	
+	CYFISNP_Start();
+    // --------------------------------------------------------
+    // Disable SNP_Radio Power Management Unit (saves about 32uA)
+    // --------------------------------------------------------
+    CYFISNP_Write(CYFISNP_PWR_CTRL_ADR,
+                  (CYFISNP_Read(CYFISNP_PWR_CTRL_ADR) & ~CYFISNP_PMU_EN) | CYFISNP_PMU_MODE_FORCE);
+
+    
+    CYFISNP_TimeSet(&oneSecTimer, sleepTicksPerSec);
+	
+	
+	// -----------------------------------------------------------------------
+    // POLLING LOOP
+    // -----------------------------------------------------------------------
+    while (1)
+    {	
+        // -------------------------------------------------------------------
+        // Watch Start Binding Button activity
+        // -------------------------------------------------------------------
+        if (CheckBindButton())
+        {
+			//start binding using a specific device ID
+            CYFISNP_BindStart(DEV_ID);//Node Device ID = DEV_ID
+			
+			//Set the bind flag
+            bound = TRUE;
+        }
+		
+		
+		// -------------------------------------------------------------------
+        // Watch the Data Sending Button
+        // -------------------------------------------------------------------
+        if (CheckDataButton())
+        {
+           PingHub();  // Send the data to (ping) hub
+		   
+		   //set the flag if the data has been transferred
+           data_transferred = TRUE;
+        }
+		
+
+		// -------------------------------------------------------------------
+        // Updating LEDs
+        // -------------------------------------------------------------------
+		showLeds();
+		
+		
+		// -------------------------------------------------------------------
+        // Run SNP (Star Network Protocol) less frequently to save energy
+        // -------------------------------------------------------------------
+        if (--snpRunScaler == 0)
+        {
+			//Run SNP every 2nd cycle
+            snpRunScaler = SNP_RUN_SCALER;
+            CYFISNP_Run();          // Poll SNP machine
+        }
+		
+
+        // -------------------------------------------------------------------
+        // Process received SNP data packets
+        // -------------------------------------------------------------------
+        if (CYFISNP_RxDataPend() == TRUE)
+        {
+			//Get the Received Packet
+			ServeSNPPackets();      // Service pending Rx data
+        }	
+	}
+}
+
+
+// -------------------------------------------------------------------------  
+//  
+// ServeSNPPackets()  
+//  
+// -------------------------------------------------------------------------  
+static void ServeSNPPackets(void) {  
+  
+  BYTE index = 0;
+  pRxApiPkt = CYFISNP_RxDataGet();      // ptr to Rx API Packet
+  
+     //if the packet is of the specified type
+	 if (pRxApiPkt->type == CYFISNP_API_TYPE_CONF_BCDR)
+			devId = pRxApiPkt->devId;	//store the device ID
+            length = pRxApiPkt->length;	//store the packet length
+            
+			//get the data from the payload of the received packet and store it into an array
+			for (index = 0; index<=length; index++) {
+				payload_data[index] = pRxApiPkt->payload[index];
+            }
+			// receive a ping toggle RED LED State_On
+			State_On = !State_On;
+  CYFISNP_RxDataRelease();        // Free the Rx buffer for reuse
+
+}  
+
+
+// ---------------------------------------------------------------------------
+//
+// bindButtonIsOn()
+//
+// ---------------------------------------------------------------------------
+static BOOL bindButtonIsOn(void)
+{
+    //Check that the button has been pressed
+	SW1_Data_ADDR &= ~SW1_MASK; // Ensure GPIO pulldown active
+    return(SW1_Data_ADDR & SW1_MASK);
+}
+
+
+// ---------------------------------------------------------------------------
+//
+// CheckBindButton()
+//
+// ---------------------------------------------------------------------------
+static BOOL CheckBindButton(void)
+{
+    WORD lvDelay;
+    if (bindButtonIsOn())
+    {
+        CYFISNP_TimeSet(&lvDelay, DEBOUNCE_TIME);       // Debouncing, delay
+        
+		//The Debouncing is expired after the time for delay has exceeded
+		while (CYFISNP_TimeExpired(&lvDelay) == 0) ;    // WAIT
+        if (bindButtonIsOn())           // If button still ON
+        {
+            while (bindButtonIsOn())    // Wait for button release
+            {
+                M8C_ClearWDTAndSleep;
+
+//Power Testing
+#if LOW_POWER_TEST
+                M8C_Sleep;
+#endif
+            }
+			
+			//return true when the button is released
+            return(TRUE);
+        }
+    }
+	//return false if the button has not been pressed
+    return(FALSE);
+}
+
+
+// ---------------------------------------------------------------------------
+//
+// DataButtonIsOn()
+//
+// ---------------------------------------------------------------------------
+static BOOL DataButtonIsOn(void)
+{   
+	//Check that the button has been pressed
+	SW2_Data_ADDR &= ~SW2_MASK;              // Ensure GPIO pulldown active
+    return(SW2_Data_ADDR & SW2_MASK);
+}
+
+
+// ---------------------------------------------------------------------------
+//
+// CheckDataButton() - Also cyclic steps report rate if is button held.
+//
+// ---------------------------------------------------------------------------
+
+#define BUTTON_HOLD_TIME_TO_INC_REPORT_DELAY   (1500/CYFISNP_TIMER_UNITS)
+
+static BOOL CheckDataButton(void)
+{
+    WORD lvDelay;
+
+    if (DataButtonIsOn())
+    {
+        CYFISNP_TimeSet(&lvDelay, DEBOUNCE_TIME);       // Debouncing, delay
+		
+        //The Debouncing is expired after the time for delay has exceeded
+		while (CYFISNP_TimeExpired(&lvDelay) == 0) ;    // WAIT
+        if (DataButtonIsOn())           // If button still ON
+        {
+            while (DataButtonIsOn())    // Wait for button release
+            {
+                M8C_ClearWDTAndSleep;
+
+//Power Testing
+#if LOW_POWER_TEST
+                M8C_Sleep;
+#endif
+
+            }
+			
+			//return true when the button is released
+            return(TRUE);
+        }
+    }
+	//return false if the button has not been pressed
+    return(FALSE);
+}
+
+
+
+// ---------------------------------------------------------------------------
+//
+// loadTxData(void) - Load the data bytes into Tx packet payload
+//
+// ---------------------------------------------------------------------------
+static void loadTxData(void)
+{
+    //Load MSByte as payload '1'
+    asm("mov A, [_data2]");
+    asm("mov [_loadValue], A");
+    txApiPkt.payload[1] = loadValue;
+
+    //Load LSByte as payload '0'
+    asm("mov A, [_data1]");
+    asm("mov [_loadValue], A");
+    txApiPkt.payload[0] = loadValue;
+}
+
+
+// ---------------------------------------------------------------------------
+//
+// showLeds(void) - Update the Leds 
+//
+// ---------------------------------------------------------------------------
+static void showLeds(void)
+{
+    // GREEN LED indicates bind
+	if(bound == TRUE)
+	{
+		LED_GRN_ON;
+	}
+	else LED_GRN_OFF;
+	// Red LED state
+	if(State_On == TRUE)
+	{
+		LED_RED_ON;
+	}
+	else LED_RED_OFF;
+}
+
+
+// ---------------------------------------------------------------------------
+//
+// PingHub()
+//
+// ---------------------------------------------------------------------------
+static void PingHub(void)
+{
+    //set the packet type
+	static char pktType = CYFISNP_API_TYPE_CONF_BCDR;
+
+
+    // -----------------------------------------------------------------------
+    // If in CYFISNP_DATA_MODE and prior Tx data is done,
+    //  then send the data to the hub
+    // -----------------------------------------------------------------------
+    if (CYFISNP_eProtState == CYFISNP_DATA_MODE && CYFISNP_TxDataPend() == FALSE)
+    {
+        //make sure that the packet size is not larger than the max permitted
+		if (txPktSz > CYFISNP_FCD_PAYLOAD_MAX)
+            txPktSz = 0;
+
+        // Load tx buffer payload bytes with signal to be transmitted
+		// Pinging doesn't use payload any data will do
+        data1 = 0x02; //load the device ID
+		data2 = 0x01; //load the data
+		loadTxData();
+
+        txApiPkt.length = txPktSz;    // Specify Tx length
+        txApiPkt.type   = pktType;    //Specify Packet Type
+
+        CYFISNP_TxDataPut(&txApiPkt); //Load the Tx data
+    }
+    else
+    {
+        CYFISNP_Jog();
+    }
+}
+

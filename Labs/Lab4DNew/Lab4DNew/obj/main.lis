@@ -1,0 +1,242 @@
+ 0000                   cpu LMM
+                        .module main.c
+                        .area text(rom, con, rel)
+ 0000                   .dbfile ./main.c
+                        .area data(ram, con, rel)
+ 0000                   .dbfile ./main.c
+ 0000           _wControlState::
+ 0000 03E8              .word 1000
+ 0002                   .dbfile Z:\ECEC35~1\Lab4DNew\Lab4DNew\main.c
+ 0002                   .dbsym e wControlState _wControlState i
+                        .area data(ram, con, rel)
+ 0000                   .dbfile Z:\ECEC35~1\Lab4DNew\Lab4DNew\main.c
+                        .area text(rom, con, rel)
+ 0000                   .dbfile Z:\ECEC35~1\Lab4DNew\Lab4DNew\main.c
+ 0000                   .dbfunc e main _main fV
+ 0000           _main::
+ 0000                   .dbline -1
+ 0000                   .dbline 11
+ 0000           ; //----------------------------------------------------------------------------
+ 0000           ; // C main line
+ 0000           ; //----------------------------------------------------------------------------
+ 0000           ; 
+ 0000           ; #include <m8c.h>        // part specific constants and macros
+ 0000           ; #include "PSoCAPI.h"    // PSoC API definitions for all User Modules
+ 0000           ; 
+ 0000           ; extern unsigned int wControlState = 1000;
+ 0000           ; 
+ 0000           ; void main()
+ 0000           ; {
+ 0000                   .dbline 13
+ 0000           ;    //Enable global interrupts
+ 0000           ;    M8C_EnableGInt;
+ 0000 7101                      or  F, 01h
+ 0002           
+ 0002                   .dbline 16
+ 0002           ; 
+ 0002           ;    //Start LCD
+ 0002           ;    LCD_Start();
+ 0002 10                push X
+ 0003 7C0000            xcall _LCD_Start
+ 0006                   .dbline 18
+ 0006           ;    //Init LCD
+ 0006           ;    LCD_Init();
+ 0006 7C0000            xcall _LCD_Init
+ 0009 20                pop X
+ 000A                   .dbline 21
+ 000A           ;    
+ 000A           ;    //Iniitalize pulsewidth
+ 000A           ;    FanPWM_WritePulseWidth(255);
+ 000A 10                push X
+ 000B 50FF              mov A,-1
+ 000D 7C0000            xcall _FanPWM_WritePulseWidth
+ 0010 20                pop X
+ 0011                   .dbline 23
+ 0011           ;    //Write label to LCD
+ 0011           ;    LCD_Position(0,0);
+ 0011 10                push X
+ 0012 5000              mov A,0
+ 0014 5C                mov X,A
+ 0015 7C0000            xcall _LCD_Position
+ 0018 20                pop X
+ 0019                   .dbline 24
+ 0019           ;    LCD_PrCString("Pulse Width: ");//Begin writing at 0,13
+ 0019 10                push X
+ 001A 5018              mov A,>L2
+ 001C 08                push A
+ 001D 5018              mov A,<L2
+ 001F 5C                mov X,A
+ 0020 18                pop A
+ 0021 7C0000            xcall _LCD_PrCString
+ 0024 20                pop X
+ 0025                   .dbline 25
+ 0025           ;    LCD_Position(0,13);
+ 0025 10                push X
+ 0026 570D              mov X,13
+ 0028 5000              mov A,0
+ 002A 7C0000            xcall _LCD_Position
+ 002D                   .dbline 26
+ 002D           ;    LCD_PrHexByte(FanPWM_bReadPulseWidth());
+ 002D 7C0000            xcall _FanPWM_bReadPulseWidth
+ 0030 62D000            mov REG[0xd0],>__r0
+ 0033 20                pop X
+ 0034 10                push X
+ 0035 7C0000            xcall _LCD_PrHexByte
+ 0038                   .dbline 29
+ 0038           ;    
+ 0038           ;    //Start Fan PWM
+ 0038           ;    FanPWM_Start();
+ 0038 7C0000            xcall _FanPWM_Start
+ 003B                   .dbline 32
+ 003B           ;    
+ 003B           ;    //Enable FanPWM interrupt
+ 003B           ;    FanPWM_EnableInt();
+ 003B 7C0000            xcall _FanPWM_EnableInt
+ 003E 20                pop X
+ 003F 8082              xjmp L4
+ 0041           L6:
+ 0041                   .dbline 37
+ 0041           ;    
+ 0041           ;    while(1)//control loop
+ 0041           ;    {
+ 0041           ;               //Wait for sleep timer
+ 0041           ;               while(INT_CLR0 & 0b01000000 == 0){}//Wait for posted sleep timer interrupt
+ 0041                   .dbline 37
+ 0041           L7:
+ 0041                   .dbline 37
+ 0041 5000              mov A,0
+ 0043 BFFD              jnz L6
+ 0045                   .dbline 39
+ 0045           ;               //Clear sleep timer interrupt
+ 0045           ;               INT_CLR0 &= ~0b01000000;
+ 0045 41DABF            and REG[0xda],-65
+ 0048                   .dbline 42
+ 0048           ;               
+ 0048           ;               //Read switch input 3 times (debounce)
+ 0048           ;               if(PRT1DR & 0b00000001 == 0b00000001) //First read
+ 0048 5D04              mov A,REG[0x4]
+ 004A 62D000            mov REG[0xd0],>__r0
+ 004D 5300              mov [__r0],A
+ 004F 470001            tst [__r0],1
+ 0052 A06F              jz L9
+ 0054                   .dbline 43
+ 0054           ;               {
+ 0054                   .dbline 44
+ 0054           ;                       if(PRT1DR & 0b00000001 == 0b00000001) //Second read
+ 0054 5D04              mov A,REG[0x4]
+ 0056 5300              mov [__r0],A
+ 0058 470001            tst [__r0],1
+ 005B A066              jz L11
+ 005D                   .dbline 45
+ 005D           ;                       {
+ 005D                   .dbline 46
+ 005D           ;                               if(PRT1DR & 0b00000001 == 0b00000001) //Third read - Button has been pressed
+ 005D 5D04              mov A,REG[0x4]
+ 005F 5300              mov [__r0],A
+ 0061 470001            tst [__r0],1
+ 0064 A05D              jz L13
+ 0066                   .dbline 47
+ 0066           ;                               {
+ 0066                   .dbline 48
+ 0066           ;                                       LCD_Position(1,0);
+ 0066 10                push X
+ 0067 5700              mov X,0
+ 0069 5001              mov A,1
+ 006B 7C0000            xcall _LCD_Position
+ 006E 20                pop X
+ 006F                   .dbline 49
+ 006F           ;                                       LCD_PrCString("Waitiing...");
+ 006F 10                push X
+ 0070 500C              mov A,>L15
+ 0072 08                push A
+ 0073 500C              mov A,<L15
+ 0075 5C                mov X,A
+ 0076 18                pop A
+ 0077 7C0000            xcall _LCD_PrCString
+ 007A 20                pop X
+ 007B           L16:
+ 007B                   .dbline 50
+ 007B           ;                                       while(PRT1DR & 0b00000001 == 0b00000001){}//Wait for button to be released
+ 007B                   .dbline 50
+ 007B           L17:
+ 007B                   .dbline 50
+ 007B 5D04              mov A,REG[0x4]
+ 007D 62D000            mov REG[0xd0],>__r0
+ 0080 5300              mov [__r0],A
+ 0082 470001            tst [__r0],1
+ 0085 BFF5              jnz L16
+ 0087                   .dbline 51
+ 0087           ;                                       LCD_Position(1,0);
+ 0087 10                push X
+ 0088 5700              mov X,0
+ 008A 5001              mov A,1
+ 008C 7C0000            xcall _LCD_Position
+ 008F 20                pop X
+ 0090                   .dbline 52
+ 0090           ;                                       LCD_PrCString("           ");
+ 0090 10                push X
+ 0091 5000              mov A,>L19
+ 0093 08                push A
+ 0094 5000              mov A,<L19
+ 0096 5C                mov X,A
+ 0097 18                pop A
+ 0098 7C0000            xcall _LCD_PrCString
+ 009B                   .dbline 56
+ 009B           ;                                       
+ 009B           ;                                       
+ 009B           ;                                       //Decrement pulse width
+ 009B           ;                                       FanPWM_WritePulseWidth(FanPWM_bReadPulseWidth() - 1);
+ 009B 7C0000            xcall _FanPWM_bReadPulseWidth
+ 009E 62D000            mov REG[0xd0],>__r0
+ 00A1 20                pop X
+ 00A2 5300              mov [__r0],A
+ 00A4 160001            sub [__r0],1
+ 00A7 10                push X
+ 00A8 5100              mov A,[__r0]
+ 00AA 7C0000            xcall _FanPWM_WritePulseWidth
+ 00AD 20                pop X
+ 00AE                   .dbline 58
+ 00AE           ;                                       //Update display
+ 00AE           ;                                       LCD_Position(0,13);
+ 00AE 10                push X
+ 00AF 570D              mov X,13
+ 00B1 5000              mov A,0
+ 00B3 7C0000            xcall _LCD_Position
+ 00B6                   .dbline 59
+ 00B6           ;                                       LCD_PrHexByte(FanPWM_bReadPulseWidth());
+ 00B6 7C0000            xcall _FanPWM_bReadPulseWidth
+ 00B9 62D000            mov REG[0xd0],>__r0
+ 00BC 20                pop X
+ 00BD 10                push X
+ 00BE 7C0000            xcall _LCD_PrHexByte
+ 00C1 20                pop X
+ 00C2                   .dbline 60
+ 00C2           ;                               }
+ 00C2           L13:
+ 00C2                   .dbline 61
+ 00C2           ;                       }
+ 00C2           L11:
+ 00C2                   .dbline 63
+ 00C2           ;               
+ 00C2           ;               }
+ 00C2           L9:
+ 00C2                   .dbline 66
+ 00C2           ;               
+ 00C2           ;               
+ 00C2           ;    }//end control loop
+ 00C2           L4:
+ 00C2                   .dbline 34
+ 00C2 8F7E              xjmp L7
+ 00C4           X0:
+ 00C4                   .dbline -2
+ 00C4           L1:
+ 00C4                   .dbline 0 ; func end
+ 00C4 8FFF              jmp .
+ 00C6                   .dbend
+                        .area lit(rom, con, rel)
+ 0000           L19:
+ 0000 202020202020202020202000  .byte 32,32,32,32,32,32,32,32,32,32,32,0
+ 000C           L15:
+ 000C 5761697469696E672E2E2E00  .byte 'W,'a,'i,'t,'i,'i,'n,'g,46,46,46,0
+ 0018           L2:
+ 0018 50756C73652057696474683A2000      .byte 'P,'u,'l,'s,'e,32,'W,'i,'d,'t,'h,58,32,0

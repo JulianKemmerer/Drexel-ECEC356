@@ -1,0 +1,33 @@
+Starting MAKE...
+creating project.mk 
+lib/fanpwm.asm
+lib/fanpwmint.asm
+lib/lcd.asm
+lib/psocconfig.asm
+lib/psocconfigtbl.asm
+lib/tachtimer.asm
+lib/tachtimerint.asm
+./boot.asm
+./main.c
+!W Z:\ECEC35~2\Lab5A\Lab5A\main.c(34):[warning] old-style function definition for `main'
+Linking..
+LMM info: area 'InterruptRAM' uses 3 bytes in SRAM bank 0
+LMM info: area 'data' item of 24 bytes allocated in SRAM page 0
+LMM info: area 'virtual_registers' uses 11 bytes in SRAM page 0
+LMM info: area 'data' item of 4 bytes allocated in SRAM page 0
+LMM info: area 'data' item of 2 bytes allocated in SRAM page 0
+LMM info: area 'data' item of 2 bytes allocated in SRAM page 0
+LMM info: area 'data' item of 2 bytes allocated in SRAM page 0
+LMM info: area 'data' item of 2 bytes allocated in SRAM page 0
+LMM info: area 'data' item of 2 bytes allocated in SRAM page 0
+LMM info: area 'data' item of 2 bytes allocated in SRAM page 0
+LMM info: area 'data' item of 1 bytes allocated in SRAM page 0
+LMM info: area 'data' item of 1 bytes allocated in SRAM page 0
+LMM info: area 'data' item of 1 bytes allocated in SRAM page 0
+  ROM 9% full. 2716 out of 32768 bytes used (does not include absolute areas).
+  RAM 4% full. 57 bytes used (does not include stack usage).
+idata dump at output/Lab5A.idata
+Built with ICCM8C STD V7.04
+ 
+Lab5A - 0 error(s) 1 warning(s) 13:46:51
+

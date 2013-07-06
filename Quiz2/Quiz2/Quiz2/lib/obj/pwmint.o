@@ -1,0 +1,157 @@
+XH
+H 3 areas 11 global symbols
+M pwmint.asm
+S __r0 Ref0000
+S __r1 Ref0000
+S __r2 Ref0000
+S __r3 Ref0000
+S __r4 Ref0000
+S __r5 Ref0000
+S __r6 Ref0000
+S __r7 Ref0000
+S __r8 Ref0000
+S __r9 Ref0000
+S __rX Ref0000
+S __rY Ref0000
+S __rZ Ref0000
+S __r10 Ref0000
+S __r11 Ref0000
+S _PWM10ms Ref0000
+A text size 0 flags 0
+dbfile lib/pwmint.asm
+dbfunc 0 ? 0 I
+dbfile memory.inc
+dbfunc 0 ? 0 I
+dbfile lib/pwmint.asm
+dbfunc 0 ? 0 I
+dbfile PWM.inc
+dbfunc 0 ? 0 I
+dbfile C:/PROGRA~1/Cypress/PSOCDE~2/5.1/Common/CYPRES~3/tools/include/CY8C29~1/m8c.inc
+dbfunc 0 ? 0 I
+dbfile ./lib/PWM.inc
+dbfunc 0 ? 0 I
+dbfile lib/pwmint.asm
+dbfunc 0 ? 0 I
+dbfile C:/PROGRA~1/Cypress/PSOCDE~2/5.1/Common/CYPRES~3/tools/include/CY8C29~1/m8c.inc
+dbfunc 0 ? 0 I
+A InterruptRAM size 0 flags 20
+A UserModules size 8B flags 0
+dbfile lib/pwmint.asm
+dbfunc 0 ? 0 I
+dbline 3 0
+dbline 2 1
+dbline 3 3
+dbline 2 4
+dbline 3 6
+dbline 2 7
+dbline 3 9
+dbline 2 A
+dbline 3 C
+dbline 3 D
+dbline 4 F
+dbline 7 11
+dbline 9 14
+dbline A 16
+dbline B 17
+dbline C 19
+dbline D 1A
+dbline E 1C
+dbline F 1D
+dbline 10 1F
+dbline 11 20
+dbline 12 22
+dbline 13 23
+dbline 14 25
+dbline 15 26
+dbline 16 28
+dbline 17 29
+dbline 18 2B
+dbline 19 2C
+dbline 1A 2E
+dbline 1B 2F
+dbline 1C 31
+dbline 1D 32
+dbline 1E 34
+dbline 1F 35
+dbline 20 37
+dbline 21 38
+dbline 22 3A
+dbline 23 3B
+dbline 24 3D
+dbline 25 3E
+dbline 26 40
+dbline 28 41
+dbline 53 44
+dbline 3 47
+dbline 4 49
+dbline 5 4B
+dbline 7 4E
+dbline 8 4F
+dbline 9 51
+dbline A 52
+dbline B 54
+dbline C 55
+dbline D 57
+dbline E 58
+dbline F 5A
+dbline 10 5B
+dbline 11 5D
+dbline 12 5E
+dbline 13 60
+dbline 14 61
+dbline 15 63
+dbline 16 64
+dbline 17 66
+dbline 18 67
+dbline 19 69
+dbline 1A 6A
+dbline 1B 6C
+dbline 1C 6D
+dbline 1D 6F
+dbline 1E 70
+dbline 1F 72
+dbline 20 73
+dbline 21 75
+dbline 22 76
+dbline 23 78
+dbline 24 79
+dbline 2 7B
+dbline 3 7C
+dbline 2 7E
+dbline 3 7F
+dbline 2 81
+dbline 3 82
+dbline 2 84
+dbline 3 85
+dbline 27 87
+dbline 29 89
+dbline 5C 8A
+S _PWM_ISR Def0000
+T 00 00 08 5D D0 08 5D D3 08 5D D4 08 5D D5 08 70
+R 00 00 00 02
+T 00 0E 3F 71 C0 62 D0 00 00 51 00 00 08 51 00 00
+R 00 00 00 02 43 07 00 00 03 0A 00 00 03 0E 00 01
+T 00 19 08 51 00 00 08 51 00 00 08 51 00 00 08 51
+R 00 00 00 02 03 04 00 02 03 08 00 03 03 0C 00 04
+T 00 24 00 00 08 51 00 00 08 51 00 00 08 51
+R 00 00 00 02 03 02 00 05 03 06 00 06 03 0A 00 07
+T 00 2D 00 00 08 51 00 00 08 51 00 00 08 51
+R 00 00 00 02 03 02 00 08 03 06 00 09 03 0A 00 0D
+T 00 36 00 00 08 51 00 00 08 51 00 00 08 51
+R 00 00 00 02 03 02 00 0E 03 06 00 0A 03 0A 00 0B
+T 00 3F 00 00 08 62 D0 00 7D 00 00 70 3F 71 C0 62
+R 00 00 00 02 03 02 00 0C 02 09 00 0F
+T 00 4C D0 00 00 18 53 00 00 18 53 00 00 18 53
+R 00 00 00 02 43 03 00 00 03 07 00 0C 03 0B 00 0B
+T 00 56 00 00 18 53 00 00 18 53 00 00 18 53
+R 00 00 00 02 03 02 00 0A 03 06 00 0E 03 0A 00 0D
+T 00 5F 00 00 18 53 00 00 18 53 00 00 18 53
+R 00 00 00 02 03 02 00 09 03 06 00 08 03 0A 00 07
+T 00 68 00 00 18 53 00 00 18 53 00 00 18 53
+R 00 00 00 02 03 02 00 06 03 06 00 05 03 0A 00 04
+T 00 71 00 00 18 53 00 00 18 53 00 00 18 53
+R 00 00 00 02 03 02 00 03 03 06 00 02 03 0A 00 01
+T 00 7A 00 00 18 60 D5 18 60 D4 18 60 D3 18 60 D0
+R 00 00 00 02 03 02 00 00
+T 00 87 70 00 18 7E
+R 00 00 00 02

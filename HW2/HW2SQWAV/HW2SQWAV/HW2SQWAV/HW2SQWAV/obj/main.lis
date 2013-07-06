@@ -1,0 +1,387 @@
+ 0000                   cpu LMM
+                        .module main.c
+                        .area text(rom, con, rel)
+ 0000                   .dbfile ./main.c
+                        .area data(ram, con, rel)
+ 0000                   .dbfile ./main.c
+ 0000           _bDataAvailable::
+ 0000 00                .byte 0
+ 0001                   .dbfile Z:\HW2\HW2SQWAV\HW2SQWAV\HW2SQWAV\HW2SQWAV\main.c
+ 0001                   .dbsym e bDataAvailable _bDataAvailable c
+                        .area data(ram, con, rel)
+ 0000                   .dbfile Z:\HW2\HW2SQWAV\HW2SQWAV\HW2SQWAV\HW2SQWAV\main.c
+                        .area data(ram, con, rel)
+ 0000                   .dbfile Z:\HW2\HW2SQWAV\HW2SQWAV\HW2SQWAV\HW2SQWAV\main.c
+ 0000           _time1::
+ 0000 0000              .word 0
+ 0002                   .dbsym e time1 _time1 i
+                        .area data(ram, con, rel)
+ 0000                   .dbfile Z:\HW2\HW2SQWAV\HW2SQWAV\HW2SQWAV\HW2SQWAV\main.c
+                        .area data(ram, con, rel)
+ 0000                   .dbfile Z:\HW2\HW2SQWAV\HW2SQWAV\HW2SQWAV\HW2SQWAV\main.c
+ 0000           _time2::
+ 0000 0000              .word 0
+ 0002                   .dbsym e time2 _time2 i
+                        .area data(ram, con, rel)
+ 0000                   .dbfile Z:\HW2\HW2SQWAV\HW2SQWAV\HW2SQWAV\HW2SQWAV\main.c
+                        .area data(ram, con, rel)
+ 0000                   .dbfile Z:\HW2\HW2SQWAV\HW2SQWAV\HW2SQWAV\HW2SQWAV\main.c
+ 0000           _delT::
+ 0000 0000              .word 0
+ 0002                   .dbsym e delT _delT i
+                        .area data(ram, con, rel)
+ 0000                   .dbfile Z:\HW2\HW2SQWAV\HW2SQWAV\HW2SQWAV\HW2SQWAV\main.c
+                        .area text(rom, con, rel)
+ 0000                   .dbfile Z:\HW2\HW2SQWAV\HW2SQWAV\HW2SQWAV\HW2SQWAV\main.c
+ 0000                   .dbfunc e main _main fV
+ 0000           _main::
+ 0000                   .dbline -1
+ 0000                   .dbline 18
+ 0000           ; //----------------------------------------------------------------------------
+ 0000           ; // C main line
+ 0000           ; //----------------------------------------------------------------------------
+ 0000           ; 
+ 0000           ; #include <m8c.h>        // part specific constants and macros
+ 0000           ; #include "PSoCAPI.h"    // PSoC API definitions for all User Modules
+ 0000           ; 
+ 0000           ; extern unsigned char bDataAvailable = 0;
+ 0000           ; extern unsigned int time1 = 0;
+ 0000           ; extern unsigned int time2 = 0;
+ 0000           ; extern unsigned int delT = 0;
+ 0000           ; 
+ 0000           ; void SleepTimerISR(void);
+ 0000           ; void SignalHigh(void);
+ 0000           ; 
+ 0000           ; 
+ 0000           ; void main(void)
+ 0000           ; {
+ 0000                   .dbline 33
+ 0000           ;       //Should have a full count at .5MHZ (slowest freq)
+ 0000           ;       //Go slightly lower clock to ensure that overflow does not occur
+ 0000           ;       //Full count is 2^16 -1 = 65535
+ 0000           ;       //Full period should also be 65535
+ 0000           ;       //.5MHZ = 0.000002 seconds/cycle
+ 0000           ;       //Count 65535 in 0.000002 seconds
+ 0000           ;       //65535 counts/0.000002 seconds is much larger than fastest clock speed
+ 0000           ;       //Using fastest clock speed as best we can do
+ 0000           ;       //Clock = 2*SysCLK = 48MHZ                              
+ 0000           ;       //Time measured in 1/(48*10^6) increments = 2.0833e-8 = 20.833ns
+ 0000           ;       //Minimum signal high to high = 65535 * 20.833ns = 732.44Hz
+ 0000           ;       //ElapsedTime = (ClockFreq^-1)*(PeriodValue - CounterValue)
+ 0000           ;       
+ 0000           ;       //Enable global interrupts
+ 0000           ;       M8C_EnableGInt;
+ 0000 7101                      or  F, 01h
+ 0002           
+ 0002                   .dbline 36
+ 0002           ;       
+ 0002           ;       //Start Timer
+ 0002           ;       Timer_Start();
+ 0002 10                push X
+ 0003 7C0000            xcall _Timer_Start
+ 0006                   .dbline 39
+ 0006           ;       
+ 0006           ;       //Enable Timer interrupts
+ 0006           ;       Timer_EnableInt();
+ 0006 7C0000            xcall _Timer_EnableInt
+ 0009                   .dbline 42
+ 0009           ;       
+ 0009           ;       //Start LCD
+ 0009           ;       LCD_Start();
+ 0009 7C0000            xcall _LCD_Start
+ 000C                   .dbline 43
+ 000C           ;       LCD_Init();
+ 000C 7C0000            xcall _LCD_Init
+ 000F                   .dbline 45
+ 000F           ;       //Display time labels
+ 000F           ;       LCD_Init();
+ 000F 7C0000            xcall _LCD_Init
+ 0012 20                pop X
+ 0013                   .dbline 46
+ 0013           ;       LCD_Position(0,0);
+ 0013 10                push X
+ 0014 5000              mov A,0
+ 0016 5C                mov X,A
+ 0017 7C0000            xcall _LCD_Position
+ 001A 20                pop X
+ 001B                   .dbline 47
+ 001B           ;       LCD_PrCString("DelT: ");
+ 001B 10                push X
+ 001C 5000              mov A,>L2
+ 001E 08                push A
+ 001F 5000              mov A,<L2
+ 0021 5C                mov X,A
+ 0022 18                pop A
+ 0023 7C0000            xcall _LCD_PrCString
+ 0026 20                pop X
+ 0027                   .dbline -2
+ 0027           L1:
+ 0027                   .dbline 0 ; func end
+ 0027 8FFF              jmp .
+ 0029                   .dbend
+ 0029                   .dbfunc e SignalHigh _SignalHigh fV
+ 0029           _SignalHigh::
+ 0029                   .dbline -1
+ 0029 71C0              or F,-64
+ 002B 08                push A
+ 002C 5DD0              mov A,REG[0xd0]
+ 002E 08                push A
+ 002F 5DD3              mov A,REG[0xd3]
+ 0031 08                push A
+ 0032 5DD4              mov A,REG[0xd4]
+ 0034 08                push A
+ 0035 5DD5              mov A,REG[0xd5]
+ 0037 08                push A
+ 0038 62D000            mov REG[0xd0],>__r0
+ 003B 5100              mov A,[__r0]
+ 003D 08                push A
+ 003E 5100              mov A,[__r1]
+ 0040 08                push A
+ 0041 5100              mov A,[__r2]
+ 0043 08                push A
+ 0044 5100              mov A,[__r3]
+ 0046 08                push A
+ 0047 5100              mov A,[__r4]
+ 0049 08                push A
+ 004A 5100              mov A,[__r5]
+ 004C 08                push A
+ 004D 5100              mov A,[__r6]
+ 004F 08                push A
+ 0050 5100              mov A,[__r7]
+ 0052 08                push A
+ 0053 5100              mov A,[__r8]
+ 0055 08                push A
+ 0056 5100              mov A,[__r9]
+ 0058 08                push A
+ 0059 5100              mov A,[__r10]
+ 005B 08                push A
+ 005C 5100              mov A,[__r11]
+ 005E 08                push A
+ 005F 5100              mov A,[__rX]
+ 0061 08                push A
+ 0062 5100              mov A,[__rY]
+ 0064 08                push A
+ 0065 5100              mov A,[__rZ]
+ 0067 08                push A
+ 0068                   .dbline 55
+ 0068           ;       
+ 0068           ;       
+ 0068           ;       
+ 0068           ; }
+ 0068           ; 
+ 0068           ; #pragma interrupt_handler SignalHigh
+ 0068           ; void SignalHigh(void) //Interrupt for timer
+ 0068           ; {
+ 0068                   .dbline 57
+ 0068           ;       //Clear TachTimer pending interrupts
+ 0068           ;       INT_CLR1 &= ~0b00000011;
+ 0068 41DBFC            and REG[0xdb],-4
+ 006B                   .dbline 60
+ 006B           ; 
+ 006B           ;       //Disable timer interrupts temporarily
+ 006B           ;       Timer_DisableInt();
+ 006B 10                push X
+ 006C 7C0000            xcall _Timer_DisableInt
+ 006F 20                pop X
+ 0070                   .dbline 66
+ 0070           ;       
+ 0070           ;       //ElapsedTime = (ClockFreq^-1)*(PeriodValue - CounterValue)
+ 0070           ;       //LCD_Position(0,0);
+ 0070           ;       //LCD_PrCString("SIGNAL");
+ 0070           ;       
+ 0070           ;       if(bDataAvailable == 1)//Atleast 1 data point has been captured
+ 0070 62D000            mov REG[0xd0],>_bDataAvailable
+ 0073 3C0001            cmp [_bDataAvailable],1
+ 0076 B073              jnz L4
+ 0078                   .dbline 67
+ 0078           ;       {
+ 0078                   .dbline 69
+ 0078           ;               //Swap the first time for the second
+ 0078           ;               time2 = time1;
+ 0078 62D000            mov REG[0xd0],>_time1
+ 007B 5101              mov A,[_time1+1]
+ 007D 08                push A
+ 007E 5100              mov A,[_time1]
+ 0080 62D000            mov REG[0xd0],>_time2
+ 0083 5300              mov [_time2],A
+ 0085 18                pop A
+ 0086 5301              mov [_time2+1],A
+ 0088                   .dbline 72
+ 0088           ;               
+ 0088           ;               //Record a new time1
+ 0088           ;               time1 = Timer_wReadTimerSaveCV();
+ 0088 10                push X
+ 0089 7C0000            xcall _Timer_wReadTimerSaveCV
+ 008C 62D000            mov REG[0xd0],>__r0
+ 008F 5A00              mov [__r0],X
+ 0091 20                pop X
+ 0092 08                push A
+ 0093 5100              mov A,[__r0]
+ 0095 62D000            mov REG[0xd0],>_time1
+ 0098 5300              mov [_time1],A
+ 009A 18                pop A
+ 009B 5301              mov [_time1+1],A
+ 009D                   .dbline 75
+ 009D           ;               
+ 009D           ;               //Calculate the time difference
+ 009D           ;               delT = time1 - time2;
+ 009D 5101              mov A,[_time1+1]
+ 009F 62D000            mov REG[0xd0],>_time2
+ 00A2 1201              sub A,[_time2+1]
+ 00A4 62D000            mov REG[0xd0],>_delT
+ 00A7 5301              mov [_delT+1],A
+ 00A9 62D000            mov REG[0xd0],>_time1
+ 00AC 5100              mov A,[_time1]
+ 00AE 62D000            mov REG[0xd0],>_time2
+ 00B1 1A00              sbb A,[_time2]
+ 00B3 62D000            mov REG[0xd0],>_delT
+ 00B6 5300              mov [_delT],A
+ 00B8                   .dbline 78
+ 00B8           ;               //Print the times
+ 00B8           ;               //Display time labels
+ 00B8           ;               LCD_Init();
+ 00B8 10                push X
+ 00B9 7C0000            xcall _LCD_Init
+ 00BC 20                pop X
+ 00BD                   .dbline 79
+ 00BD           ;               LCD_Position(0,0);
+ 00BD 10                push X
+ 00BE 5000              mov A,0
+ 00C0 5C                mov X,A
+ 00C1 7C0000            xcall _LCD_Position
+ 00C4 20                pop X
+ 00C5                   .dbline 80
+ 00C5           ;               LCD_PrCString("DelT: ");
+ 00C5 10                push X
+ 00C6 5000              mov A,>L2
+ 00C8 08                push A
+ 00C9 5000              mov A,<L2
+ 00CB 5C                mov X,A
+ 00CC 18                pop A
+ 00CD 7C0000            xcall _LCD_PrCString
+ 00D0 20                pop X
+ 00D1                   .dbline 82
+ 00D1           ;               //Display time difference
+ 00D1           ;               LCD_Position(0,6);
+ 00D1 10                push X
+ 00D2 5706              mov X,6
+ 00D4 5000              mov A,0
+ 00D6 7C0000            xcall _LCD_Position
+ 00D9 20                pop X
+ 00DA                   .dbline 83
+ 00DA           ;               LCD_PrHexInt(delT);
+ 00DA 10                push X
+ 00DB 62D000            mov REG[0xd0],>_delT
+ 00DE 5100              mov A,[_delT]
+ 00E0 08                push A
+ 00E1 5101              mov A,[_delT+1]
+ 00E3 20                pop X
+ 00E4 7C0000            xcall _LCD_PrHexInt
+ 00E7 20                pop X
+ 00E8                   .dbline 85
+ 00E8           ; 
+ 00E8           ;       }
+ 00E8 801C              xjmp L5
+ 00EA           L4:
+ 00EA                   .dbline 87
+ 00EA           ;       else
+ 00EA           ;       {
+ 00EA                   .dbline 89
+ 00EA           ;               //Record a new time1
+ 00EA           ;               time1 = Timer_wReadTimerSaveCV();
+ 00EA 10                push X
+ 00EB 7C0000            xcall _Timer_wReadTimerSaveCV
+ 00EE 62D000            mov REG[0xd0],>__r0
+ 00F1 5A00              mov [__r0],X
+ 00F3 20                pop X
+ 00F4 08                push A
+ 00F5 5100              mov A,[__r0]
+ 00F7 62D000            mov REG[0xd0],>_time1
+ 00FA 5300              mov [_time1],A
+ 00FC 18                pop A
+ 00FD 5301              mov [_time1+1],A
+ 00FF                   .dbline 92
+ 00FF           ;               
+ 00FF           ;               //Signal that atleast 1 data point has been captured
+ 00FF           ;               bDataAvailable = 1;
+ 00FF 62D000            mov REG[0xd0],>_bDataAvailable
+ 0102 550001            mov [_bDataAvailable],1
+ 0105                   .dbline 99
+ 0105           ;               
+ 0105           ;               //Display times
+ 0105           ;               //LCD_Position(0,4);
+ 0105           ;               //LCD_PrHexInt(time1);
+ 0105           ;               //LCD_Position(1,4);
+ 0105           ;               //LCD_PrHexInt(time2);
+ 0105           ;       }
+ 0105           L5:
+ 0105                   .dbline 102
+ 0105           ;       
+ 0105           ;       //Enable Timer interrupts again
+ 0105           ;       Timer_EnableInt();
+ 0105 10                push X
+ 0106 7C0000            xcall _Timer_EnableInt
+ 0109 20                pop X
+ 010A                   .dbline -2
+ 010A           L3:
+ 010A 62D000            mov REG[0xD0],>__r0
+ 010D 18                pop A
+ 010E 5300              mov [__rZ],A
+ 0110 18                pop A
+ 0111 5300              mov [__rY],A
+ 0113 18                pop A
+ 0114 5300              mov [__rX],A
+ 0116 18                pop A
+ 0117 5300              mov [__r11],A
+ 0119 18                pop A
+ 011A 5300              mov [__r10],A
+ 011C 18                pop A
+ 011D 5300              mov [__r9],A
+ 011F 18                pop A
+ 0120 5300              mov [__r8],A
+ 0122 18                pop A
+ 0123 5300              mov [__r7],A
+ 0125 18                pop A
+ 0126 5300              mov [__r6],A
+ 0128 18                pop A
+ 0129 5300              mov [__r5],A
+ 012B 18                pop A
+ 012C 5300              mov [__r4],A
+ 012E 18                pop A
+ 012F 5300              mov [__r3],A
+ 0131 18                pop A
+ 0132 5300              mov [__r2],A
+ 0134 18                pop A
+ 0135 5300              mov [__r1],A
+ 0137 18                pop A
+ 0138 5300              mov [__r0],A
+ 013A 18                pop A
+ 013B 60D5              mov REG[213],A
+ 013D 18                pop A
+ 013E 60D4              mov REG[212],A
+ 0140 18                pop A
+ 0141 60D3              mov REG[211],A
+ 0143 18                pop A
+ 0144 60D0              mov REG[208],A
+ 0146 18                pop A
+ 0147                   .dbline 0 ; func end
+ 0147 7E                reti
+ 0148                   .dbend
+ 0148                   .dbfunc e SleepTimerISR _SleepTimerISR fV
+ 0148           _SleepTimerISR::
+ 0148                   .dbline -1
+ 0148                   .dbline 108
+ 0148           ; }
+ 0148           ; 
+ 0148           ; 
+ 0148           ; #pragma interrupt_handler SleepTimerISR
+ 0148           ; void SleepTimerISR(void)
+ 0148           ; {
+ 0148                   .dbline -2
+ 0148           L6:
+ 0148                   .dbline 0 ; func end
+ 0148 7E                reti
+ 0149                   .dbend
+                        .area lit(rom, con, rel)
+ 0000           L2:
+ 0000 44656C543A2000    .byte 'D,'e,'l,'T,58,32,0

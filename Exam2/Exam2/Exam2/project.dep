@@ -1,0 +1,30 @@
+# DO NOT DELETE
+./obj/boot.o : \
+   C:/PROGRA~1/Cypress/PSOCDE~2/5.1/Common/CYPRES~3/tools/include/CY8C29~1/m8c.inc\
+   C:/PROGRA~1/Cypress/PSOCDE~2/5.1/Common/CYPRES~3/tools/include/CY8C29~1/m8ssc.inc\
+   C:\DOCUME~1\JKEMME~1\Desktop\Exam2\Exam2\Exam2\Exam2\lib\GLOBAL~1.INC\
+   C:\DOCUME~1\JKEMME~1\Desktop\Exam2\Exam2\Exam2\Exam2\memory.inc
+./obj/main.o :  ./lib/COUNTE~1.H ./lib/LCD.h ./lib/PSoCAPI.h\
+   ./lib/PSOCGP~1.H ./lib/SCDAC.h ./lib/SCGain.h\
+   C:/PROGRA~1/Cypress/PSOCDE~2/5.1/Common/CYPRES~3/tools/include/CY8C29~1/M8C.h\
+   C:/PROGRA~1/Cypress/PSOCDE~2/5.1/Common/CYPRES~3/tools/include/CY8C29~1/m8c.h
+./lib/obj/counter16.o :  ./lib/COUNTE~1.INC\
+   C:/PROGRA~1/Cypress/PSOCDE~2/5.1/Common/CYPRES~3/tools/include/CY8C29~1/m8c.inc\
+   C:\DOCUME~1\JKEMME~1\Desktop\Exam2\Exam2\Exam2\Exam2\memory.inc
+./lib/obj/counter16int.o :  ./lib/COUNTE~1.INC\
+   C:/PROGRA~1/Cypress/PSOCDE~2/5.1/Common/CYPRES~3/tools/include/CY8C29~1/m8c.inc\
+   C:\DOCUME~1\JKEMME~1\Desktop\Exam2\Exam2\Exam2\Exam2\memory.inc
+./lib/obj/lcd.o :  ./lib/LCD.inc\
+   C:/PROGRA~1/Cypress/PSOCDE~2/5.1/Common/CYPRES~3/tools/include/CY8C29~1/m8c.inc\
+   C:\DOCUME~1\JKEMME~1\Desktop\Exam2\Exam2\Exam2\Exam2\memory.inc
+./lib/obj/psocconfig.o :  ./lib/GLOBAL~1.INC\
+   C:/PROGRA~1/Cypress/PSOCDE~2/5.1/Common/CYPRES~3/tools/include/CY8C29~1/m8c.inc\
+   C:\DOCUME~1\JKEMME~1\Desktop\Exam2\Exam2\Exam2\Exam2\memory.inc
+./lib/obj/psocconfigtbl.o : \
+   C:/PROGRA~1/Cypress/PSOCDE~2/5.1/Common/CYPRES~3/tools/include/CY8C29~1/m8c.inc
+./lib/obj/scdac.o :  ./lib/SCDAC.inc\
+   C:/PROGRA~1/Cypress/PSOCDE~2/5.1/Common/CYPRES~3/tools/include/CY8C29~1/m8c.inc\
+   C:\DOCUME~1\JKEMME~1\Desktop\Exam2\Exam2\Exam2\Exam2\memory.inc
+./lib/obj/scgain.o :  ./lib/SCGain.inc\
+   C:/PROGRA~1/Cypress/PSOCDE~2/5.1/Common/CYPRES~3/tools/include/CY8C29~1/m8c.inc\
+   C:\DOCUME~1\JKEMME~1\Desktop\Exam2\Exam2\Exam2\Exam2\memory.inc

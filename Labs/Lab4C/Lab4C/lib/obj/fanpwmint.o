@@ -1,0 +1,50 @@
+XH
+H 3 areas 2 global symbols
+M fanpwmint.asm
+S _wControlState Ref0000
+A text size 0 flags 0
+dbfile lib/fanpwmint.asm
+dbfunc 0 ? 0 I
+dbfile memory.inc
+dbfunc 0 ? 0 I
+dbfile lib/fanpwmint.asm
+dbfunc 0 ? 0 I
+dbfile FanPWM.inc
+dbfunc 0 ? 0 I
+dbfile C:/PROGRA~1/Cypress/PSOCDE~2/5.1/Common/CYPRES~3/tools/include/CY8C29~1/m8c.inc
+dbfunc 0 ? 0 I
+dbfile ./lib/FanPWM.inc
+dbfunc 0 ? 0 I
+dbfile lib/fanpwmint.asm
+dbfunc 0 ? 0 I
+dbfile C:/PROGRA~1/Cypress/PSOCDE~2/5.1/Common/CYPRES~3/tools/include/CY8C29~1/m8c.inc
+dbfunc 0 ? 0 I
+A InterruptRAM size 0 flags 20
+A UserModules size 26 flags 0
+dbfile lib/fanpwmint.asm
+dbfunc 0 ? 0 I
+dbline 48 0
+dbline 49 2
+dbline 4A 5
+dbline 4B 7
+dbline 4C A
+dbline 4F C
+dbline 50 F
+dbline 51 12
+dbline 54 13
+dbline 55 16
+dbline 58 18
+dbline 59 1B
+dbline 5A 1E
+dbline 5B 21
+dbline 5C 24
+dbline 73 25
+S _FanPWM_ISR Def0000
+T 00 00 7A 00 01 1E 00 00 00 B0 1F 3C 00 01 14 B0
+R 00 00 00 02 03 03 00 00 03 06 00 00 03 0C 00 00
+T 00 0B 08 62 04 40 43 B3 0F 7E 3C 00 01 00 B0 0E
+R 00 00 00 02 03 0B 00 00
+T 00 18 62 04 00 41 B3 F3 55 00 00 03 55 00 01 E8
+R 00 00 00 02 03 09 00 00 03 0D 00 00
+T 00 24 7E 7E
+R 00 00 00 02

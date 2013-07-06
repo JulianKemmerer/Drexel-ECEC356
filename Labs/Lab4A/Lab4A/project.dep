@@ -1,0 +1,22 @@
+# DO NOT DELETE
+./obj/boot.o : \
+   C:/PROGRA~1/Cypress/PSOCDE~2/5.1/Common/CYPRES~3/tools/include/CY8C29~1/m8c.inc\
+   C:/PROGRA~1/Cypress/PSOCDE~2/5.1/Common/CYPRES~3/tools/include/CY8C29~1/m8ssc.inc\
+   Z:\ECEC35~2\Lab4A\Lab4A\lib\GLOBAL~1.INC Z:\ECEC35~2\Lab4A\Lab4A\memory.inc
+./obj/main.o :  ./lib/FanPWM.h ./lib/LCD.h ./lib/PSoCAPI.h\
+   ./lib/PSOCGP~1.H\
+   C:/PROGRA~1/Cypress/PSOCDE~2/5.1/Common/CYPRES~3/tools/include/CY8C29~1/m8c.h
+./lib/obj/fanpwm.o :  ./lib/FanPWM.inc\
+   C:/PROGRA~1/Cypress/PSOCDE~2/5.1/Common/CYPRES~3/tools/include/CY8C29~1/m8c.inc\
+   Z:\ECEC35~2\Lab4A\Lab4A\memory.inc
+./lib/obj/fanpwmint.o :  ./lib/FanPWM.inc\
+   C:/PROGRA~1/Cypress/PSOCDE~2/5.1/Common/CYPRES~3/tools/include/CY8C29~1/m8c.inc\
+   Z:\ECEC35~2\Lab4A\Lab4A\memory.inc
+./lib/obj/lcd.o :  ./lib/LCD.inc\
+   C:/PROGRA~1/Cypress/PSOCDE~2/5.1/Common/CYPRES~3/tools/include/CY8C29~1/m8c.inc\
+   Z:\ECEC35~2\Lab4A\Lab4A\memory.inc
+./lib/obj/psocconfig.o :  ./lib/GLOBAL~1.INC\
+   C:/PROGRA~1/Cypress/PSOCDE~2/5.1/Common/CYPRES~3/tools/include/CY8C29~1/m8c.inc\
+   Z:\ECEC35~2\Lab4A\Lab4A\memory.inc
+./lib/obj/psocconfigtbl.o : \
+   C:/PROGRA~1/Cypress/PSOCDE~2/5.1/Common/CYPRES~3/tools/include/CY8C29~1/m8c.inc

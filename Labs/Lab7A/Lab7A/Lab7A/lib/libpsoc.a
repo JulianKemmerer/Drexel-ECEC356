@@ -1,0 +1,486 @@
+.start
+XH
+H 2 areas E global symbols
+M reflomux.asm
+A text size 0 flags 0
+dbfile lib/reflomux.asm
+dbfunc 0 ? 0 I
+dbfile memory.inc
+dbfunc 0 ? 0 I
+dbfile lib/reflomux.asm
+dbfunc 0 ? 0 I
+dbfile C:/PROGRA~1/Cypress/PSOCDE~2/5.1/Common/CY3E64~1/tools/include/CY8C29~1/m8c.inc
+dbfunc 0 ? 0 I
+dbfile lib/reflomux.asm
+dbfunc 0 ? 0 I
+dbfile RefLoMux.inc
+dbfunc 0 ? 0 I
+dbfile C:/PROGRA~1/Cypress/PSOCDE~2/5.1/Common/CY3E64~1/tools/include/CY8C29~1/m8c.inc
+dbfunc 0 ? 0 I
+dbfile ./lib/RefLoMux.inc
+dbfunc 0 ? 0 I
+A UserModules size 28 flags 0
+dbfile lib/reflomux.asm
+dbfunc 0 ? 0 I
+dbline 4E 0
+dbline 4F 2
+dbline 51 3
+dbline 52 4
+dbline 53 6
+dbline 54 8
+dbline 55 A
+dbline 56 C
+dbline 3 D
+dbline 4 F
+dbline 58 11
+dbline 72 12
+dbline 74 15
+dbline 96 16
+dbline 97 18
+dbline 98 19
+dbline 99 1A
+dbline 9A 1C
+dbline 9B 1E
+dbline 9C 20
+dbline 9D 22
+dbline 3 23
+dbline 4 25
+dbline 9F 27
+S _RefLoMux_SetPower Def0000
+S $sb$RefLoMux_RefSelect Def0016
+S $se$RefLoMux_RefSelect Def0028
+S RefLoMux_Stop Def0012
+S $sb$RefLoMux_Stop Def0012
+S $se$RefLoMux_Stop Def0016
+S _RefLoMux_RefSelect Def0016
+S _RefLoMux_Stop Def0012
+S RefLoMux_Start Def0000
+S $sb$RefLoMux_Start Def0000
+S $se$RefLoMux_Start Def0012
+S RefLoMux_SetPower Def0000
+S _RefLoMux_Start Def0000
+S RefLoMux_RefSelect Def0016
+T 00 00 21 03 4F 08 5D 77 21 FC 2B 00 60 77 18 70
+R 00 00 00 01
+T 00 0E 3F 71 C0 7F 41 77 FC 7F 21 1C 4F 08 5D 77
+R 00 00 00 01
+T 00 1C 21 E3 2B 00 60 77 18 70 3F 71 C0 7F
+R 00 00 00 01
+.end
+.start
+XH
+H 2 areas E global symbols
+M refhimux.asm
+A text size 0 flags 0
+dbfile lib/refhimux.asm
+dbfunc 0 ? 0 I
+dbfile memory.inc
+dbfunc 0 ? 0 I
+dbfile lib/refhimux.asm
+dbfunc 0 ? 0 I
+dbfile C:/PROGRA~1/Cypress/PSOCDE~2/5.1/Common/CY3E64~1/tools/include/CY8C29~1/m8c.inc
+dbfunc 0 ? 0 I
+dbfile lib/refhimux.asm
+dbfunc 0 ? 0 I
+dbfile RefHiMux.inc
+dbfunc 0 ? 0 I
+dbfile C:/PROGRA~1/Cypress/PSOCDE~2/5.1/Common/CY3E64~1/tools/include/CY8C29~1/m8c.inc
+dbfunc 0 ? 0 I
+dbfile ./lib/RefHiMux.inc
+dbfunc 0 ? 0 I
+A UserModules size 28 flags 0
+dbfile lib/refhimux.asm
+dbfunc 0 ? 0 I
+dbline 4E 0
+dbline 4F 2
+dbline 51 3
+dbline 52 4
+dbline 53 6
+dbline 54 8
+dbline 55 A
+dbline 56 C
+dbline 3 D
+dbline 4 F
+dbline 58 11
+dbline 72 12
+dbline 74 15
+dbline 96 16
+dbline 97 18
+dbline 98 19
+dbline 99 1A
+dbline 9A 1C
+dbline 9B 1E
+dbline 9C 20
+dbline 9D 22
+dbline 3 23
+dbline 4 25
+dbline 9F 27
+S $sb$RefHiMux_RefSelect Def0016
+S $se$RefHiMux_RefSelect Def0028
+S RefHiMux_Stop Def0012
+S $sb$RefHiMux_Stop Def0012
+S $se$RefHiMux_Stop Def0016
+S _RefHiMux_RefSelect Def0016
+S _RefHiMux_Stop Def0012
+S RefHiMux_Start Def0000
+S $sb$RefHiMux_Start Def0000
+S $se$RefHiMux_Start Def0012
+S RefHiMux_SetPower Def0000
+S _RefHiMux_Start Def0000
+S RefHiMux_RefSelect Def0016
+S _RefHiMux_SetPower Def0000
+T 00 00 21 03 4F 08 5D 73 21 FC 2B 00 60 73 18 70
+R 00 00 00 01
+T 00 0E 3F 71 C0 7F 41 73 FC 7F 21 1C 4F 08 5D 73
+R 00 00 00 01
+T 00 1C 21 E3 2B 00 60 73 18 70 3F 71 C0 7F
+R 00 00 00 01
+.end
+.start
+XH
+H 2 areas E global symbols
+M refagndmux.asm
+A text size 0 flags 0
+dbfile lib/refagndmux.asm
+dbfunc 0 ? 0 I
+dbfile memory.inc
+dbfunc 0 ? 0 I
+dbfile lib/refagndmux.asm
+dbfunc 0 ? 0 I
+dbfile C:/PROGRA~1/Cypress/PSOCDE~2/5.1/Common/CY3E64~1/tools/include/CY8C29~1/m8c.inc
+dbfunc 0 ? 0 I
+dbfile lib/refagndmux.asm
+dbfunc 0 ? 0 I
+dbfile RefAgndMux.inc
+dbfunc 0 ? 0 I
+dbfile C:/PROGRA~1/Cypress/PSOCDE~2/5.1/Common/CY3E64~1/tools/include/CY8C29~1/m8c.inc
+dbfunc 0 ? 0 I
+dbfile ./lib/RefAgndMux.inc
+dbfunc 0 ? 0 I
+A UserModules size 28 flags 0
+dbfile lib/refagndmux.asm
+dbfunc 0 ? 0 I
+dbline 4E 0
+dbline 4F 2
+dbline 51 3
+dbline 52 4
+dbline 53 6
+dbline 54 8
+dbline 55 A
+dbline 56 C
+dbline 3 D
+dbline 4 F
+dbline 58 11
+dbline 72 12
+dbline 74 15
+dbline 96 16
+dbline 97 18
+dbline 98 19
+dbline 99 1A
+dbline 9A 1C
+dbline 9B 1E
+dbline 9C 20
+dbline 9D 22
+dbline 3 23
+dbline 4 25
+dbline 9F 27
+S _RefAgndMux_RefSelect Def0016
+S _RefAgndMux_Stop Def0012
+S RefAgndMux_Start Def0000
+S $sb$RefAgndMux_Start Def0000
+S $se$RefAgndMux_Start Def0012
+S RefAgndMux_SetPower Def0000
+S _RefAgndMux_Start Def0000
+S RefAgndMux_RefSelect Def0016
+S _RefAgndMux_SetPower Def0000
+S $sb$RefAgndMux_RefSelect Def0016
+S $se$RefAgndMux_RefSelect Def0028
+S RefAgndMux_Stop Def0012
+S $sb$RefAgndMux_Stop Def0012
+S $se$RefAgndMux_Stop Def0016
+T 00 00 21 03 4F 08 5D 7B 21 FC 2B 00 60 7B 18 70
+R 00 00 00 01
+T 00 0E 3F 71 C0 7F 41 7B FC 7F 21 1C 4F 08 5D 7B
+R 00 00 00 01
+T 00 1C 21 E3 2B 00 60 7B 18 70 3F 71 C0 7F
+R 00 00 00 01
+.end
+.start
+XH
+H 3 areas 3 global symbols
+M psocconfigtbl.asm
+A text size 0 flags 0
+dbfile lib/psocconfigtbl.asm
+dbfunc 0 ? 0 I
+dbfile C:/PROGRA~1/Cypress/PSOCDE~2/5.1/Common/CY3E64~1/tools/include/CY8C29~1/m8c.inc
+dbfunc 0 ? 0 I
+A lit size 8C flags 0
+S LoadConfigTBL_lab7a_Bank0 Def0000
+S LoadConfigTBL_lab7a_Bank1 Def0067
+A psoc_config size 105 flags 0
+dbfile lib/psocconfigtbl.asm
+dbfunc 0 ? 0 I
+dbline 2 0
+dbline 64 2
+dbline 2 5
+dbline 66 7
+dbline 67 A
+dbline 2 D
+dbline 69 F
+dbline 6A 12
+dbline 2 15
+dbline 6C 17
+dbline 6D 1A
+dbline 2 1D
+dbline 6F 1F
+dbline 70 22
+dbline 2 25
+dbline 72 27
+dbline 73 2A
+dbline 2 2D
+dbline 75 2F
+dbline 76 32
+dbline 2 35
+dbline 78 37
+dbline 79 3A
+dbline 2 3D
+dbline 7B 3F
+dbline 7C 42
+dbline 2 45
+dbline 7E 47
+dbline 7F 4A
+dbline 2 4D
+dbline 81 4F
+dbline 82 52
+dbline 2 55
+dbline 84 57
+dbline 85 5A
+dbline 2 5D
+dbline 87 5F
+dbline 88 62
+dbline 2 65
+dbline 8A 67
+dbline 8B 6A
+dbline 2 6D
+dbline 8D 6F
+dbline 8E 72
+dbline 2 75
+dbline 90 77
+dbline 91 7A
+dbline 2 7D
+dbline 93 7F
+dbline 94 82
+dbline 2 85
+dbline 96 87
+dbline 97 8A
+dbline 2 8D
+dbline 99 8F
+dbline 9A 92
+dbline 2 95
+dbline 9C 97
+dbline 9D 9A
+dbline 2 9D
+dbline 9F 9F
+dbline A0 A2
+dbline 2 A5
+dbline A2 A7
+dbline A3 AA
+dbline 2 AD
+dbline A5 AF
+dbline A6 B2
+dbline 2 B5
+dbline A8 B7
+dbline A9 BA
+dbline 2 BD
+dbline AB BF
+dbline AC C2
+dbline 2 C5
+dbline AE C7
+dbline AF CA
+dbline 2 CD
+dbline B1 CF
+dbline B2 D2
+dbline 2 D5
+dbline B4 D7
+dbline B5 DA
+dbline 2 DD
+dbline B7 DF
+dbline B8 E2
+dbline 2 E5
+dbline BA E7
+dbline BB EA
+dbline 2 ED
+dbline BD EF
+dbline BE F2
+dbline 2 F5
+dbline C0 F7
+dbline C1 FA
+dbline 2 FD
+dbline C3 FF
+dbline 2 102
+dbline C5 104
+S LoadConfigTBL_lab7a_Ordered Def0000
+T 00 00 79 01 7A 09 7B 14 78 00 71 01 72 09 73 1C
+R 00 00 00 01
+T 00 0E 70 00 75 01 76 09 77 18 74 00 60 28 66 00
+R 00 00 00 01
+T 00 1C 63 1F 65 00 E6 00 E7 00 D6 00 B0 00 B1 00
+R 00 00 00 01
+T 00 2A B2 00 B3 33 B4 33 B5 00 B6 00 B8 55 B9 00
+R 00 00 00 01
+T 00 38 BA 10 BB 33 BC 33 BD 00 BE 00 C0 00 C1 00
+R 00 00 00 01
+T 00 46 C2 20 C3 33 C4 33 C5 00 C6 00 C8 55 C9 00
+R 00 00 00 01
+T 00 54 CA 30 CB 33 CC 33 CD 00 CE 00 6C 00 6D 00
+R 00 00 00 01
+T 00 62 6E 00 6F 00 FF 61 00 69 00 60 00 62 38 67
+R 00 00 00 01
+T 00 70 33 68 33 63 00 66 00 D1 00 D3 00 D0 00 D2
+R 00 00 00 01
+T 00 7E 00 E1 53 E2 01 DF 19 DE 00 DD 00 E7 00 FF
+R 00 00 00 01
+T 00 00 70 EF 62 00 00 71 10 62 00 00 62 01 FF 70
+R 00 00 00 02
+T 00 0E EF 62 03 FF 62 02 00 71 10 62 02 00 62 03
+R 00 00 00 02
+T 00 1C 00 70 EF 62 01 00 62 04 00 71 10 62 04 00
+R 00 00 00 02
+T 00 2A 62 05 FF 70 EF 62 07 FF 62 06 00 71 10 62
+R 00 00 00 02
+T 00 38 06 00 62 07 00 70 EF 62 05 00 62 08 00 71
+R 00 00 00 02
+T 00 46 10 62 08 00 62 09 FF 70 EF 62 0B FF 62 0A
+R 00 00 00 02
+T 00 54 00 71 10 62 0A 00 62 0B 00 70 EF 62 09 00
+R 00 00 00 02
+T 00 62 62 0C 00 71 10 62 0C 00 62 0D 00 70 EF 62
+R 00 00 00 02
+T 00 70 0F 00 62 0E 00 71 10 62 0E 00 62 0F 00 70
+R 00 00 00 02
+T 00 7E EF 62 0D 00 62 10 00 71 10 62 10 00 62 11
+R 00 00 00 02
+T 00 8C 00 70 EF 62 13 00 62 12 00 71 10 62 12 00
+R 00 00 00 02
+T 00 9A 62 13 00 70 EF 62 11 00 62 14 00 71 10 62
+R 00 00 00 02
+T 00 A8 14 00 62 15 00 70 EF 62 17 00 62 16 00 71
+R 00 00 00 02
+T 00 B6 10 62 16 00 62 17 00 70 EF 62 15 00 62 18
+R 00 00 00 02
+T 00 C4 00 71 10 62 18 00 62 19 00 70 EF 62 1B 00
+R 00 00 00 02
+T 00 D2 62 1A 00 71 10 62 1A 00 62 1B 00 70 EF 62
+R 00 00 00 02
+T 00 E0 19 00 62 1C 00 71 10 62 1C 00 62 1D 00 70
+R 00 00 00 02
+T 00 EE EF 62 1F 00 62 1E 00 71 10 62 1E 00 62 1F
+R 00 00 00 02
+T 00 FC 00 70 EF 62 1D 00 70 EF 7F
+R 00 00 00 02
+.end
+.start
+XH
+H 3 areas 9 global symbols
+M psocconfig.asm
+S LoadConfigTBL_lab7a_Ordered Ref0000
+S LoadConfigTBL_lab7a_Bank0 Ref0000
+S LoadConfigTBL_lab7a_Bank1 Ref0000
+A text size 0 flags 0
+dbfile lib/psocconfig.asm
+dbfunc 0 ? 0 I
+dbfile ./lib/GlobalParams.inc
+dbfunc 0 ? 0 I
+dbfile lib/psocconfig.asm
+dbfunc 0 ? 0 I
+dbfile memory.inc
+dbfunc 0 ? 0 I
+dbfile lib/psocconfig.asm
+dbfunc 0 ? 0 I
+dbfile C:/PROGRA~1/Cypress/PSOCDE~2/5.1/Common/CY3E64~1/tools/include/CY8C29~1/m8c.inc
+dbfunc 0 ? 0 I
+A psoc_config size 62 flags 0
+dbfile lib/psocconfig.asm
+dbfunc 0 ? 0 I
+dbline 3A 0
+dbline 3B 3
+dbline 3F 6
+dbline 58 7
+dbline 2 8
+dbline 5A A
+dbline 5B C
+dbline 5D D
+dbline 5E F
+dbline 5F 11
+dbline 61 14
+dbline 62 16
+dbline 64 17
+dbline 65 19
+dbline 66 1B
+dbline 2 1E
+dbline 69 20
+dbline 6C 21
+dbline 82 22
+dbline 83 24
+dbline 84 25
+dbline 85 26
+dbline 86 27
+dbline 87 2A
+dbline 88 2C
+dbline 8A 2F
+dbline 8B 30
+dbline 2 31
+dbline 2 33
+dbline 90 36
+dbline 91 37
+dbline 92 38
+dbline 93 39
+dbline 94 3B
+dbline 95 3D
+dbline 96 3E
+dbline 97 41
+dbline 2 43
+dbline 9A 45
+dbline 9B 47
+dbline 9C 48
+dbline 9D 49
+dbline 9E 4A
+dbline 9F 4C
+dbline A0 4D
+dbline A1 4E
+dbline A2 4F
+dbline A3 50
+dbline A4 52
+dbline A5 54
+dbline A6 55
+dbline A7 56
+dbline A8 57
+dbline A9 59
+dbline AB 5B
+dbline 3 5D
+dbline 4 5F
+dbline AD 61
+S _LoadConfig_lab7a Def0007
+S LoadConfigInit Def0000
+S _LoadConfigInit Def0000
+S LoadConfig_lab7a Def0007
+A InterruptRAM size 0 flags 20
+S _NO_SHADOW Def0000
+S NO_SHADOW Def0000
+T 00 00 7C 00 07 7C 00 00 7F 10 70 EF 50 00 67 50
+R 00 00 00 01 00 03 00 01 02 06 00 00
+T 00 0E 00 00 57 00 00 7C 00 22 50 01 67 50
+R 00 00 00 01 43 02 00 01 03 05 00 01 00 08 00 01
+T 00 18 00 00 57 00 00 7C 00 22 70 EF 20 7F 38 02
+R 00 00 00 01 43 02 00 02 03 05 00 02 00 08 00 01
+T 00 24 10 08 4F 56 FC 00 D0 04 56 FC 01 18 20 70
+R 00 00 00 01
+T 00 32 EF 62 E3 00 10 08 28 39 FF A0 1F 4F 48 FC
+R 00 00 00 01
+T 00 40 01 A0 03 71 10 54 FD 18 20 75 09 00 10 08
+R 00 00 00 01
+T 00 4E 28 4F 59 FD 61 00 18 20 75 09 00 8F D7 38
+R 00 00 00 01
+T 00 5C FC 70 3F 71 C0 7F
+R 00 00 00 01
+.end

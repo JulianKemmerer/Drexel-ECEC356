@@ -1,0 +1,23 @@
+# DO NOT DELETE
+./obj/boot.o : \
+   C:/PROGRA~1/Cypress/PSOCDE~2/5.1/Common/CY3E64~1/tools/include/CY8C29~1/m8c.inc\
+   C:/PROGRA~1/Cypress/PSOCDE~2/5.1/Common/CY3E64~1/tools/include/CY8C29~1/m8ssc.inc\
+   C:\DOCUME~1\Mixcraft\Desktop\ECEC35~1\ECEC35~1\Lab7A\Lab7A\Lab7A\lib\GLOBAL~1.INC\
+   C:\DOCUME~1\Mixcraft\Desktop\ECEC35~1\ECEC35~1\Lab7A\Lab7A\Lab7A\memory.inc
+./obj/main.o :  ./lib/PSoCAPI.h ./lib/PSOCGP~1.H ./lib/REFAGN~1.H\
+   ./lib/RefHiMux.h ./lib/RefLoMux.h\
+   C:/PROGRA~1/Cypress/PSOCDE~2/5.1/Common/CY3E64~1/tools/include/CY8C29~1/m8c.h
+./lib/obj/psocconfig.o :  ./lib/GLOBAL~1.INC\
+   C:/PROGRA~1/Cypress/PSOCDE~2/5.1/Common/CY3E64~1/tools/include/CY8C29~1/m8c.inc\
+   C:\DOCUME~1\Mixcraft\Desktop\ECEC35~1\ECEC35~1\Lab7A\Lab7A\Lab7A\memory.inc
+./lib/obj/psocconfigtbl.o : \
+   C:/PROGRA~1/Cypress/PSOCDE~2/5.1/Common/CY3E64~1/tools/include/CY8C29~1/m8c.inc
+./lib/obj/refagndmux.o :  ./lib/REFAGN~1.INC\
+   C:/PROGRA~1/Cypress/PSOCDE~2/5.1/Common/CY3E64~1/tools/include/CY8C29~1/m8c.inc\
+   C:\DOCUME~1\Mixcraft\Desktop\ECEC35~1\ECEC35~1\Lab7A\Lab7A\Lab7A\memory.inc
+./lib/obj/refhimux.o :  ./lib/RefHiMux.inc\
+   C:/PROGRA~1/Cypress/PSOCDE~2/5.1/Common/CY3E64~1/tools/include/CY8C29~1/m8c.inc\
+   C:\DOCUME~1\Mixcraft\Desktop\ECEC35~1\ECEC35~1\Lab7A\Lab7A\Lab7A\memory.inc
+./lib/obj/reflomux.o :  ./lib/RefLoMux.inc\
+   C:/PROGRA~1/Cypress/PSOCDE~2/5.1/Common/CY3E64~1/tools/include/CY8C29~1/m8c.inc\
+   C:\DOCUME~1\Mixcraft\Desktop\ECEC35~1\ECEC35~1\Lab7A\Lab7A\Lab7A\memory.inc

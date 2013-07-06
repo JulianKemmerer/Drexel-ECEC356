@@ -1,0 +1,6 @@
+-F0x30 -g -blit:0x1a0.0x7fff 
+ -bdata:0.0x6ff -bSSCParmBlk:0x00F7.0x00FF -BInterruptRAM:0 -Bvirtual_registers  
+ -BLab12A_RAM 
+ -o"output/Lab12A" 
+ ./obj/main.o  
+ Z:/ECEC35~2/Lab12A/Lab12A/lib/libPSoc.a -LC:/PROGRA~1/Cypress/PSOCDE~2/5.1/Common/CYPRES~3/tools/lib/LMM/eightpages C:/PROGRA~1/Cypress/PSOCDE~2/5.1/Common/CYPRES~3/tools/lib/CY8C29000/cms.a C:/PROGRA~1/Cypress/PSOCDE~2/5.1/Common/CYPRES~3/tools/lib/LMM/UASW/MAC/arith.a  

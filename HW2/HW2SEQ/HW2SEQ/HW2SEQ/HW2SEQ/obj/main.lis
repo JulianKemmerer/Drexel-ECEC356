@@ -1,0 +1,381 @@
+ 0000                   cpu LMM
+                        .module main.c
+                        .area text(rom, con, rel)
+ 0000                   .dbfile ./main.c
+                        .area data(ram, con, rel)
+ 0000                   .dbfile ./main.c
+ 0000           _sequence::
+ 0000 00                .byte 0
+ 0001                   .dbfile Z:\HW2SEQ\HW2SEQ\HW2SEQ\HW2SEQ\main.c
+ 0001                   .dbsym e sequence _sequence c
+                        .area data(ram, con, rel)
+ 0000                   .dbfile Z:\HW2SEQ\HW2SEQ\HW2SEQ\HW2SEQ\main.c
+                        .area text(rom, con, rel)
+ 0000                   .dbfile Z:\HW2SEQ\HW2SEQ\HW2SEQ\HW2SEQ\main.c
+ 0000                   .dbfunc e main _main fV
+ 0000           _main::
+ 0000                   .dbline -1
+ 0000                   .dbline 11
+ 0000           ; //----------------------------------------------------------------------------
+ 0000           ; // C main line
+ 0000           ; //----------------------------------------------------------------------------
+ 0000           ; 
+ 0000           ; #include <m8c.h>        // part specific constants and macros
+ 0000           ; #include "PSoCAPI.h"    // PSoC API definitions for all User Modules
+ 0000           ; 
+ 0000           ; extern unsigned char sequence = 0b00000000;
+ 0000           ; 
+ 0000           ; void main(void)
+ 0000           ; {
+ 0000                   .dbline 15
+ 0000           ;       //Note: Button is on P1[0] and sequence in is on P0[0]
+ 0000           ; 
+ 0000           ;       //Enable global interrupts
+ 0000           ;       M8C_EnableGInt;
+ 0000 7101                      or  F, 01h
+ 0002           
+ 0002                   .dbline 19
+ 0002           ;       //CPU_F |= 0b00000001;
+ 0002           ;       
+ 0002           ;       //Enable interrupts for GPIO (switch)
+ 0002           ;       INT_MSK0 |= 0b00100000;
+ 0002 43E020            or REG[0xe0],32
+ 0005                   .dbline 22
+ 0005           ;       
+ 0005           ;       //Start LCD for debug
+ 0005           ;       LCD_Start();
+ 0005 10                push X
+ 0006 7C0000            xcall _LCD_Start
+ 0009                   .dbline 23
+ 0009           ;       LCD_Init();
+ 0009 7C0000            xcall _LCD_Init
+ 000C 20                pop X
+ 000D                   .dbline 24
+ 000D           ;       LCD_Position(0,0);
+ 000D 10                push X
+ 000E 5000              mov A,0
+ 0010 5C                mov X,A
+ 0011 7C0000            xcall _LCD_Position
+ 0014 20                pop X
+ 0015                   .dbline 25
+ 0015           ;       LCD_PrCString("Start...");
+ 0015 10                push X
+ 0016 5021              mov A,>L2
+ 0018 08                push A
+ 0019 5021              mov A,<L2
+ 001B 5C                mov X,A
+ 001C 18                pop A
+ 001D 7C0000            xcall _LCD_PrCString
+ 0020 20                pop X
+ 0021           L3:
+ 0021                   .dbline 28
+ 0021           ;       
+ 0021           ;       while(1)
+ 0021           ;       {
+ 0021                   .dbline 29
+ 0021           ;       }
+ 0021           L4:
+ 0021                   .dbline 27
+ 0021 8FFF              xjmp L3
+ 0023           X0:
+ 0023                   .dbline -2
+ 0023           L1:
+ 0023                   .dbline 0 ; func end
+ 0023 8FFF              jmp .
+ 0025                   .dbend
+ 0025                   .dbfunc e ButtonDown _ButtonDown fV
+ 0025           _ButtonDown::
+ 0025                   .dbline -1
+ 0025 71C0              or F,-64
+ 0027 08                push A
+ 0028 5DD0              mov A,REG[0xd0]
+ 002A 08                push A
+ 002B 5DD3              mov A,REG[0xd3]
+ 002D 08                push A
+ 002E 5DD4              mov A,REG[0xd4]
+ 0030 08                push A
+ 0031 5DD5              mov A,REG[0xd5]
+ 0033 08                push A
+ 0034 62D000            mov REG[0xd0],>__r0
+ 0037 5100              mov A,[__r0]
+ 0039 08                push A
+ 003A 5100              mov A,[__r1]
+ 003C 08                push A
+ 003D 5100              mov A,[__r2]
+ 003F 08                push A
+ 0040 5100              mov A,[__r3]
+ 0042 08                push A
+ 0043 5100              mov A,[__r4]
+ 0045 08                push A
+ 0046 5100              mov A,[__r5]
+ 0048 08                push A
+ 0049 5100              mov A,[__r6]
+ 004B 08                push A
+ 004C 5100              mov A,[__r7]
+ 004E 08                push A
+ 004F 5100              mov A,[__r8]
+ 0051 08                push A
+ 0052 5100              mov A,[__r9]
+ 0054 08                push A
+ 0055 5100              mov A,[__r10]
+ 0057 08                push A
+ 0058 5100              mov A,[__r11]
+ 005A 08                push A
+ 005B 5100              mov A,[__rX]
+ 005D 08                push A
+ 005E 5100              mov A,[__rY]
+ 0060 08                push A
+ 0061 5100              mov A,[__rZ]
+ 0063 08                push A
+ 0064                   .dbline 34
+ 0064           ; }
+ 0064           ; 
+ 0064           ; #pragma interrupt_handler ButtonDown
+ 0064           ; void ButtonDown()
+ 0064           ; {
+ 0064                   .dbline 36
+ 0064           ;       //Debounce by reading three times
+ 0064           ;       if( (PRT1DR & 0b00000001) == 0b00000001) //1
+ 0064 5D04              mov A,REG[0x4]
+ 0066 62D000            mov REG[0xd0],>__r0
+ 0069 5300              mov [__r0],A
+ 006B 260001            and [__r0],1
+ 006E 3C0001            cmp [__r0],1
+ 0071 B077              jnz L7
+ 0073                   .dbline 37
+ 0073           ;       {
+ 0073                   .dbline 38
+ 0073           ;               if( (PRT1DR & 0b00000001) == 0b00000001) //2
+ 0073 5D04              mov A,REG[0x4]
+ 0075 5300              mov [__r0],A
+ 0077 260001            and [__r0],1
+ 007A 3C0001            cmp [__r0],1
+ 007D B06B              jnz L9
+ 007F                   .dbline 39
+ 007F           ;               {
+ 007F                   .dbline 40
+ 007F           ;                       if( (PRT1DR & 0b00000001) == 0b00000001) //3 Button is really down
+ 007F 5D04              mov A,REG[0x4]
+ 0081 5300              mov [__r0],A
+ 0083 260001            and [__r0],1
+ 0086 3C0001            cmp [__r0],1
+ 0089 B05F              jnz L11
+ 008B                   .dbline 41
+ 008B           ;                       {
+ 008B           L13:
+ 008B                   .dbline 46
+ 008B           ;                               //LCD_Position(0,0);
+ 008B           ;                               //LCD_PrCString("Down...      ");
+ 008B           ;                       
+ 008B           ;                               //Wait for release
+ 008B           ;                               while( (PRT1DR & 0b00000001) == 0b00000001){}
+ 008B                   .dbline 46
+ 008B           L14:
+ 008B                   .dbline 46
+ 008B 5D04              mov A,REG[0x4]
+ 008D 62D000            mov REG[0xd0],>__r0
+ 0090 5300              mov [__r0],A
+ 0092 260001            and [__r0],1
+ 0095 3C0001            cmp [__r0],1
+ 0098 AFF2              jz L13
+ 009A                   .dbline 50
+ 009A           ;                               
+ 009A           ;                               //Record the state of P0[0] by shifting it into the sequence
+ 009A           ;                               //Shift the sequence by one bit
+ 009A           ;                               sequence <<= 1;
+ 009A 62D000            mov REG[0xd0],>_sequence
+ 009D 6500              asl [_sequence]
+ 009F                   .dbline 52
+ 009F           ;                               //Read in the current state P0[0]
+ 009F           ;                               if( (PRT0DR & 0b00000001) == 0b00000001)
+ 009F 5D00              mov A,REG[0]
+ 00A1 62D000            mov REG[0xd0],>__r0
+ 00A4 5300              mov [__r0],A
+ 00A6 260001            and [__r0],1
+ 00A9 3C0001            cmp [__r0],1
+ 00AC B021              jnz L16
+ 00AE                   .dbline 53
+ 00AE           ;                               {
+ 00AE                   .dbline 55
+ 00AE           ;                                       //Bit entered was 1
+ 00AE           ;                                       sequence |= 0b00000001;
+ 00AE 62D000            mov REG[0xd0],>_sequence
+ 00B1 5100              mov A,[_sequence]
+ 00B3 2901              or A,1
+ 00B5 5300              mov [_sequence],A
+ 00B7                   .dbline 56
+ 00B7           ;                                       LCD_Position(1,0);
+ 00B7 10                push X
+ 00B8 5700              mov X,0
+ 00BA 5001              mov A,1
+ 00BC 7C0000            xcall _LCD_Position
+ 00BF 20                pop X
+ 00C0                   .dbline 57
+ 00C0           ;                                       LCD_PrCString("1");
+ 00C0 10                push X
+ 00C1 501F              mov A,>L18
+ 00C3 08                push A
+ 00C4 501F              mov A,<L18
+ 00C6 5C                mov X,A
+ 00C7 18                pop A
+ 00C8 7C0000            xcall _LCD_PrCString
+ 00CB 20                pop X
+ 00CC                   .dbline 58
+ 00CC           ;                               }
+ 00CC 801C              xjmp L17
+ 00CE           L16:
+ 00CE                   .dbline 60
+ 00CE           ;                               else
+ 00CE           ;                               {
+ 00CE                   .dbline 62
+ 00CE           ;                                       //Bit entered was 0
+ 00CE           ;                                       sequence &= ~0b00000001;
+ 00CE 62D000            mov REG[0xd0],>_sequence
+ 00D1 2600FE            and [_sequence],-2
+ 00D4                   .dbline 63
+ 00D4           ;                                       LCD_Position(1,0);
+ 00D4 10                push X
+ 00D5 5700              mov X,0
+ 00D7 5001              mov A,1
+ 00D9 7C0000            xcall _LCD_Position
+ 00DC 20                pop X
+ 00DD                   .dbline 64
+ 00DD           ;                                       LCD_PrCString("0");
+ 00DD 10                push X
+ 00DE 501D              mov A,>L19
+ 00E0 08                push A
+ 00E1 501D              mov A,<L19
+ 00E3 5C                mov X,A
+ 00E4 18                pop A
+ 00E5 7C0000            xcall _LCD_PrCString
+ 00E8 20                pop X
+ 00E9                   .dbline 65
+ 00E9           ;                               }
+ 00E9           L17:
+ 00E9                   .dbline 66
+ 00E9           ;                       }
+ 00E9           L11:
+ 00E9                   .dbline 67
+ 00E9           ;               }
+ 00E9           L9:
+ 00E9                   .dbline 68
+ 00E9           ;       }
+ 00E9           L7:
+ 00E9                   .dbline 72
+ 00E9           ;       
+ 00E9           ;       
+ 00E9           ;       //If sequnce is correct
+ 00E9           ;       if( (sequence & 0b00001111) == 0x0D)
+ 00E9 62D000            mov REG[0xd0],>_sequence
+ 00EC 5100              mov A,[_sequence]
+ 00EE 210F              and A,15
+ 00F0 62D000            mov REG[0xd0],>__r0
+ 00F3 390D              cmp A,13
+ 00F5 B017              jnz L20
+ 00F7                   .dbline 73
+ 00F7           ;       {
+ 00F7                   .dbline 75
+ 00F7           ;               //Let user known
+ 00F7           ;               LCD_Position(0,0);
+ 00F7 10                push X
+ 00F8 5000              mov A,0
+ 00FA 5C                mov X,A
+ 00FB 7C0000            xcall _LCD_Position
+ 00FE 20                pop X
+ 00FF                   .dbline 76
+ 00FF           ;               LCD_PrCString("Correct!     ");
+ 00FF 10                push X
+ 0100 500F              mov A,>L22
+ 0102 08                push A
+ 0103 500F              mov A,<L22
+ 0105 5C                mov X,A
+ 0106 18                pop A
+ 0107 7C0000            xcall _LCD_PrCString
+ 010A 20                pop X
+ 010B                   .dbline 79
+ 010B           ;               //LCD_Position(1,0);
+ 010B           ;               //LCD_PrHexByte(sequence & 0b00001111);
+ 010B           ;       }
+ 010B 8015              xjmp L21
+ 010D           L20:
+ 010D                   .dbline 81
+ 010D           ;       else
+ 010D           ;       {
+ 010D                   .dbline 82
+ 010D           ;               LCD_Position(0,0);
+ 010D 10                push X
+ 010E 5000              mov A,0
+ 0110 5C                mov X,A
+ 0111 7C0000            xcall _LCD_Position
+ 0114 20                pop X
+ 0115                   .dbline 83
+ 0115           ;               LCD_PrCString("Incorrect!    ");
+ 0115 10                push X
+ 0116 5000              mov A,>L23
+ 0118 08                push A
+ 0119 5000              mov A,<L23
+ 011B 5C                mov X,A
+ 011C 18                pop A
+ 011D 7C0000            xcall _LCD_PrCString
+ 0120 20                pop X
+ 0121                   .dbline 86
+ 0121           ;               //LCD_Position(1,0);
+ 0121           ;               //LCD_PrHexByte(sequence & 0b00001111);
+ 0121           ;       }
+ 0121           L21:
+ 0121                   .dbline -2
+ 0121           L6:
+ 0121 62D000            mov REG[0xD0],>__r0
+ 0124 18                pop A
+ 0125 5300              mov [__rZ],A
+ 0127 18                pop A
+ 0128 5300              mov [__rY],A
+ 012A 18                pop A
+ 012B 5300              mov [__rX],A
+ 012D 18                pop A
+ 012E 5300              mov [__r11],A
+ 0130 18                pop A
+ 0131 5300              mov [__r10],A
+ 0133 18                pop A
+ 0134 5300              mov [__r9],A
+ 0136 18                pop A
+ 0137 5300              mov [__r8],A
+ 0139 18                pop A
+ 013A 5300              mov [__r7],A
+ 013C 18                pop A
+ 013D 5300              mov [__r6],A
+ 013F 18                pop A
+ 0140 5300              mov [__r5],A
+ 0142 18                pop A
+ 0143 5300              mov [__r4],A
+ 0145 18                pop A
+ 0146 5300              mov [__r3],A
+ 0148 18                pop A
+ 0149 5300              mov [__r2],A
+ 014B 18                pop A
+ 014C 5300              mov [__r1],A
+ 014E 18                pop A
+ 014F 5300              mov [__r0],A
+ 0151 18                pop A
+ 0152 60D5              mov REG[213],A
+ 0154 18                pop A
+ 0155 60D4              mov REG[212],A
+ 0157 18                pop A
+ 0158 60D3              mov REG[211],A
+ 015A 18                pop A
+ 015B 60D0              mov REG[208],A
+ 015D 18                pop A
+ 015E                   .dbline 0 ; func end
+ 015E 7E                reti
+ 015F                   .dbend
+                        .area lit(rom, con, rel)
+ 0000           L23:
+ 0000 496E636F7272656374212020202000    .byte 'I,'n,'c,'o,'r,'r,'e,'c,'t,33,32,32,32,32,0
+ 000F           L22:
+ 000F 436F727265637421202020202000      .byte 'C,'o,'r,'r,'e,'c,'t,33,32,32,32,32,32,0
+ 001D           L19:
+ 001D 3000              .byte 48,0
+ 001F           L18:
+ 001F 3100              .byte 49,0
+ 0021           L2:
+ 0021 53746172742E2E2E00        .byte 'S,'t,'a,'r,'t,46,46,46,0

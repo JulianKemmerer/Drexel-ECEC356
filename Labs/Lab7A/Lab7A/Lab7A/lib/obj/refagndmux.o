@@ -1,0 +1,67 @@
+XH
+H 2 areas E global symbols
+M refagndmux.asm
+A text size 0 flags 0
+dbfile lib/refagndmux.asm
+dbfunc 0 ? 0 I
+dbfile memory.inc
+dbfunc 0 ? 0 I
+dbfile lib/refagndmux.asm
+dbfunc 0 ? 0 I
+dbfile C:/PROGRA~1/Cypress/PSOCDE~2/5.1/Common/CY3E64~1/tools/include/CY8C29~1/m8c.inc
+dbfunc 0 ? 0 I
+dbfile lib/refagndmux.asm
+dbfunc 0 ? 0 I
+dbfile RefAgndMux.inc
+dbfunc 0 ? 0 I
+dbfile C:/PROGRA~1/Cypress/PSOCDE~2/5.1/Common/CY3E64~1/tools/include/CY8C29~1/m8c.inc
+dbfunc 0 ? 0 I
+dbfile ./lib/RefAgndMux.inc
+dbfunc 0 ? 0 I
+A UserModules size 28 flags 0
+dbfile lib/refagndmux.asm
+dbfunc 0 ? 0 I
+dbline 4E 0
+dbline 4F 2
+dbline 51 3
+dbline 52 4
+dbline 53 6
+dbline 54 8
+dbline 55 A
+dbline 56 C
+dbline 3 D
+dbline 4 F
+dbline 58 11
+dbline 72 12
+dbline 74 15
+dbline 96 16
+dbline 97 18
+dbline 98 19
+dbline 99 1A
+dbline 9A 1C
+dbline 9B 1E
+dbline 9C 20
+dbline 9D 22
+dbline 3 23
+dbline 4 25
+dbline 9F 27
+S _RefAgndMux_RefSelect Def0016
+S _RefAgndMux_Stop Def0012
+S RefAgndMux_Start Def0000
+S $sb$RefAgndMux_Start Def0000
+S $se$RefAgndMux_Start Def0012
+S RefAgndMux_SetPower Def0000
+S _RefAgndMux_Start Def0000
+S RefAgndMux_RefSelect Def0016
+S _RefAgndMux_SetPower Def0000
+S $sb$RefAgndMux_RefSelect Def0016
+S $se$RefAgndMux_RefSelect Def0028
+S RefAgndMux_Stop Def0012
+S $sb$RefAgndMux_Stop Def0012
+S $se$RefAgndMux_Stop Def0016
+T 00 00 21 03 4F 08 5D 7B 21 FC 2B 00 60 7B 18 70
+R 00 00 00 01
+T 00 0E 3F 71 C0 7F 41 7B FC 7F 21 1C 4F 08 5D 7B
+R 00 00 00 01
+T 00 1C 21 E3 2B 00 60 7B 18 70 3F 71 C0 7F
+R 00 00 00 01

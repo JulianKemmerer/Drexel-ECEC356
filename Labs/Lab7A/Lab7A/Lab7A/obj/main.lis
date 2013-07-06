@@ -1,0 +1,46 @@
+ 0000                   cpu LMM
+                        .module main.c
+                        .area text(rom, con, rel)
+ 0000                   .dbfile ./main.c
+ 0000                   .dbfile C:\DOCUME~1\Mixcraft\Desktop\ECEC35~1\ECEC35~1\Lab7A\Lab7A\Lab7A\main.c
+ 0000                   .dbfunc e main _main fV
+ 0000           _main::
+ 0000                   .dbline -1
+ 0000                   .dbline 10
+ 0000           ; //----------------------------------------------------------------------------
+ 0000           ; // C main line
+ 0000           ; //----------------------------------------------------------------------------
+ 0000           ; 
+ 0000           ; #include <m8c.h>        // part specific constants and macros
+ 0000           ; #include "PSoCAPI.h"    // PSoC API definitions for all User Modules
+ 0000           ; 
+ 0000           ; 
+ 0000           ; void main(void)
+ 0000           ; {
+ 0000                   .dbline 15
+ 0000           ;       // M8C_EnableGInt ; // Uncomment this line to enable Global Interrupts
+ 0000           ;       // Insert your main routine code here.
+ 0000           ;       //Start RefMux Modules
+ 0000           ;       //RefMux_HIGHPOWER = 0x03
+ 0000           ;       RefHiMux_Start(0x03);
+ 0000 10                push X
+ 0001 5003              mov A,3
+ 0003 7C0000            xcall _RefHiMux_Start
+ 0006 20                pop X
+ 0007                   .dbline 16
+ 0007           ;       RefLoMux_Start(0x03);
+ 0007 10                push X
+ 0008 5003              mov A,3
+ 000A 7C0000            xcall _RefLoMux_Start
+ 000D 20                pop X
+ 000E                   .dbline 17
+ 000E           ;       RefAgndMux_Start(0x03);
+ 000E 10                push X
+ 000F 5003              mov A,3
+ 0011 7C0000            xcall _RefAgndMux_Start
+ 0014 20                pop X
+ 0015                   .dbline -2
+ 0015           L1:
+ 0015                   .dbline 0 ; func end
+ 0015 8FFF              jmp .
+ 0017                   .dbend

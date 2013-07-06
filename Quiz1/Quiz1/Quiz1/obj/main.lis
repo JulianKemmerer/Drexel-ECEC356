@@ -1,0 +1,704 @@
+ 0000                   cpu LMM
+                        .module main.c
+                        .area text(rom, con, rel)
+ 0000                   .dbfile ./main.c
+                        .area data(ram, con, rel)
+ 0000                   .dbfile ./main.c
+ 0000           _state::
+ 0000 01                .byte 1
+ 0001                   .dbfile Z:\ECEC35~1\Quiz1\Quiz1\Quiz1\main.c
+ 0001                   .dbsym e state _state c
+                        .area data(ram, con, rel)
+ 0000                   .dbfile Z:\ECEC35~1\Quiz1\Quiz1\Quiz1\main.c
+                        .area data(ram, con, rel)
+ 0000                   .dbfile Z:\ECEC35~1\Quiz1\Quiz1\Quiz1\main.c
+ 0000           _seconds::
+ 0000 00                .byte 0
+ 0001                   .dbsym e seconds _seconds c
+                        .area data(ram, con, rel)
+ 0000                   .dbfile Z:\ECEC35~1\Quiz1\Quiz1\Quiz1\main.c
+                        .area data(ram, con, rel)
+ 0000                   .dbfile Z:\ECEC35~1\Quiz1\Quiz1\Quiz1\main.c
+ 0000           _stateDelay::
+ 0000 06                .byte 6
+ 0001                   .dbsym e stateDelay _stateDelay c
+                        .area data(ram, con, rel)
+ 0000                   .dbfile Z:\ECEC35~1\Quiz1\Quiz1\Quiz1\main.c
+                        .area data(ram, con, rel)
+ 0000                   .dbfile Z:\ECEC35~1\Quiz1\Quiz1\Quiz1\main.c
+ 0000           _day::
+ 0000 0C                .byte 12
+ 0001                   .dbsym e day _day c
+                        .area data(ram, con, rel)
+ 0000                   .dbfile Z:\ECEC35~1\Quiz1\Quiz1\Quiz1\main.c
+                        .area data(ram, con, rel)
+ 0000                   .dbfile Z:\ECEC35~1\Quiz1\Quiz1\Quiz1\main.c
+ 0000           _month::
+ 0000 07                .byte 7
+ 0001                   .dbsym e month _month c
+                        .area data(ram, con, rel)
+ 0000                   .dbfile Z:\ECEC35~1\Quiz1\Quiz1\Quiz1\main.c
+                        .area data(ram, con, rel)
+ 0000                   .dbfile Z:\ECEC35~1\Quiz1\Quiz1\Quiz1\main.c
+ 0000           _year::
+ 0000 0B                .byte 11
+ 0001                   .dbsym e year _year c
+                        .area data(ram, con, rel)
+ 0000                   .dbfile Z:\ECEC35~1\Quiz1\Quiz1\Quiz1\main.c
+                        .area data(ram, con, rel)
+ 0000                   .dbfile Z:\ECEC35~1\Quiz1\Quiz1\Quiz1\main.c
+ 0000           _blinkState::
+ 0000 01                .byte 1
+ 0001                   .dbsym e blinkState _blinkState c
+                        .area data(ram, con, rel)
+ 0000                   .dbfile Z:\ECEC35~1\Quiz1\Quiz1\Quiz1\main.c
+                        .area text(rom, con, rel)
+ 0000                   .dbfile Z:\ECEC35~1\Quiz1\Quiz1\Quiz1\main.c
+ 0000                   .dbfunc e main _main fV
+ 0000           _main::
+ 0000                   .dbline -1
+ 0000                   .dbline 19
+ 0000           ; //----------------------------------------------------------------------------
+ 0000           ; // C main line
+ 0000           ; //----------------------------------------------------------------------------
+ 0000           ; 
+ 0000           ; #include <m8c.h>        // part specific constants and macros
+ 0000           ; #include "PSoCAPI.h"    // PSoC API definitions for all User Modules
+ 0000           ; 
+ 0000           ; extern unsigned char state = 1;
+ 0000           ; extern unsigned char seconds = 0;
+ 0000           ; extern unsigned char stateDelay = 6;
+ 0000           ; extern unsigned char day = 12;
+ 0000           ; extern unsigned char month = 7;
+ 0000           ; extern unsigned char year = 11;
+ 0000           ; extern unsigned char blinkState = 1; //1 is on, 0 is off
+ 0000           ; 
+ 0000           ; void updateLCD();
+ 0000           ; 
+ 0000           ; void main(void)
+ 0000           ; {
+ 0000                   .dbline 20
+ 0000           ;       M8C_EnableGInt ; // Uncomment this line to enable Global Interrupts
+ 0000 7101                      or  F, 01h
+ 0002           
+ 0002                   .dbline 23
+ 0002           ;       
+ 0002           ;       //Start LCD
+ 0002           ;       LCD_Start();
+ 0002 10                push X
+ 0003 7C0000            xcall _LCD_Start
+ 0006                   .dbline 24
+ 0006           ;       LCD_Init();
+ 0006 7C0000            xcall _LCD_Init
+ 0009 20                pop X
+ 000A                   .dbline 27
+ 000A           ;       
+ 000A           ;       //Allow interrupts from GPIO and Sleep
+ 000A           ;       INT_MSK0 |= 0b01100000;
+ 000A 43E060            or REG[0xe0],96
+ 000D           L2:
+ 000D                   .dbline 30
+ 000D           ;       
+ 000D           ;       while(1)//Control loop
+ 000D           ;       {               
+ 000D                   .dbline 31
+ 000D           ;       }//End control loop
+ 000D           L3:
+ 000D                   .dbline 29
+ 000D 8FFF              xjmp L2
+ 000F           X0:
+ 000F                   .dbline -2
+ 000F           L1:
+ 000F                   .dbline 0 ; func end
+ 000F 8FFF              jmp .
+ 0011                   .dbend
+ 0011                   .dbfunc e OneSecond _OneSecond fV
+ 0011           _OneSecond::
+ 0011                   .dbline -1
+ 0011 71C0              or F,-64
+ 0013 08                push A
+ 0014 5DD0              mov A,REG[0xd0]
+ 0016 08                push A
+ 0017 5DD3              mov A,REG[0xd3]
+ 0019 08                push A
+ 001A 5DD4              mov A,REG[0xd4]
+ 001C 08                push A
+ 001D 5DD5              mov A,REG[0xd5]
+ 001F 08                push A
+ 0020 62D000            mov REG[0xd0],>__r0
+ 0023 5100              mov A,[__r0]
+ 0025 08                push A
+ 0026 5100              mov A,[__r1]
+ 0028 08                push A
+ 0029 5100              mov A,[__r2]
+ 002B 08                push A
+ 002C 5100              mov A,[__r3]
+ 002E 08                push A
+ 002F 5100              mov A,[__r4]
+ 0031 08                push A
+ 0032 5100              mov A,[__r5]
+ 0034 08                push A
+ 0035 5100              mov A,[__r6]
+ 0037 08                push A
+ 0038 5100              mov A,[__r7]
+ 003A 08                push A
+ 003B 5100              mov A,[__r8]
+ 003D 08                push A
+ 003E 5100              mov A,[__r9]
+ 0040 08                push A
+ 0041 5100              mov A,[__r10]
+ 0043 08                push A
+ 0044 5100              mov A,[__r11]
+ 0046 08                push A
+ 0047 5100              mov A,[__rX]
+ 0049 08                push A
+ 004A 5100              mov A,[__rY]
+ 004C 08                push A
+ 004D 5100              mov A,[__rZ]
+ 004F 08                push A
+ 0050                   .dbline 37
+ 0050           ; }
+ 0050           ; 
+ 0050           ; 
+ 0050           ; #pragma interrupt_handler OneSecond
+ 0050           ; void OneSecond()
+ 0050           ; {
+ 0050                   .dbline 39
+ 0050           ;       //Increase count
+ 0050           ;       seconds++;
+ 0050 62D000            mov REG[0xd0],>_seconds
+ 0053 7600              inc [_seconds]
+ 0055                   .dbline 42
+ 0055           ;       
+ 0055           ;       //Manage blinking - blink every second
+ 0055           ;       if(blinkState == 1)
+ 0055 62D000            mov REG[0xd0],>_blinkState
+ 0058 3C0001            cmp [_blinkState],1
+ 005B B006              jnz L6
+ 005D                   .dbline 43
+ 005D           ;       {
+ 005D                   .dbline 44
+ 005D           ;               blinkState = 0;
+ 005D 550000            mov [_blinkState],0
+ 0060                   .dbline 45
+ 0060           ;       }
+ 0060 8007              xjmp L7
+ 0062           L6:
+ 0062                   .dbline 47
+ 0062           ;       else
+ 0062           ;       {
+ 0062                   .dbline 48
+ 0062           ;               blinkState = 1;
+ 0062 62D000            mov REG[0xd0],>_blinkState
+ 0065 550001            mov [_blinkState],1
+ 0068                   .dbline 49
+ 0068           ;       }
+ 0068           L7:
+ 0068                   .dbline 52
+ 0068           ;       
+ 0068           ;       //Handle changing of states
+ 0068           ;       if(seconds >= stateDelay)
+ 0068 62D000            mov REG[0xd0],>_seconds
+ 006B 5100              mov A,[_seconds]
+ 006D 62D000            mov REG[0xd0],>_stateDelay
+ 0070 3A00              cmp A,[_stateDelay]
+ 0072 C019              jc L8
+ 0074           X1:
+ 0074                   .dbline 53
+ 0074           ;       {
+ 0074                   .dbline 55
+ 0074           ;               //Move to next state
+ 0074           ;               if(state == 4)
+ 0074 62D000            mov REG[0xd0],>_state
+ 0077 3C0004            cmp [_state],4
+ 007A B006              jnz L10
+ 007C                   .dbline 56
+ 007C           ;               {
+ 007C                   .dbline 57
+ 007C           ;                       state = 1;
+ 007C 550001            mov [_state],1
+ 007F                   .dbline 58
+ 007F           ;               }
+ 007F 8006              xjmp L11
+ 0081           L10:
+ 0081                   .dbline 60
+ 0081           ;               else
+ 0081           ;               {
+ 0081                   .dbline 61
+ 0081           ;                       state++;
+ 0081 62D000            mov REG[0xd0],>_state
+ 0084 7600              inc [_state]
+ 0086                   .dbline 62
+ 0086           ;               }
+ 0086           L11:
+ 0086                   .dbline 65
+ 0086           ;               
+ 0086           ;               //Reset second counter
+ 0086           ;               seconds = 0;
+ 0086 62D000            mov REG[0xd0],>_seconds
+ 0089 550000            mov [_seconds],0
+ 008C                   .dbline 66
+ 008C           ;       }
+ 008C           L8:
+ 008C                   .dbline 69
+ 008C           ;       
+ 008C           ;       //Update LCD every second for blinking
+ 008C           ;       updateLCD();
+ 008C 913A              xcall _updateLCD
+ 008E                   .dbline -2
+ 008E           L5:
+ 008E 62D000            mov REG[0xD0],>__r0
+ 0091 18                pop A
+ 0092 5300              mov [__rZ],A
+ 0094 18                pop A
+ 0095 5300              mov [__rY],A
+ 0097 18                pop A
+ 0098 5300              mov [__rX],A
+ 009A 18                pop A
+ 009B 5300              mov [__r11],A
+ 009D 18                pop A
+ 009E 5300              mov [__r10],A
+ 00A0 18                pop A
+ 00A1 5300              mov [__r9],A
+ 00A3 18                pop A
+ 00A4 5300              mov [__r8],A
+ 00A6 18                pop A
+ 00A7 5300              mov [__r7],A
+ 00A9 18                pop A
+ 00AA 5300              mov [__r6],A
+ 00AC 18                pop A
+ 00AD 5300              mov [__r5],A
+ 00AF 18                pop A
+ 00B0 5300              mov [__r4],A
+ 00B2 18                pop A
+ 00B3 5300              mov [__r3],A
+ 00B5 18                pop A
+ 00B6 5300              mov [__r2],A
+ 00B8 18                pop A
+ 00B9 5300              mov [__r1],A
+ 00BB 18                pop A
+ 00BC 5300              mov [__r0],A
+ 00BE 18                pop A
+ 00BF 60D5              mov REG[213],A
+ 00C1 18                pop A
+ 00C2 60D4              mov REG[212],A
+ 00C4 18                pop A
+ 00C5 60D3              mov REG[211],A
+ 00C7 18                pop A
+ 00C8 60D0              mov REG[208],A
+ 00CA 18                pop A
+ 00CB                   .dbline 0 ; func end
+ 00CB 7E                reti
+ 00CC                   .dbend
+ 00CC                   .dbfunc e ButtonPressed _ButtonPressed fV
+ 00CC           _ButtonPressed::
+ 00CC                   .dbline -1
+ 00CC 71C0              or F,-64
+ 00CE 08                push A
+ 00CF 5DD0              mov A,REG[0xd0]
+ 00D1 08                push A
+ 00D2 5DD3              mov A,REG[0xd3]
+ 00D4 08                push A
+ 00D5 5DD4              mov A,REG[0xd4]
+ 00D7 08                push A
+ 00D8 5DD5              mov A,REG[0xd5]
+ 00DA 08                push A
+ 00DB 62D000            mov REG[0xd0],>__r0
+ 00DE 5100              mov A,[__r0]
+ 00E0 08                push A
+ 00E1 5100              mov A,[__r1]
+ 00E3 08                push A
+ 00E4 5100              mov A,[__r2]
+ 00E6 08                push A
+ 00E7 5100              mov A,[__r3]
+ 00E9 08                push A
+ 00EA 5100              mov A,[__r4]
+ 00EC 08                push A
+ 00ED 5100              mov A,[__r5]
+ 00EF 08                push A
+ 00F0 5100              mov A,[__r6]
+ 00F2 08                push A
+ 00F3 5100              mov A,[__r7]
+ 00F5 08                push A
+ 00F6 5100              mov A,[__r8]
+ 00F8 08                push A
+ 00F9 5100              mov A,[__r9]
+ 00FB 08                push A
+ 00FC 5100              mov A,[__r10]
+ 00FE 08                push A
+ 00FF 5100              mov A,[__r11]
+ 0101 08                push A
+ 0102 5100              mov A,[__rX]
+ 0104 08                push A
+ 0105 5100              mov A,[__rY]
+ 0107 08                push A
+ 0108 5100              mov A,[__rZ]
+ 010A 08                push A
+ 010B                   .dbline 74
+ 010B           ; }
+ 010B           ; 
+ 010B           ; #pragma interrupt_handler ButtonPressed
+ 010B           ; void ButtonPressed()
+ 010B           ; {//Normally you would check to see what pin the GPIO interrupt is coming from but there are no other GPIO devices
+ 010B                   .dbline 75
+ 010B           ;       if(state ==1)//State 1
+ 010B 62D000            mov REG[0xd0],>_state
+ 010E 3C0001            cmp [_state],1
+ 0111 B017              jnz L13
+ 0113                   .dbline 76
+ 0113           ;       {
+ 0113                   .dbline 78
+ 0113           ;               //Reset calendar
+ 0113           ;               day = 12;
+ 0113 62D000            mov REG[0xd0],>_day
+ 0116 55000C            mov [_day],12
+ 0119                   .dbline 79
+ 0119           ;               month = 7;
+ 0119 62D000            mov REG[0xd0],>_month
+ 011C 550007            mov [_month],7
+ 011F                   .dbline 80
+ 011F           ;               year = 11;
+ 011F 62D000            mov REG[0xd0],>_year
+ 0122 55000B            mov [_year],11
+ 0125                   .dbline 82
+ 0125           ;               //Update LCD
+ 0125           ;               updateLCD();
+ 0125 90A1              xcall _updateLCD
+ 0127                   .dbline 83
+ 0127           ;       }
+ 0127 8062              xjmp L14
+ 0129           L13:
+ 0129                   .dbline 84
+ 0129           ;       else if(state ==2)//State 2
+ 0129 62D000            mov REG[0xd0],>_state
+ 012C 3C0002            cmp [_state],2
+ 012F B01A              jnz L15
+ 0131                   .dbline 85
+ 0131           ;       {
+ 0131                   .dbline 86
+ 0131           ;               if(month >= 12)
+ 0131 62D000            mov REG[0xd0],>_month
+ 0134 3C000C            cmp [_month],12
+ 0137 C009              jc L17
+ 0139           X2:
+ 0139                   .dbline 87
+ 0139           ;               {
+ 0139                   .dbline 88
+ 0139           ;                       month = 1;
+ 0139 62D000            mov REG[0xd0],>_month
+ 013C 550001            mov [_month],1
+ 013F                   .dbline 89
+ 013F           ;               }
+ 013F 8006              xjmp L18
+ 0141           L17:
+ 0141                   .dbline 91
+ 0141           ;               else
+ 0141           ;               {
+ 0141                   .dbline 92
+ 0141           ;                       month++;
+ 0141 62D000            mov REG[0xd0],>_month
+ 0144 7600              inc [_month]
+ 0146                   .dbline 93
+ 0146           ;               }
+ 0146           L18:
+ 0146                   .dbline 94
+ 0146           ;               updateLCD();
+ 0146 9080              xcall _updateLCD
+ 0148                   .dbline 95
+ 0148           ;       }
+ 0148 8041              xjmp L16
+ 014A           L15:
+ 014A                   .dbline 96
+ 014A           ;       else if(state ==3)//State 3
+ 014A 62D000            mov REG[0xd0],>_state
+ 014D 3C0003            cmp [_state],3
+ 0150 B01A              jnz L19
+ 0152                   .dbline 97
+ 0152           ;       {
+ 0152                   .dbline 98
+ 0152           ;               if( day >= 30)
+ 0152 62D000            mov REG[0xd0],>_day
+ 0155 3C001E            cmp [_day],30
+ 0158 C009              jc L21
+ 015A           X3:
+ 015A                   .dbline 99
+ 015A           ;               {
+ 015A                   .dbline 100
+ 015A           ;                       day = 1;
+ 015A 62D000            mov REG[0xd0],>_day
+ 015D 550001            mov [_day],1
+ 0160                   .dbline 101
+ 0160           ;               }
+ 0160 8006              xjmp L22
+ 0162           L21:
+ 0162                   .dbline 103
+ 0162           ;               else
+ 0162           ;               {
+ 0162                   .dbline 104
+ 0162           ;                       day++;
+ 0162 62D000            mov REG[0xd0],>_day
+ 0165 7600              inc [_day]
+ 0167                   .dbline 105
+ 0167           ;               }
+ 0167           L22:
+ 0167                   .dbline 106
+ 0167           ;               updateLCD();
+ 0167 905F              xcall _updateLCD
+ 0169                   .dbline 107
+ 0169           ;       }
+ 0169 8020              xjmp L20
+ 016B           L19:
+ 016B                   .dbline 108
+ 016B           ;       else if(state ==4)//State 4
+ 016B 62D000            mov REG[0xd0],>_state
+ 016E 3C0004            cmp [_state],4
+ 0171 B018              jnz L23
+ 0173                   .dbline 109
+ 0173           ;       {
+ 0173                   .dbline 110
+ 0173           ;               if(year >=99)
+ 0173 62D000            mov REG[0xd0],>_year
+ 0176 3C0063            cmp [_year],99
+ 0179 C009              jc L25
+ 017B           X4:
+ 017B                   .dbline 111
+ 017B           ;               {
+ 017B                   .dbline 112
+ 017B           ;                       year = 0;
+ 017B 62D000            mov REG[0xd0],>_year
+ 017E 550000            mov [_year],0
+ 0181                   .dbline 113
+ 0181           ;               }
+ 0181 8006              xjmp L26
+ 0183           L25:
+ 0183                   .dbline 115
+ 0183           ;               else
+ 0183           ;               {
+ 0183                   .dbline 116
+ 0183           ;                       year++;
+ 0183 62D000            mov REG[0xd0],>_year
+ 0186 7600              inc [_year]
+ 0188                   .dbline 117
+ 0188           ;               }
+ 0188           L26:
+ 0188                   .dbline 118
+ 0188           ;               updateLCD();
+ 0188 903E              xcall _updateLCD
+ 018A                   .dbline 119
+ 018A           ;       }
+ 018A           L23:
+ 018A           L20:
+ 018A           L16:
+ 018A           L14:
+ 018A                   .dbline -2
+ 018A           L12:
+ 018A 62D000            mov REG[0xD0],>__r0
+ 018D 18                pop A
+ 018E 5300              mov [__rZ],A
+ 0190 18                pop A
+ 0191 5300              mov [__rY],A
+ 0193 18                pop A
+ 0194 5300              mov [__rX],A
+ 0196 18                pop A
+ 0197 5300              mov [__r11],A
+ 0199 18                pop A
+ 019A 5300              mov [__r10],A
+ 019C 18                pop A
+ 019D 5300              mov [__r9],A
+ 019F 18                pop A
+ 01A0 5300              mov [__r8],A
+ 01A2 18                pop A
+ 01A3 5300              mov [__r7],A
+ 01A5 18                pop A
+ 01A6 5300              mov [__r6],A
+ 01A8 18                pop A
+ 01A9 5300              mov [__r5],A
+ 01AB 18                pop A
+ 01AC 5300              mov [__r4],A
+ 01AE 18                pop A
+ 01AF 5300              mov [__r3],A
+ 01B1 18                pop A
+ 01B2 5300              mov [__r2],A
+ 01B4 18                pop A
+ 01B5 5300              mov [__r1],A
+ 01B7 18                pop A
+ 01B8 5300              mov [__r0],A
+ 01BA 18                pop A
+ 01BB 60D5              mov REG[213],A
+ 01BD 18                pop A
+ 01BE 60D4              mov REG[212],A
+ 01C0 18                pop A
+ 01C1 60D3              mov REG[211],A
+ 01C3 18                pop A
+ 01C4 60D0              mov REG[208],A
+ 01C6 18                pop A
+ 01C7                   .dbline 0 ; func end
+ 01C7 7E                reti
+ 01C8                   .dbend
+ 01C8                   .dbfunc e updateLCD _updateLCD fV
+ 01C8           _updateLCD::
+ 01C8                   .dbline -1
+ 01C8                   .dbline 123
+ 01C8           ; }
+ 01C8           ; 
+ 01C8           ; void updateLCD()
+ 01C8           ; {
+ 01C8                   .dbline 125
+ 01C8           ;       //Clear LCD
+ 01C8           ;       LCD_Init();
+ 01C8 10                push X
+ 01C9 7C0000            xcall _LCD_Init
+ 01CC 20                pop X
+ 01CD                   .dbline 128
+ 01CD           ;       
+ 01CD           ;       //Print month
+ 01CD           ;       if(blinkState == 0 && state == 2)
+ 01CD 62D000            mov REG[0xd0],>_blinkState
+ 01D0 3C0000            cmp [_blinkState],0
+ 01D3 B009              jnz L28
+ 01D5 62D000            mov REG[0xd0],>_state
+ 01D8 3C0002            cmp [_state],2
+ 01DB                   .dbline 129
+ 01DB           ;       {
+ 01DB                   .dbline 131
+ 01DB           ;               //Do not print
+ 01DB           ;       }
+ 01DB A013              jz L29
+ 01DD           L28:
+ 01DD                   .dbline 133
+ 01DD           ;       else
+ 01DD           ;       {
+ 01DD                   .dbline 135
+ 01DD           ;               //Print month
+ 01DD           ;               LCD_Position(0,0);
+ 01DD 10                push X
+ 01DE 5000              mov A,0
+ 01E0 5C                mov X,A
+ 01E1 7C0000            xcall _LCD_Position
+ 01E4 20                pop X
+ 01E5                   .dbline 136
+ 01E5           ;               LCD_PrHexByte(month);
+ 01E5 10                push X
+ 01E6 62D000            mov REG[0xd0],>_month
+ 01E9 5100              mov A,[_month]
+ 01EB 7C0000            xcall _LCD_PrHexByte
+ 01EE 20                pop X
+ 01EF                   .dbline 137
+ 01EF           ;       }
+ 01EF           L29:
+ 01EF                   .dbline 138
+ 01EF           ;       LCD_Position(0,2);
+ 01EF 10                push X
+ 01F0 5702              mov X,2
+ 01F2 5000              mov A,0
+ 01F4 7C0000            xcall _LCD_Position
+ 01F7 20                pop X
+ 01F8                   .dbline 139
+ 01F8           ;       LCD_PrCString("/");
+ 01F8 10                push X
+ 01F9 5000              mov A,>L30
+ 01FB 08                push A
+ 01FC 5000              mov A,<L30
+ 01FE 5C                mov X,A
+ 01FF 18                pop A
+ 0200 7C0000            xcall _LCD_PrCString
+ 0203 20                pop X
+ 0204                   .dbline 142
+ 0204           ;       
+ 0204           ;       //Print day
+ 0204           ;       if(blinkState == 0 && state == 3)
+ 0204 62D000            mov REG[0xd0],>_blinkState
+ 0207 3C0000            cmp [_blinkState],0
+ 020A B009              jnz L31
+ 020C 62D000            mov REG[0xd0],>_state
+ 020F 3C0003            cmp [_state],3
+ 0212                   .dbline 143
+ 0212           ;       {
+ 0212                   .dbline 145
+ 0212           ;               //Do not print
+ 0212           ;       }
+ 0212 A014              jz L32
+ 0214           L31:
+ 0214                   .dbline 147
+ 0214           ;       else
+ 0214           ;       {
+ 0214                   .dbline 149
+ 0214           ;               //Print day
+ 0214           ;               LCD_Position(0,3);
+ 0214 10                push X
+ 0215 5703              mov X,3
+ 0217 5000              mov A,0
+ 0219 7C0000            xcall _LCD_Position
+ 021C 20                pop X
+ 021D                   .dbline 150
+ 021D           ;               LCD_PrHexByte(day);
+ 021D 10                push X
+ 021E 62D000            mov REG[0xd0],>_day
+ 0221 5100              mov A,[_day]
+ 0223 7C0000            xcall _LCD_PrHexByte
+ 0226 20                pop X
+ 0227                   .dbline 151
+ 0227           ;       }
+ 0227           L32:
+ 0227                   .dbline 152
+ 0227           ;       LCD_Position(0,5);
+ 0227 10                push X
+ 0228 5705              mov X,5
+ 022A 5000              mov A,0
+ 022C 7C0000            xcall _LCD_Position
+ 022F 20                pop X
+ 0230                   .dbline 153
+ 0230           ;       LCD_PrCString("/");
+ 0230 10                push X
+ 0231 5000              mov A,>L30
+ 0233 08                push A
+ 0234 5000              mov A,<L30
+ 0236 5C                mov X,A
+ 0237 18                pop A
+ 0238 7C0000            xcall _LCD_PrCString
+ 023B 20                pop X
+ 023C                   .dbline 156
+ 023C           ;       
+ 023C           ;       //Print year
+ 023C           ;       if(blinkState == 0 && state == 4)
+ 023C 62D000            mov REG[0xd0],>_blinkState
+ 023F 3C0000            cmp [_blinkState],0
+ 0242 B009              jnz L33
+ 0244 62D000            mov REG[0xd0],>_state
+ 0247 3C0004            cmp [_state],4
+ 024A                   .dbline 157
+ 024A           ;       {
+ 024A                   .dbline 159
+ 024A           ;               //Do not print
+ 024A           ;       }
+ 024A A014              jz L34
+ 024C           L33:
+ 024C                   .dbline 161
+ 024C           ;       else
+ 024C           ;       {
+ 024C                   .dbline 163
+ 024C           ;               //Print year
+ 024C           ;               LCD_Position(0,6);
+ 024C 10                push X
+ 024D 5706              mov X,6
+ 024F 5000              mov A,0
+ 0251 7C0000            xcall _LCD_Position
+ 0254 20                pop X
+ 0255                   .dbline 164
+ 0255           ;               LCD_PrHexByte(year);
+ 0255 10                push X
+ 0256 62D000            mov REG[0xd0],>_year
+ 0259 5100              mov A,[_year]
+ 025B 7C0000            xcall _LCD_PrHexByte
+ 025E 20                pop X
+ 025F                   .dbline 165
+ 025F           ;       }
+ 025F           L34:
+ 025F                   .dbline -2
+ 025F           L27:
+ 025F                   .dbline 0 ; func end
+ 025F 7F                ret
+ 0260                   .dbend
+                        .area lit(rom, con, rel)
+ 0000           L30:
+ 0000 2F00              .byte 47,0

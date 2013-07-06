@@ -1,0 +1,51 @@
+XH
+H 3 areas 5 global symbols
+M tachtimerint.asm
+S _cNumCycles Ref0000
+S _wLastValue Ref0000
+S TachTimer_wReadCompareValue Ref0000
+S _wFirstValue Ref0000
+A text size 0 flags 0
+dbfile lib/tachtimerint.asm
+dbfunc 0 ? 0 I
+dbfile TachTimer.inc
+dbfunc 0 ? 0 I
+dbfile C:/PROGRA~1/Cypress/PSOCDE~2/5.1/Common/CYPRES~3/tools/include/CY8C29~1/m8c.inc
+dbfunc 0 ? 0 I
+dbfile ./lib/TachTimer.inc
+dbfunc 0 ? 0 I
+dbfile lib/tachtimerint.asm
+dbfunc 0 ? 0 I
+dbfile memory.inc
+dbfunc 0 ? 0 I
+dbfile lib/tachtimerint.asm
+dbfunc 0 ? 0 I
+dbfile C:/PROGRA~1/Cypress/PSOCDE~2/5.1/Common/CYPRES~3/tools/include/CY8C29~1/m8c.inc
+dbfunc 0 ? 0 I
+A InterruptRAM size 0 flags 20
+A UserModules size 18 flags 0
+dbfile lib/tachtimerint.asm
+dbfunc 0 ? 0 I
+dbline 48 0
+dbline 49 1
+dbline 4C 2
+dbline 4E 4
+dbline 4F 7
+dbline 50 9
+dbline 51 B
+dbline 52 D
+dbline 55 F
+dbline 56 11
+dbline 57 13
+dbline 59 15
+dbline 5A 16
+dbline 64 17
+S _TachTimer_ISR Def0000
+T 00 00 08 10 76 00 00 3C 00 00 00 B0 07
+R 00 00 00 02 03 05 00 00 03 08 00 00
+T 00 09 90 00 5A 00 00 53
+R 00 00 00 02 06 02 00 02 00 00 03 05 00 03
+T 00 0E 00 01 90 00 5A
+R 00 00 00 02 03 02 00 03 06 04 00 02 00 00
+T 00 12 00 00 53 00 01 20 18 7E
+R 00 00 00 02 03 02 00 01 03 05 00 01

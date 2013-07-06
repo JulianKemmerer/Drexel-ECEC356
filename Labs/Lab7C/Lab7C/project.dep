@@ -1,0 +1,21 @@
+# DO NOT DELETE
+./obj/boot.o : \
+   C:/PROGRA~1/Cypress/PSOCDE~2/5.1/Common/CY3E64~1/tools/include/CY8C29~1/m8c.inc\
+   C:/PROGRA~1/Cypress/PSOCDE~2/5.1/Common/CY3E64~1/tools/include/CY8C29~1/m8ssc.inc\
+   C:\DOCUME~1\Mixcraft\Desktop\ECEC35~1\ECEC35~1\Lab7C\Lab7C\lib\GLOBAL~1.INC\
+   C:\DOCUME~1\Mixcraft\Desktop\ECEC35~1\ECEC35~1\Lab7C\Lab7C\memory.inc
+./obj/main.o :  ./lib/DAC6.h ./lib/LCD.h ./lib/PSoCAPI.h\
+   ./lib/PSOCGP~1.H\
+   C:/PROGRA~1/Cypress/PSOCDE~2/5.1/Common/CY3E64~1/tools/include/CY8C29~1/M8C.h\
+   C:/PROGRA~1/Cypress/PSOCDE~2/5.1/Common/CY3E64~1/tools/include/CY8C29~1/m8c.h
+./lib/obj/dac6.o :  ./lib/DAC6.inc\
+   C:/PROGRA~1/Cypress/PSOCDE~2/5.1/Common/CY3E64~1/tools/include/CY8C29~1/m8c.inc\
+   C:\DOCUME~1\Mixcraft\Desktop\ECEC35~1\ECEC35~1\Lab7C\Lab7C\memory.inc
+./lib/obj/lcd.o :  ./lib/LCD.inc\
+   C:/PROGRA~1/Cypress/PSOCDE~2/5.1/Common/CY3E64~1/tools/include/CY8C29~1/m8c.inc\
+   C:\DOCUME~1\Mixcraft\Desktop\ECEC35~1\ECEC35~1\Lab7C\Lab7C\memory.inc
+./lib/obj/psocconfig.o :  ./lib/GLOBAL~1.INC\
+   C:/PROGRA~1/Cypress/PSOCDE~2/5.1/Common/CY3E64~1/tools/include/CY8C29~1/m8c.inc\
+   C:\DOCUME~1\Mixcraft\Desktop\ECEC35~1\ECEC35~1\Lab7C\Lab7C\memory.inc
+./lib/obj/psocconfigtbl.o : \
+   C:/PROGRA~1/Cypress/PSOCDE~2/5.1/Common/CY3E64~1/tools/include/CY8C29~1/m8c.inc
